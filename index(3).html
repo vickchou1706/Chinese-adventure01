@@ -1,0 +1,1127 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>華語冒險者｜Alpha 0.5</title><style>
+:root{--ink:#29334b;--muted:#66718a;--cream:#fff8e9;--edge:#d8c8a7;--gold:#e8b95f}*{box-sizing:border-box}body{margin:0;background:#1c293e;color:var(--ink);font-family:system-ui,'Noto Sans TC',sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #e6a64d;outline-offset:2px}.shell{max-width:980px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;color:#fff4d8;margin-bottom:15px;gap:12px}.brand{font-size:clamp(23px,5vw,35px);font-weight:900;letter-spacing:2px;text-shadow:3px 3px #10192a}.tag{background:#40516c;padding:7px 12px;border-radius:8px;font-size:12px}.panel{background:var(--cream);border:5px solid #f4dca8;border-radius:16px;box-shadow:0 10px 0 #0d1726,0 18px 40px #101a2b66;overflow:hidden}.screen{display:none}.screen.active{display:block}.intro{background:#334e6d;color:#fff3d7;padding:18px 22px;border-bottom:4px solid #cda66d}.intro h2{margin:0 0 6px;font-size:24px}.intro p{margin:0;font-size:14px;opacity:.9}.body{padding:20px}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}.field{display:block;font-weight:800;margin:0 0 8px}input[type=text]{width:100%;border:3px solid #b7a784;border-radius:8px;padding:11px;background:#fffdf7;color:var(--ink);margin-bottom:17px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:16px}.choice{background:#fffdf7;border:3px solid #d9c9a8;border-radius:10px;padding:11px 7px;text-align:center;color:var(--ink);font-weight:800}.choice small{display:block;color:var(--muted);font-weight:500;margin-top:3px}.choice.selected{border-color:#437d70;background:#dff3df;box-shadow:inset 0 0 0 2px #8ec3a7}.primary{border:0;background:#e7ae50;color:#3b2c23;border-bottom:5px solid #ad762c;border-radius:10px;padding:13px 20px;font-weight:900}.primary:hover{filter:brightness(1.04)}.secondary{background:#f8e9c7;border:2px solid #bca47b;border-radius:9px;padding:10px 13px;color:var(--ink);font-weight:800}.muted{font-size:13px;color:var(--muted);line-height:1.65}.preview{background:#d7e7d5;border:4px solid #a3bd9b;border-radius:12px;padding:14px;text-align:center}.preview canvas{width:min(100%,280px);height:auto;image-rendering:pixelated}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.stat{background:#fff8e7;padding:9px 5px;border:2px solid #d4c6a4;border-radius:8px;font-weight:800;font-size:13px}.stat b{display:block;font-size:18px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.space{justify-content:space-between}.hud{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;margin-bottom:12px}.pill{padding:9px 12px;border:2px solid #b9a783;background:#fffdf7;border-radius:9px;font-weight:800}.world{background:#b9d9bc;border:4px solid #7b9b7c;border-radius:12px;overflow:hidden;position:relative}.world canvas{display:block;width:100%;height:auto;image-rendering:pixelated}.worldlabel{position:absolute;top:12px;left:12px;background:#fff8e9e8;border:2px solid #d1b77d;border-radius:8px;padding:7px 10px;font-weight:900}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.action{border:3px solid #d6c4a3;background:#fffdf7;border-radius:10px;padding:15px 8px;text-align:center;font-weight:900;color:var(--ink)}.action span{display:block;font-size:28px;margin-bottom:5px}.action small{display:block;color:var(--muted);font-weight:500;margin-top:5px}.action:disabled{opacity:.55;cursor:not-allowed}.petbox{background:#eaf2e0;border:2px solid #b6cda8;border-radius:10px;padding:15px}.bar{background:#d4c8b2;height:12px;border-radius:8px;overflow:hidden}.bar>div{height:100%;background:#6ea993;transition:width .2s}.notice{margin-top:14px;padding:12px;border-radius:9px;background:#fff0c9;border:2px solid #e4cb91;font-size:14px}.danger{color:#a43d35}.footer{text-align:center;color:#c5d0df;font-size:12px;margin-top:24px;line-height:1.6}.hidden{display:none!important}@media(max-width:690px){.two{grid-template-columns:1fr}.hud{grid-template-columns:1fr 1fr}.hud .pill:first-child{grid-column:1/-1}.actions{grid-template-columns:1fr 1fr}.shell{padding:10px}.body{padding:14px}.intro{padding:15px}.top{align-items:flex-start}.tag{white-space:nowrap}}
+ .question{background:#fffdf7;border:3px solid #d9c9a8;border-radius:12px;padding:15px}.prompt{font-size:clamp(30px,8vw,48px);font-weight:900;text-align:center;margin:12px 0 16px;color:#334e6d}.answerGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.answer{border:3px solid #d6c4a3;border-radius:11px;background:#fff8e9;padding:13px 6px;font-weight:800;min-height:62px;overflow-wrap:anywhere;color:#29334b}.answer:disabled{cursor:default}.answer.correct{border-color:#398b6c;background:#d8f4e5}.answer.wrong{border-color:#c45c5c;background:#ffe2dc}.feedback{min-height:47px;line-height:1.55;padding:12px 2px;font-weight:700}.combat-log{display:flex;flex-direction:column;gap:7px;margin:5px 0 9px}.combat-line{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:9px;background:#f4f5f0;font-size:clamp(14px,3.6vw,17px);font-weight:650;line-height:1.55}.combat-line .log-icon{flex:0 0 24px;text-align:center}.combat-line.attack-line{background:#eaf4ec}.combat-line.hurt-line{background:#fff0e8}.combat-line.word-line{background:#f0f2f8}.combat-line.tip-line{background:#fff3d8}.combat-line b{font-weight:900}.damageFloat{position:absolute;left:50%;top:22%;font-size:28px;font-weight:900;color:#ffdf67;text-shadow:2px 3px #623c38;pointer-events:none;opacity:0}.damageFloat.pop{animation:pop .8s ease-out}@keyframes pop{0%{opacity:0;transform:translate(-50%,18px) scale(.7)}25%{opacity:1;transform:translate(-50%,-10px) scale(1.25)}100%{opacity:0;transform:translate(-50%,-45px)}}@media(max-width:430px){.answerGrid{gap:7px}.answer{font-size:14px;padding:10px 5px;min-height:58px}} @keyframes arenaShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}.arenaHit{animation:arenaShake .3s ease-out}.feedback{overflow-wrap:anywhere}.forestRoutes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.forestRoute{border:3px solid #d6c4a3;background:#fffdf7;border-radius:12px;padding:18px 8px;color:#29334b;display:flex;align-items:center;flex-direction:column;gap:8px;font-weight:800}.forestRoute:active{transform:scale(.98)}.routeIcon{font-size:34px}.forestRoute small{color:#66718a;font-weight:500}.effectFlash{position:absolute;inset:0;pointer-events:none;opacity:0}.effectFlash.on{animation:effectBurst .55s ease-out}.effectFlash.projectileFlash{inset:27% auto 25% 0;width:64%;border-radius:50%;filter:blur(9px);transform-origin:left center}.effectFlash.projectileFlash.on{animation:projectileGlow .55s ease-out both}@keyframes projectileGlow{0%{opacity:0;transform:translateX(-52%) scaleX(.45)}25%{opacity:.9;transform:translateX(-8%) scaleX(1)}75%{opacity:.65;transform:translateX(52%) scaleX(.75)}100%{opacity:0;transform:translateX(85%) scaleX(.25)}}@keyframes effectBurst{0%{opacity:0;transform:translateX(-25px)}35%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(15px)}}@media(max-width:690px){.forestRoutes{grid-template-columns:1fr}.forestRoute{flex-direction:row;justify-content:flex-start;padding:12px 16px}.forestRoute small{margin-left:auto;text-align:right}} 
+/* Alpha 0.9: compact, mobile-friendly battle results */
+.result-panel{display:grid;gap:13px;padding:5px 0 12px}
+.result-head{text-align:center}
+.result-head .result-symbol{font-size:34px;display:block}
+.result-head strong{font-size:clamp(27px,7vw,38px);color:#334e6d;display:block}
+.result-head small{display:block;color:#647087;font-weight:600;margin-top:4px}
+.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.result-tile{background:#f6f4ed;border:2px solid #e1d6c1;border-radius:12px;text-align:center;padding:12px 5px}
+.result-tile .tile-icon{font-size:24px;display:block}
+.result-tile .tile-label{font-size:13px;color:#5c6880;display:block;margin:3px 0}
+.result-tile strong{font-size:clamp(19px,5vw,25px);color:#334e6d;display:block;font-variant-numeric:tabular-nums}
+.result-progress{border:2px solid #e1d6c1;border-radius:12px;padding:12px;background:#fffaf0}
+.result-progress-title{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:14px}
+.result-track{height:13px;border-radius:20px;background:#ded6c8;overflow:hidden;margin-top:9px}
+.result-track>div{height:100%;background:#65aa82;border-radius:20px}
+.result-progress small{color:#66718a;font-size:12px}
+.result-levelup{background:#fff1c4;border:2px solid #e9bf59;border-radius:12px;text-align:center;padding:12px;animation:resultRise .55s ease-out}
+.result-levelup strong{font-size:24px;color:#9d6517;display:block}
+.result-levelup span{display:block;font-size:13px;margin-top:4px}
+.result-foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13px;color:#59677b}
+.result-review{font-size:13px;background:#fff0dd;border-radius:9px;padding:9px 12px}
+@keyframes resultRise{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.pet-stage{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center;background:#e5f2e1;border:3px solid #a8c9a6;border-radius:15px;padding:15px;margin-bottom:15px}
+.pet-stage canvas{width:100%;max-width:230px;image-rendering:pixelated}
+.pet-title{font-size:clamp(22px,5vw,31px);font-weight:900;color:#315b4b}
+.pet-rank{font-weight:800;color:#63836c}
+.pet-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.pet-stat{background:#fffdf7;border:2px solid #d8c8a7;border-radius:12px;padding:12px;text-align:center}
+.pet-stat small{display:block;color:#66718a}.pet-stat strong{display:block;font-size:24px;margin-top:5px}
+.pet-skill{padding:12px;margin-top:10px;background:#fffdf7;border:2px solid #d8c8a7;border-radius:12px}
+.pet-skill.locked{opacity:.68}
+@media(max-width:460px){.pet-stage{grid-template-columns:1fr}.pet-stage canvas{max-width:180px;margin:auto}}
+.exploreOptions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:15px 0}.exploreOptions button{min-height:64px;border:2px solid #cbb88e;border-radius:12px;background:#fff6df;font-weight:800;color:#29334b;font-size:17px;padding:12px}.exploreOptions button:active{transform:scale(.98)}@media(max-width:420px){.exploreOptions{grid-template-columns:1fr}} 
+.character-stage{display:grid;grid-template-columns:minmax(140px,1fr) 1.1fr;align-items:center;gap:16px;background:#e7f0e4;border:3px solid #a9c8aa;border-radius:16px;padding:17px}
+.character-stage canvas{width:100%;max-width:280px;image-rendering:pixelated;justify-self:center}
+.character-name{font-size:clamp(23px,5vw,32px);font-weight:900;color:#315c50;overflow-wrap:anywhere}
+.character-rank{color:#63826e;font-weight:800}
+.character-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:13px}
+.character-stat{border:2px solid #d8c8a7;background:#fffdf7;border-radius:12px;padding:13px;text-align:center}
+.character-stat small{display:block;color:#66718a}.character-stat strong{display:block;font-size:clamp(19px,5vw,26px);margin-top:4px}
+.character-section{margin-top:24px}.character-section h3{margin:0 0 12px;font-size:21px}
+.character-record{padding:13px;margin:9px 0;background:#fffdf7;border:2px solid #d8c8a7;border-radius:12px;line-height:1.6}
+.character-record.locked{opacity:.7;background:#f4f1e9}
+@media(max-width:470px){.character-stage{grid-template-columns:1fr;text-align:center}.character-stage canvas{max-width:200px}}
+
+/* Alpha 2.0: equipment surrounds portrait, identity below */
+.character-stage{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:16px 10px}
+.equipment-layout{display:grid;grid-template-columns:minmax(49px,68px) minmax(0,280px) minmax(49px,68px);align-items:center;justify-content:center;gap:7px;width:100%;max-width:440px}
+.equipment-layout canvas{width:100%;max-width:280px;height:auto;min-width:0;image-rendering:pixelated}
+.equipment-column{display:flex;flex-direction:column;justify-content:space-around;gap:10px;height:100%;padding:8px 0}
+.equipment-slot{aspect-ratio:1;background:#f8faf4;border:2px dashed #b5c7b3;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1px;font-size:clamp(18px,4vw,26px);opacity:.7;filter:grayscale(.55)}
+.equipment-slot[data-equip-slot]{cursor:pointer;opacity:1;filter:none;border-style:solid;border-color:#a8c8aa;background:#fffdf5}.equipment-slot[data-equip-slot]:focus-visible{outline:3px solid #39866b}.equipment-slot small{font-size:clamp(10px,2.5vw,12px);font-weight:750;color:#5c7569}
+.character-identity{display:flex;flex-direction:column;align-items:center;gap:5px}.character-name{overflow-wrap:anywhere}
+@media(max-width:470px){.equipment-layout{grid-template-columns:minmax(42px,58px) minmax(0,220px) minmax(42px,58px);gap:5px}.character-stage canvas{max-width:none}.equipment-column{gap:6px}}
+.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.shop-item{border:2px solid #d5c5a5;background:#fffdf7;border-radius:13px;padding:14px;display:flex;flex-direction:column;gap:7px}.shop-item .shop-emoji{font-size:36px}.shop-item button{width:100%;margin-top:auto}.shop-item small{color:#657083}.shop-item strong{font-size:18px}@media(max-width:450px){.shop-grid{grid-template-columns:1fr}}
+</style><style>.lang-switch{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:8px 0 14px;color:#f9e9bf;font-weight:800}.lang-switch select{background:#fff8e9;color:#29334b;border:2px solid #cbbd9d;border-radius:9px;padding:8px;font-size:16px;max-width:180px}.lang-create{color:#29334b;padding:12px;background:#e9f2e7;border-radius:10px;margin-bottom:14px}.answer-language-switch{color:#f9e9bf;font-weight:800}.answer-language-switch label{color:#f9e9bf!important;opacity:1!important}.answer-language-switch select{background:#fff8e9;color:#29334b;border:2px solid #cbbd9d;border-radius:9px;padding:8px;font-size:16px;max-width:180px}.answer-language-switch select option{color:#29334b;background:#fff8e9}</style></head><body><main class="shell"><div class="top"><div class="brand">⚔ 華語冒險者</div><div class="tag">ALPHA 3.9.31 · 月光遠征翻譯與存檔保護</div></div><div class="lang-switch">🌐 <span data-lang-key="language">語言 / Language</span> <select id="gameLanguage" aria-label="Language"><option value="zh">繁體中文</option><option value="vi">Tiếng Việt</option><option value="en">English</option></select></div><section class="panel"><div id="create" class="screen active"><header class="intro"><h2>建立你的冒險者</h2><p>選擇職業與外觀，踏上學習華語的奇幻旅程！</p></header><div class="body two"><div><label class="field" for="name">冒險者暱稱</label><input id="name" type="text" maxlength="16" placeholder="輸入 1–16 個字" autocomplete="off"><div class="field">選擇職業</div><div id="classes" class="choices"></div><div class="field">角色外觀</div><div id="genders" class="choices"></div><div class="field">頭髮長度</div><div id="hairLengths" class="choices"></div><div class="field">髮色與膚色</div><div id="looks" class="choices"></div><button class="primary" id="start" style="width:100%">開始冒險 ✦</button><div id="createImportPanel" style="margin-top:18px;padding:15px;background:#e9f2e7;border:2px solid #a7c5a8;border-radius:12px"><strong>📦 已有角色存檔？</strong><p class="muted" style="margin:6px 0 12px">直接匯入舊版備份，不需要先建立新角色。</p><button type="button" class="secondary" id="createRestoreSave" style="width:100%">📥 匯入冒險者存檔</button></div><p id="error" class="danger" role="alert"></p></div><div class="preview"><canvas id="preview" width="280" height="220" aria-label="像素角色與寵物預覽"></canvas><div id="previewName" style="font-size:21px;font-weight:900;margin-top:8px">新手冒險者</div><div id="previewClass" class="muted">劍士 · 初始小龍</div><div class="stats" id="previewStats"></div><p class="muted">角色造型為本原型內建的像素圖，未使用外部圖片。</p></div></div></div><div id="hub" class="screen"><header class="intro"><div class="row space"><div><h2>晨曦村 · 冒險大廳</h2><p>今天也來展開一場華語冒險吧！</p></div><div class="row"><button class="secondary" id="editAppearance">修改外觀</button><button class="secondary" id="reset">重建角色</button><button class="secondary" id="backupSave">備份存檔</button><button class="secondary hidden" id="restoreSave" aria-hidden="true" tabindex="-1">匯入存檔</button><button class="secondary hidden" id="recoverScreenshot" aria-hidden="true" tabindex="-1">📸 恢復舊版進度</button></div></div></header><div class="body"><div class="hud"><div class="pill" id="identity"></div><div class="pill" id="gold"></div><div class="pill" id="level"></div></div><div class="world"><canvas id="map" width="640" height="340" aria-label="像素風村莊與冒險者"></canvas><div class="worldlabel">🌿 晨曦村</div></div><div class="notice" style="margin:16px 0;padding:16px"><h3 style="margin:0 0 10px">🧪 教師測試工具</h3><label style="display:flex;align-items:center;gap:8px;font-weight:800"><input type="checkbox" id="globalTeacherMode"> 👩‍🏫 教師測試模式（顯示中文提示）</label><div style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><label style="font-weight:800"><input type="checkbox" id="globalTeacherSync"> 教師等級同步</label><select id="globalTeacherLevel" aria-label="全地圖教師測試等級" style="font-size:16px;padding:8px;border:2px solid #cbbd9d;border-radius:8px;background:#fff8e9;color:#26364b"><option value="10">Lv.10</option><option value="15" selected>Lv.15</option><option value="20">Lv.20</option><option value="25">Lv.25</option><option value="30">Lv.30</option><option value="35">Lv.35</option><option value="40">Lv.40</option></select></div><p class="muted" style="margin:8px 0 0">僅供老師測試；等級於下一場戰鬥或新遠征生效，不會改變真正的角色等級。關閉後使用角色原本等級。</p></div><div class="actions"><button class="action" id="shopBtn"><span>🏪</span>裝備商店<small>購買冒險裝備</small></button><button class="action" id="characterBtn"><span>🧙</span>角色資料<small>能力與經驗</small></button><button class="action" id="petBtn"><span>🐉</span>初始寵物<small>培養小龍</small></button><button class="action" id="forestBtn"><span>⚔️</span>森林冒險<small>準備級一 · 開始挑戰</small></button><button class="action" id="moonBtn"><span>🌙</span>月光山谷<small>準備級二 · 森林遠征通關解鎖</small></button><button class="action" id="entryBtn"><span>🗺️</span>入門級秘境<small>第三張地圖 · 347 詞 · 六大區域</small></button></div><div class="notice" id="info">歡迎來到晨曦村！你已經擁有一位冒險者和一隻初始小龍。森林冒險已開放！小龍會協助攻擊！現在森林裡還出現了跳跳蘑菇和森林守衛。</div><div class="notice" id="feedbackNotice" style="margin-top:14px;text-align:center;line-height:1.7">💌 如果您有任何改善建議，歡迎寄信至：<a href="mailto:vicky1705@hormail.com.tw" style="color:#285e66;font-weight:800;overflow-wrap:anywhere">vicky1705@hormail.com.tw</a></div></div></div><div id="shopScreen" class="screen"><header class="intro"><div class="row space"><div><h2>🏪 晨曦村裝備店</h2><p>用冒險金幣選購裝備，購買後到角色資料穿戴。</p></div><button class="secondary" id="shopBack">返回村莊</button></div></header><div class="body"><div class="notice" id="shopWallet"></div><h3>🛒 商店商品</h3><div id="shopGoods" class="shop-grid"></div><p class="muted">購買後請前往「角色資料」，點選角色旁的裝備欄穿戴或更換。裝備永久擁有，不消耗耐久度。</p></div></div><div id="entry" class="screen"><header class="intro"><div class="row space"><div><h2>🗺️ 入門級秘境</h2><p>六大區域 · 347 張生詞卡 · 多樣化怪物</p></div><button class="secondary" id="entryBack">返回村莊</button></div></header><div class="body"><div class="world"><canvas id="entryMap" width="640" height="290"></canvas><div class="worldlabel" id="entryWorldLabel">🌸 花語草原</div></div><p class="notice">📖 本地圖先只考生詞，不加入句型題。每區三頁詞卡；聽力題涵蓋全部347詞，已完成越南文校對的詞卡才出現翻譯題。擊敗區域首領可解鎖下一區。</p><div id="entryZones" class="forestRoutes"></div><div id="entryStats" class="notice"></div><div class="notice" style="display:none"><label style="font-weight:800"><input type="checkbox" id="entryLevelTest" checked> 🧪 教師等級測試（只影響本次秘境遠征）</label><div class="row" style="margin-top:10px;gap:10px;flex-wrap:wrap"><label for="entryTestLevel">測試等級</label><select id="entryTestLevel" style="font-size:17px;padding:9px;border:2px solid #cbbd9d;border-radius:8px;background:#fff8e9;color:#26364b"><option value="10">Lv.10</option><option value="15">Lv.15</option><option value="20">Lv.20 · 挑戰</option><option value="25" selected>Lv.25 · 推薦</option><option value="30">Lv.30 · 稍易</option><option value="35">Lv.35 · 高等級</option><option value="40">Lv.40 · 極限測試</option></select></div><p class="muted" id="entryLevelHint" style="margin:8px 0 0">Lv.25 將從遠征開始立即生效，包含第一場戰鬥；不會改動角色真正的等級。</p></div><button class="primary" id="entryStart" style="width:100%">🧭 開始區域遠征</button></div></div><div id="entryRun" class="screen"><header class="intro"><div class="row space"><div><h2 id="entryRunTitle">入門級秘境</h2><p id="entryRunSubtitle">探索與學習</p></div><button class="secondary" id="entryRunBack">返回地圖</button></div></header><div class="body"><div class="world"><canvas id="entryScene" width="640" height="290"></canvas><div class="worldlabel" id="entryStepLabel">👣 1 steps</div></div><div class="result-progress"><div class="result-progress-title"><b>🧭 遠征進度</b><b id="entryStepCount">0 / 12</b></div><div class="result-track"><div id="entryProgressBar"></div></div></div><div class="notice" id="entryRunHP"></div><div class="notice" id="entryEvent"></div><div id="entryActions" class="forestRoutes"></div></div></div><div id="entryFight" class="screen"><header class="intro"><div class="row space"><div><h2 id="entryFightTitle">⚔️ 入門級戰鬥</h2><p id="entryFightSubtitle">生詞與聽力</p></div><button class="secondary" id="entryFightBack">撤退</button></div></header><div class="body"><div class="row space" style="margin-bottom:12px;gap:12px;flex-wrap:wrap"><label style="display:none"><input type="checkbox" id="entryTeacherMode"> 👩‍🏫 教師測試模式（顯示中文提示）</label><span class="muted" style="font-size:13px">學生模式不顯示中文翻譯</span></div><div class="row space"><b id="entryEnemyHP"></b><b id="entryFightCount"></b></div><div class="result-track"><div id="entryEnemyBar" style="height:100%;background:#c96969"></div></div><div class="world" style="margin:12px 0"><canvas id="entryArena" width="640" height="280"></canvas></div><div class="row space"><b id="entryHeroHP"></b><b id="entryCombo"></b></div><div class="question" style="margin-top:12px"><b id="entryQuestionType"></b><div id="entryPrompt" class="prompt"></div><button class="secondary hidden" id="entryListen" style="width:100%">🔊 再聽一次</button><div id="entryAnswers" class="answerGrid" style="margin-top:12px"></div><div id="entryFeedback" class="feedback"></div><button class="primary hidden" id="entryNext" style="width:100%">下一題 →</button></div></div></div><div id="characterScreen" class="screen"><header class="intro"><div class="row space"><div><h2>🧙 冒險者檔案</h2><p>每一段旅程，都會成為你的故事。</p></div><button class="secondary" id="characterBack">返回村莊</button></div></header><div class="body"><div class="character-stage"><div class="equipment-layout"><div class="equipment-column"><div class="equipment-slot" data-equip-slot="helmet" role="button" tabindex="0" title="點選穿戴頭盔">🪖<small>頭部</small></div><div class="equipment-slot" data-equip-slot="weapon" role="button" tabindex="0" title="點選穿戴武器">⚔️<small>武器</small></div><div class="equipment-slot" data-equip-slot="accessory" role="button" tabindex="0" title="點選穿戴飾品">💍<small>飾品</small></div></div><canvas id="characterPortrait" width="280" height="220" aria-label="目前角色外觀的像素肖像"></canvas><div class="equipment-column"><div class="equipment-slot" data-equip-slot="armor" role="button" tabindex="0" title="點選穿戴防具">🛡️<small>防具</small></div><div class="equipment-slot" data-equip-slot="boots" role="button" tabindex="0" title="點選穿戴鞋子">🥾<small>鞋子</small></div><div class="equipment-slot" data-equip-slot="trinket" role="button" tabindex="0" title="點選穿戴配件">🎗️<small>配件</small></div></div></div><div id="characterEquipPicker" class="hidden" style="background:#fffdf7;border:2px solid #cbbd9d;border-radius:14px;padding:12px;margin:14px auto;max-width:440px"></div><div class="character-identity"><div class="character-rank">✨ 晨曦村冒險者</div><div class="character-name" id="characterName"></div><div id="characterClass" class="hidden"></div><div id="characterLook" class="hidden"></div><div id="characterLevel" style="font-size:23px;font-weight:900;margin-top:10px"></div></div></div><section class="character-section"><h3>⚔️ 基本能力</h3><div class="character-grid"><div class="character-stat"><small>❤️ 最大生命</small><strong id="characterHP"></strong></div><div class="character-stat"><small>⚔️ 攻擊力</small><strong id="characterAttack"></strong></div><div class="character-stat"><small>🛡️ 防禦力</small><strong id="characterDefense"></strong></div><div class="character-stat"><small>🪙 持有金幣</small><strong id="characterGold"></strong></div></div><div class="result-progress" style="margin-top:13px"><div class="result-progress-title"><b>⭐ 冒險經驗</b><b id="characterExpText"></b></div><div class="result-track"><div id="characterExpBar"></div></div><small id="characterNext"></small></div></section><section class="character-section"><h3>🧭 冒險紀錄</h3><div id="characterRecords"></div></section><section class="character-section"><h3>✨ 專屬技能</h3><div class="character-record locked">🔒 技能系統將於後續版本開放</div></section><p class="notice">角色資料會依照目前存檔顯示；換版本前請先在村莊備份存檔。</p></div></div><div id="petScreen" class="screen"><header class="intro"><div class="row space"><div><h2>🐉 豆芽的成長小屋</h2><p>一起冒險，一起長大！</p></div><button class="secondary" id="petBack">返回村莊</button></div></header><div class="body"><div class="pet-stage"><canvas id="petPortrait" width="240" height="190" aria-label="小龍豆芽的像素肖像"></canvas><div><div class="pet-rank" id="petRank"></div><div class="pet-title">🐉 豆芽</div><div id="petLevel" style="font-size:21px;font-weight:900"></div><p class="muted" id="petStageText"></p></div></div><div class="pet-stats"><div class="pet-stat"><small>🔥 協助攻擊</small><strong id="petAttack"></strong></div><div class="pet-stat"><small>📖 累積經驗</small><strong id="petExp"></strong></div></div><div class="result-progress" style="margin-top:12px"><div class="result-progress-title"><b>✨ 小龍經驗</b><b id="petExpText"></b></div><div class="result-track"><div id="petExpBar"></div></div><small id="petNext"></small></div><h3>🎒 月光山谷素材</h3><div id="petMaterials" class="pet-stats"></div><div class="notice" id="petCareStatus" style="margin-top:12px"></div><div class="actions" style="margin:12px 0"><button class="action" id="petFeed">🍖 餵食<small>小龍點心 ×1，親密度 +1</small></button><button class="action" id="petUpgrade">⭐ 強化<small>星光碎片 ×5，提升協助攻擊</small></button><button class="action" id="petEvolve">💎 進化<small>Lv.10 ＋ 月光龍晶 ×3</small></button></div><h3>🌟 成長里程碑</h3><div id="petMilestones"></div><p class="notice">每次擊敗怪物，豆芽獲得 10 EXP。每 50 EXP 升一級；戰鬥中每累積兩次首次作答正確，豆芽就會協助攻擊。成長資料會與角色一起儲存。</p></div></div><div id="forest" class="screen"><header class="intro"><div class="row space"><div><h2>🌲 新手森林 · 探索地圖</h2><p>選擇要挑戰的怪物，準備級一 · 華語練習</p></div><button class="secondary" id="forestBack">返回村莊</button></div></header><div class="body"><div class="world"><canvas id="forestMap" width="640" height="290" aria-label="森林探索像素地圖"></canvas><div class="worldlabel">🌿 新手森林</div></div><p class="notice">每種怪物都可以重複挑戰。史萊姆適合初學者，森林守衛建議 Lv.5 再挑戰。</p><div id="mapProgress" class="notice" style="margin:14px 0;line-height:1.8"></div><button class="primary" id="exploreStart" style="width:100%;margin:10px 0">🧭 森林遠征 · 20 步挑戰</button><div class="forestRoutes"><button class="forestRoute" id="slimeRoute"><span class="routeIcon">🟢</span><b>史萊姆草地</b><small>入門練習 · 205 HP</small></button><button class="forestRoute" id="mushroomRoute"><span class="routeIcon">🍄</span><b>蘑菇小徑</b><small>進階練習 · 250 HP</small></button><button class="forestRoute" id="bossRoute"><span class="routeIcon">🌳</span><b>森林守衛</b><small>頭目挑戰 · 400 HP</small></button></div><p class="muted" id="lastMonster"></p></div></div><div id="moon" class="screen"><header class="intro"><div class="row space"><div><h2>🌙 月光山谷 · 生詞試煉</h2><p>準備級二 · 全新詞彙與更強的怪物</p></div><button class="secondary" id="moonBack">返回村莊</button></div></header><div class="body"><div class="world"><canvas id="moonMap" width="640" height="290" aria-label="月光山谷像素地圖"></canvas><div class="worldlabel">🌙 月光山谷</div></div><div class="notice" style="margin-top:15px">📖 這裡使用準備級二級生詞。普通關卡可反覆練習；普通關卡可以自由練習；通過 25 步山谷遠征，才能取得第三張地圖的解鎖資格。</div><div class="notice" style="display:none"><label><input type="checkbox" id="moonTeacherSync"> 🧪 教師等級同步（出發前設定）</label> <select id="moonTeacherLevel" aria-label="遠征測試等級" style="font-size:16px;padding:7px;border:2px solid #cbbd9d;border-radius:8px;background:#fff8e9;color:#26364b"><option value="10">Lv.10</option><option value="15">Lv.15</option><option value="20">Lv.20</option><option value="25">Lv.25</option><option value="30">Lv.30</option><option value="35">Lv.35</option><option value="40">Lv.40</option></select><p class="muted" style="margin:8px 0 0">出發時立即生效，包含第一隻怪物；遠征期間固定使用此測試等級。</p></div><button class="primary" id="moonExploreStart" style="width:100%;margin:18px 0 10px">🌙 月光遠征 · 25 步挑戰</button><div class="notice" id="moonProgress" style="margin-bottom:15px">🏆 遠征通關後可解鎖下一張地圖</div><div class="forestRoutes"><button class="forestRoute" id="moonSlime"><span class="routeIcon">🔮</span><b>月光史萊姆</b><small>450 HP · 魔力護盾</small></button><button class="forestRoute" id="moonMushroom"><span class="routeIcon">🍄</span><b>螢光蘑菇</b><small>600 HP · 孢子強擊</small></button><button class="forestRoute" id="moonBoss"><span class="routeIcon">🦉</span><b>月影守護者</b><small>700 HP · 首領試煉</small></button></div><p class="muted">🌙 山谷遠征需要擊敗最終首領「月影守護者」。普通練習不計入解鎖。</p></div></div><div id="explore" class="screen"><header class="intro"><div class="row space"><div><h2>🧭 森林探索</h2><p>跟豆芽一起尋找森林裡的驚喜！</p></div><button class="secondary" id="exploreBack">返回森林入口</button></div></header><div class="body"><div class="world"><canvas id="exploreCanvas" width="640" height="290" aria-label="森林探險像素畫面"></canvas><div class="worldlabel">👣 <span id="exploreSteps">0</span> steps</div></div><div class="result-progress" style="margin-top:12px"><div class="result-progress-title"><b>🧭 遠征進度</b><b id="expeditionProgress">0 / 20 步</b></div><div class="result-track"><div id="expeditionBar" style="width:0%"></div></div><small>🏕️ 森林入口 → 👑 森林深處</small></div><div class="notice" id="exploreStatus" style="margin-top:12px">❤️ 探索生命</div><div class="notice" id="exploreMessage" role="status">準備好就出發吧！</div><div id="exploreOptions" class="exploreOptions"></div><p class="muted">每次遠征共 20 步，第 20 步挑戰森林守衛。可中途撤退並保留已獲得的獎勵；擊敗守衛才可取得通關獎勵。</p></div></div><div id="battle" class="screen"><header class="intro"><div class="row space"><div><h2>🌲 新手森林 · 冒險試煉</h2><p id="stageLabel">準備級一 · 生詞記憶</p></div><button class="secondary" id="leaveBattle">返回森林入口</button></div></header><div class="body"><div class="row space" style="display:none"><label><input type="checkbox" id="teacherSync"> 🧪 教師等級同步</label><select id="teacherSyncLevel" aria-label="測試戰鬥等級" style="font-size:16px;padding:7px;border:2px solid #cbbd9d;border-radius:8px;background:#fff8e9;color:#26364b"><option value="10">Lv.10</option><option value="15">Lv.15</option><option value="20">Lv.20</option><option value="25">Lv.25</option><option value="30">Lv.30</option><option value="35">Lv.35</option><option value="40">Lv.40</option></select></div><div class="row space" style="margin-bottom:10px"><label style="display:none"><input type="checkbox" id="teacherMode"> 🧑‍🏫 教師測試模式</label><span id="streakLabel">連擊 0</span></div><div class="row space"><b id="enemyName">森林史萊姆</b><b id="roundText">第 1 題 / 8</b></div><div class="bar" style="margin:8px 0 12px;height:16px"><div id="enemyBar" style="width:100%;background:#d96b68"></div></div><div class="world"><canvas id="arena" width="640" height="280" aria-label="森林戰鬥像素畫面"></canvas><div id="floatDamage" class="damageFloat" aria-live="polite"></div><div id="skillFlash" class="effectFlash" aria-hidden="true"></div></div><div class="row space" style="margin:12px 0"><span id="battleHP">❤️ 生命 120 / 120</span><span id="battleSkill">⚔️ 劍士 · 連擊</span></div><div class="question"><div class="row space"><b id="questionType">生詞記憶</b><button id="replayAudio" class="secondary hidden">🔊 再聽一次</button></div><div id="questionPrompt" class="prompt">我</div><div id="answerChoices" class="answerGrid"></div><div id="feedback" class="feedback" aria-live="polite">選擇答案，讓冒險者發動攻擊！</div><button id="nextQuestion" class="primary hidden" style="width:100%">下一題 →</button><button id="retryMonster" class="secondary hidden" style="width:100%;margin-top:10px">⚔️ 再次挑戰同一怪物</button></div><div class="notice" id="battleNote">答錯不造成傷害，訂正才能繼續。怪物會反擊，小龍每兩次首次作答正確會協助攻擊；擊敗怪物立即獲勝；怪物還活著就繼續答題。</div></div></div></section><div class="footer">存檔保存在目前檔案的瀏覽器儲存空間。Android 不同開啟方式可能使用不同的儲存區，請先備份再換版本；清除網站資料、使用無痕模式或換裝置也可能遺失進度。<br>《華語冒險者》Alpha 3.9.30 · 第三地圖解鎖提示修正</div></main><script>
+// 主角升級曲線：Lv.1–4 固定100；Lv.5–14 每級+20；Lv.15起每級+40。舊存檔不回溯。
+function expNeeded(level){const lv=Math.max(1,Math.floor(Number(level)||1));return lv<5?100:lv<15?120+(lv-5)*20:340+(lv-15)*40}
+
+'use strict';const KEY='mandarin_adventurer_alpha_01';const BACKUP_KEY=KEY+'_previous_valid';
+function validSave(p){return !!(p&&p.version===1&&typeof p.name==='string'&&p.name.length<=16&&CLASSES[p.classId]&&LOOKS.some(l=>l.id===p.lookId)&&Number.isFinite(p.level)&&Number.isFinite(p.gold)&&p.pet&&Number.isFinite(p.pet.level))}
+function safeWriteSave(p){const raw=JSON.stringify(p);const previous=localStorage.getItem(KEY);if(previous){try{if(validSave(JSON.parse(previous)))localStorage.setItem(BACKUP_KEY,previous)}catch(e){}}localStorage.setItem(KEY,raw)}
+const CLASSES={warrior:{name:'劍士',icon:'⚔️',hp:120,atk:18,def:15,desc:'穩定輸出'},mage:{name:'法師',icon:'🔮',hp:85,atk:28,def:7,desc:'魔法爆發'},ranger:{name:'遊俠',icon:'🏹',hp:95,atk:21,def:9,desc:'靈活連擊'},priest:{name:'祭司',icon:'✨',hp:110,atk:13,def:14,desc:'治療守護'}};const LOOKS=[{id:'copper',name:'暖棕',hair:'#70422e',skin:'#eac39c'},{id:'dark',name:'深黑',hair:'#24283e',skin:'#b87e60'},{id:'gold',name:'金髮',hair:'#e5b84d',skin:'#f1d2ad'},{id:'silver',name:'銀髮',hair:'#b9c9d2',skin:'#d7a788'}];let choiceClass='warrior',choiceLook='copper',choiceGender='female',choiceHair='short',editing=false,player=null;const $=id=>document.getElementById(id);function rect(ctx,x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}function sprite(ctx,x,y,scale,cl,look){const L=LOOKS.find(a=>a.id===look)||LOOKS[0];ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);const robe={warrior:'#527ca1',mage:'#8964bd',ranger:'#4b986c',priest:'#efe2b0'}[cl];if(choiceHair==='long'){rect(ctx,3,4,18,30,L.hair);rect(ctx,2,18,5,16,L.hair);rect(ctx,18,18,5,16,L.hair)}else if(choiceHair==='medium'){rect(ctx,3,4,18,21,L.hair);rect(ctx,3,16,5,12,L.hair);rect(ctx,17,16,5,12,L.hair)}rect(ctx,6,0,12,4,L.hair);rect(ctx,4,4,16,11,L.hair);rect(ctx,6,6,12,10,L.skin);if(choiceGender==='male'){rect(ctx,4,4,16,5,L.hair);rect(ctx,4,8,3,5,L.hair)}else{rect(ctx,5,4,14,4,L.hair);rect(ctx,5,7,3,6,L.hair);rect(ctx,17,7,3,6,L.hair)}rect(ctx,8,11,2,2,'#26334b');rect(ctx,15,11,2,2,'#26334b');rect(ctx,7,16,10,2,'#704b3d');rect(ctx,5,18,14,12,robe);if(choiceGender==='female'){rect(ctx,4,27,16,4,robe)}rect(ctx,2,20,4,9,L.skin);rect(ctx,18,20,4,9,L.skin);rect(ctx,7,30,4,8,'#344257');rect(ctx,14,30,4,8,'#344257');rect(ctx,6,36,6,3,'#5a4239');rect(ctx,13,36,6,3,'#5a4239');if(cl==='warrior'){rect(ctx,22,16,2,20,'#c4d4d6');rect(ctx,20,26,6,2,'#e9b55b')}if(cl==='mage'){rect(ctx,23,12,2,25,'#7d583f');rect(ctx,21,9,6,6,'#72d6e4')}if(cl==='ranger'){rect(ctx,23,17,2,17,'#7e523a');rect(ctx,20,15,6,2,'#e9cf87')}if(cl==='priest'){rect(ctx,22,15,2,21,'#b38d4d');rect(ctx,20,12,6,6,'#f7d874')}ctx.restore()}function dragon(ctx,x,y,s,level=1){
+ ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+ const evo=player&&player.pet?ensurePetCare().evolutions:0;
+ const grown=evo>=1,elder=evo>=2;
+ // 讓幼龍也具有清楚的龍形輪廓：長尾、背刺、翅膀、雙角、突出的龍吻。
+ // 尾巴在身體後方，往右上翹起
+ rect(ctx,27,21,9,5,'#438c69');rect(ctx,34,17,6,6,'#438c69');rect(ctx,38,13,4,6,'#70b980');
+ rect(ctx,36,12,5,3,'#b7db94');
+ // 飛翼從背後向左右展開：外緣階梯與翼膜有清楚的剪影。
+ if(grown){
+  // 左翼向左上延伸，翼膜呈扇形而非兩塊直立方塊
+  rect(ctx,-10,1,5,7,'#3c8d80');rect(ctx,-7,4,7,11,'#4d9f91');
+  rect(ctx,-3,8,10,13,'#60b5a5');rect(ctx,3,12,10,11,'#3d9382');
+  rect(ctx,-8,10,5,5,'#83d2be');rect(ctx,-4,13,6,5,'#9bdec7');
+  rect(ctx,0,17,6,4,'#9bdec7');rect(ctx,-10,15,4,4,'#3c8d80');
+  // 右翼展開並向上伸出，階梯形翼尖與分層翼膜
+  rect(ctx,29,10,8,12,'#3d9382');rect(ctx,34,5,8,14,'#60b5a5');
+  rect(ctx,40,0,6,12,'#4d9f91');rect(ctx,44,-3,4,8,'#3c8d80');
+  rect(ctx,36,10,6,7,'#9bdec7');rect(ctx,31,14,7,6,'#83d2be');
+  rect(ctx,40,16,5,5,'#4d9f91');
+  if(elder){rect(ctx,-8,4,5,4,'#e4ca6c');rect(ctx,42,1,5,4,'#e4ca6c');}
+ }else{
+  // 幼龍未進化：只有小背刺，不繪製左右翅膀，避免與 Lv.5 混淆。
+  rect(ctx,28,13,4,5,'#a4d39b');
+ }
+ // 背部鋸齒狀龍刺
+ rect(ctx,24,11,5,5,'#c2dc8b');rect(ctx,27,15,5,5,'#c2dc8b');rect(ctx,30,19,4,4,'#c2dc8b');
+ // 身體、肚皮與短爪
+ rect(ctx,9,15,20,13,'#59a478');rect(ctx,12,18,12,10,'#b8d99a');
+ rect(ctx,10,27,7,5,'#3e8264');rect(ctx,23,27,7,5,'#3e8264');
+ rect(ctx,11,31,3,2,'#e6d89b');rect(ctx,24,31,3,2,'#e6d89b');
+ // 頭部及明顯向左突出的龍吻
+ rect(ctx,9,5,18,15,'#79c18a');rect(ctx,5,13,11,8,'#79c18a');
+ rect(ctx,3,17,10,5,'#94d19b');rect(ctx,5,19,2,2,'#477c62');
+ // 雙角（與耳朵區分的角尖）
+ rect(ctx,11,0,4,8,elder?'#f0d578':'#e3d69a');rect(ctx,12,-3,2,4,elder?'#fff0ad':'#eee1b6');
+ rect(ctx,22,0,4,8,elder?'#f0d578':'#e3d69a');rect(ctx,23,-3,2,4,elder?'#fff0ad':'#eee1b6');
+ // 眼睛、眉與腮紅
+ rect(ctx,21,11,4,4,'#253b3d');rect(ctx,22,11,1,1,'#ffffff');rect(ctx,17,17,3,2,'#e9a08e');
+ if(grown){
+  // 第一次進化：明顯加長龍角、銀藍月牙額飾、加寬雙翼、月光尾尖。
+  rect(ctx,10,-7,5,9,'#b6e6f2');rect(ctx,11,-11,3,5,'#d9f7ff');
+  rect(ctx,22,-7,5,9,'#b6e6f2');rect(ctx,23,-11,3,5,'#d9f7ff');
+  rect(ctx,17,4,6,3,'#d9f7ff');rect(ctx,19,2,4,2,'#7ac9e2');
+  rect(ctx,-13,0,6,10,'#81d7e8');rect(ctx,46,-7,7,12,'#81d7e8');
+  rect(ctx,38,11,6,7,'#a4efff');rect(ctx,43,8,4,5,'#f4f4cf');
+ }
+ if(elder){
+  // 第二次進化：更大的龍翼、背鰭、皇冠狀長角、月光護甲與尾部光芒。
+  rect(ctx,-19,-10,9,19,'#a5e6ff');rect(ctx,-15,-16,6,10,'#d8f6ff');
+  rect(ctx,49,-19,9,24,'#a5e6ff');rect(ctx,55,-25,6,12,'#d8f6ff');
+  rect(ctx,8,-17,7,12,'#f5e2a1');rect(ctx,24,-18,7,13,'#f5e2a1');
+  rect(ctx,14,15,14,5,'#79d9ec');rect(ctx,17,21,8,4,'#bdf3fa');
+  rect(ctx,43,6,7,8,'#c4f3ff');rect(ctx,49,2,6,7,'#f5f4d1');
+ }
+ ctx.restore();
+}function combatLog(lines){
+ $('feedback').innerHTML='<div class="combat-log">'+lines.map(line=>'<div class="combat-line '+(line.kind||'')+'"><span class="log-icon">'+escapeHTML(line.icon)+'</span><span>'+escapeHTML(line.text)+'</span></div>').join('')+'</div>';
+}
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id))}function build(){for(const [id,label] of [['male','男生外觀'],['female','女生外觀']]){let b=document.createElement('button');b.type='button';b.className='choice';b.dataset.gender=id;b.textContent=label;b.onclick=()=>{choiceGender=id;update()};$('genders').appendChild(b)}for(const [id,label] of [['short','短髮'],['medium','中長髮'],['long','長髮']]){let b=document.createElement('button');b.type='button';b.className='choice';b.dataset.hair=id;b.textContent=label;b.onclick=()=>{choiceHair=id;update()};$('hairLengths').appendChild(b)}for(const [id,c]of Object.entries(CLASSES)){let b=document.createElement('button');b.type='button';b.className='choice';b.dataset.cls=id;b.innerHTML=c.icon+' '+c.name+'<small>'+c.desc+'</small>';b.onclick=()=>{choiceClass=id;update()};$('classes').appendChild(b)}for(const l of LOOKS){let b=document.createElement('button');b.type='button';b.className='choice';b.dataset.look=l.id;b.textContent=l.name;b.onclick=()=>{choiceLook=l.id;update()};$('looks').appendChild(b)}$('name').addEventListener('input',update);$('start').onclick=start;$('editAppearance').onclick=()=>{editing=true;choiceClass=player.classId;choiceLook=player.lookId;choiceGender=player.gender||'female';choiceHair=player.hairLength||'short';$('name').value=player.name;$('start').textContent='儲存修改 ✦';$('createImportPanel').classList.add('hidden');show('create');update()};$('backupSave').onclick=()=>{if(!player){alert('目前沒有角色存檔');return}const data=JSON.stringify({type:'mandarin-adventurer-save',player});const w=window.open('','_blank');if(w){w.document.write('<meta name="viewport" content="width=device-width,initial-scale=1"><h2>備份存檔</h2><p>長按選取並複製以下文字，存到記事本；換版本後可用「匯入存檔」貼上。</p><textarea style="width:95%;height:65vh"></textarea>');w.document.querySelector('textarea').value=data}else{prompt('請複製整段存檔文字',data)}};
+$('restoreSave').onclick=()=>{const raw=prompt('貼上之前備份的完整存檔文字（會覆蓋目前進度）');if(!raw)return;try{const d=JSON.parse(raw),p=d.type==='mandarin-adventurer-save'?d.player:d;if(!p||p.version!==1||typeof p.name!=='string'||p.name.length>16||!CLASSES[p.classId]||!LOOKS.some(l=>l.id===p.lookId)||!Number.isFinite(p.level)||!Number.isFinite(p.gold)||!p.pet||!Number.isFinite(p.pet.level)||!Number.isFinite(p.pet.exp))throw Error('格式不正確');if(!confirm('確定匯入 '+p.name+' Lv.'+p.level+'、豆芽 Lv.'+p.pet.level+' 的存檔？目前資料將被取代。'))return;safeWriteSave(p);player=p;hub();alert('匯入成功！')}catch(e){alert('匯入失敗：'+e.message)}};
+$('createRestoreSave').onclick=()=>$('restoreSave').click();
+$('recoverScreenshot').onclick=()=>{if(!player){alert('請先建立角色，再恢復舊版進度。');return}if(!confirm('依照你提供的舊版截圖，將目前角色恢復為 Lv.21（45/100 EXP）、豆芽 Lv.5（0/50 EXP）。\n\n角色名稱、職業、外觀及目前金幣會保留。\n建議先按「備份存檔」保存目前資料。\n\n確定繼續嗎？'))return;player.level=21;player.exp=45;player.pet=player.pet||{name:'豆芽'};player.pet.level=5;player.pet.exp=0;try{safeWriteSave(player);hub();alert('已恢復：角色 Lv.21、豆芽 Lv.5！金幣與外觀維持原樣。')}catch(e){alert('恢復失敗：'+e.message)}};
+$('reset').onclick=()=>{if(confirm('確定要刪除目前的角色並重新創建嗎？此操作無法復原。')){try{localStorage.removeItem(KEY)}catch(e){}player=null;editing=false;$('start').textContent='開始冒險 ✦';$('createImportPanel').classList.remove('hidden');show('create');update()}};$('characterBtn').onclick=characterHome;$('characterBack').onclick=hub;$('petBtn').onclick=petHome;$('petBack').onclick=hub;$('petFeed').onclick=()=>petCare('feed');$('petUpgrade').onclick=()=>petCare('upgrade');$('petEvolve').onclick=()=>petCare('evolve');update();load()}function escapeHTML(s){return String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}function update(){document.querySelectorAll('[data-cls]').forEach(b=>b.classList.toggle('selected',b.dataset.cls===choiceClass));document.querySelectorAll('[data-gender]').forEach(b=>b.classList.toggle('selected',b.dataset.gender===choiceGender));document.querySelectorAll('[data-hair]').forEach(b=>b.classList.toggle('selected',b.dataset.hair===choiceHair));document.querySelectorAll('[data-look]').forEach(b=>b.classList.toggle('selected',b.dataset.look===choiceLook));const c=CLASSES[choiceClass];$('previewName').textContent=$('name').value.trim()||'新手冒險者';$('previewClass').textContent=c.name+' · 初始小龍';$('previewStats').innerHTML=`<div class="stat">HP<b>${c.hp}</b></div><div class="stat">攻擊<b>${c.atk}</b></div><div class="stat">防禦<b>${c.def}</b></div>`;const canvas=$('preview'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;rect(ctx,0,0,280,220,'#d7e7d5');rect(ctx,0,174,280,46,'#b1d0a6');for(let i=0;i<12;i++)rect(ctx,i*27,176+(i%3)*8,9,4,'#8db98e');sprite(ctx,72,35,4,choiceClass,choiceLook);dragon(ctx,194,106,2.3)}function start(){let name=$('name').value.trim();if(name.length<1||name.length>16){$('error').textContent='請輸入 1–16 個字的暱稱。';return}$('error').textContent='';player=editing&&player?{...player,name,classId:choiceClass,lookId:choiceLook,gender:choiceGender,hairLength:choiceHair}:{version:1,name,classId:choiceClass,lookId:choiceLook,gender:choiceGender,hairLength:choiceHair,level:1,exp:0,gold:0,pet:{name:'豆芽',level:1,exp:0},createdAt:new Date().toISOString()};try{safeWriteSave(player)}catch(e){$('error').textContent='瀏覽器無法儲存資料，請確認未停用網站儲存功能。';return}editing=false;$('start').textContent='開始冒險 ✦';hub()}function load(){let raw=null;try{raw=localStorage.getItem(KEY);if(raw){const p=JSON.parse(raw);if(validSave(p)){player=p;hub();$('info').textContent='✅ 已自動讀取上次冒險進度！ '+$('info').textContent;return}}}catch(e){}try{const backup=localStorage.getItem(BACKUP_KEY);if(backup){const p=JSON.parse(backup);if(validSave(p)&&confirm('⚠️ 主要存檔無法讀取。找到一份較早的本機備份：'+p.name+' Lv.'+p.level+'。要先載入這份備份嗎？')){player=p;hub();$('info').textContent='⚠️ 已載入較早的本機備份，請立即匯出備份存檔。 '+$('info').textContent;return}}}catch(e){}}function hub(){battleFromExploration=false;choiceGender=player.gender||'female';choiceHair=player.hairLength||'short';show('hub');$('identity').textContent='🧙 '+player.name+' · '+CLASSES[player.classId].name;$('gold').textContent='🪙 '+player.gold+' 金幣';$('level').textContent='⭐ Lv.'+player.level;$('info').textContent='歡迎回到晨曦村！角色 '+player.name+'，'+CLASSES[player.classId].name+' Lv.'+player.level+'，目前有 '+player.gold+' 金幣。選擇森林冒險繼續練習。';$('moonBtn').querySelector('small').textContent=(player.unlocks?.forestCleared||player.exploration?.clears>0)?'準備級二 · 已解鎖':'🔒 完成森林遠征解鎖';drawMap()}function characterHome(){
+ if(!player)return;
+ const c=CLASSES[player.classId], look=LOOKS.find(x=>x.id===player.lookId);
+ $('characterName').textContent=player.name+' '+c.icon;
+ $('characterClass').textContent='';
+ const genders={female:'女生外觀',male:'男生外觀'},hairs={short:'短髮',medium:'中長髮',long:'長髮'};
+ $('characterLook').textContent='';
+ $('characterLevel').textContent='⭐ Lv.'+player.level;
+ $('characterHP').textContent=maxHP();$('characterAttack').textContent=baseDamage();$('characterDefense').textContent=defense();$('characterGold').textContent=player.gold;
+ const need=expNeeded(player.level),exp=Math.max(0,player.exp||0);$('characterExpText').textContent=exp+' / '+need+' EXP';$('characterExpBar').style.width=Math.min(100,exp/need*100)+'%';$('characterNext').textContent='距離 Lv.'+(player.level+1)+' 還差 '+Math.max(0,need-exp)+' EXP';
+ const cleared=!!(player.unlocks?.forestCleared||player.exploration?.clears>0);
+ const steps=Math.max(0,player.exploration?.steps||0);
+ const clears=Math.max(player.exploration?.clears||0,cleared?1:0);
+ $('characterRecords').innerHTML=`<div class="character-record">🌿 <b>新手森林遠征</b><div class="muted">${cleared?'🏆 已通關，取得月光山谷解鎖資格':'🔒 尚未通關 · 完成 20 步遠征並擊敗森林守衛'}</div></div><div class="character-record">🧭 <b>遠征紀錄</b><div class="muted">累計通關 ${clears} 次 · 目前探索 ${steps} / 20 步</div></div><div class="character-record">🐉 <b>冒險夥伴：豆芽</b><div class="muted">小龍 Lv.${player.pet?.level||1} · 一起踏上冒險之路</div></div>`;
+ const ctx=$('characterPortrait').getContext('2d');ctx.imageSmoothingEnabled=false;
+ rect(ctx,0,0,280,220,'#d7e9d6');rect(ctx,0,175,280,45,'#b1d0a6');
+ for(let i=0;i<12;i++)rect(ctx,(i*37+8)%280,185+(i%3)*8,9,4,'#91bb90');
+ sprite(ctx,74,35,4,player.classId,player.lookId);dragon(ctx,193,111,2.0,player.pet?.level||1);
+ renderCharacterEquipment();
+ show('characterScreen');
+}
+function ensurePetCare(){
+ if(!player.pet)player.pet={name:'豆芽',level:1,exp:0};
+ const p=player.pet;p.materials=p.materials&&typeof p.materials==='object'?p.materials:{};
+ for(const k of ['treat','crystal','star'])p.materials[k]=Math.max(0,Math.floor(Number(p.materials[k])||0));
+ p.affection=Math.max(0,Math.min(100,Math.floor(Number(p.affection)||0)));
+ p.enhance=Math.max(0,Math.min(5,Math.floor(Number(p.enhance)||0)));
+ // 舊版的 evolved=true 代表已完成第一次月光進化。只轉換一次，不重複扣素材。
+ if(!Number.isFinite(p.evolutions)){
+  p.evolutions=p.evolved?1:0;
+  if(p.evolved){p.level=1;p.exp=0;}
+ }
+ p.evolutions=Math.max(0,Math.min(2,Math.floor(p.evolutions)));
+ p.evolved=p.evolutions>=1;
+ p.level=Math.max(1,Math.min(10,Math.floor(Number(p.level)||1)));
+ p.exp=p.level>=10?0:Math.max(0,Math.min(49,Math.floor(Number(p.exp)||0)));
+ return p;
+}
+function petBaseAttack(){
+ const p=ensurePetCare();
+ // 轉生 Lv.1 暫時變弱，Lv.2～3 追上進化前 Lv.10 的攻擊。
+ return [9,23,55][p.evolutions]+(p.level-1)*[2,4,6][p.evolutions]+p.enhance*2;
+}
+function petBonus(){return petBaseAttack()-(9+Math.min(12,(player.pet.level-1)*2))}
+function petCare(action){
+ const p=ensurePetCare(),m=p.materials;let msg='';
+ if(action==='feed'){
+  if(!m.treat)return alert('🍖 小龍點心不足！到月光山谷擊敗怪物尋找吧。');
+  if(p.affection>=100)return alert('💕 豆芽的親密度已經滿了！');
+  m.treat--;p.affection=Math.min(100,p.affection+1);msg='🍖 豆芽開心地吃下點心！親密度 +1。';
+ }else if(action==='upgrade'){
+  if(p.enhance>=5)return alert('⭐ 豆芽目前已達強化上限（+5）。');
+  if(m.star<5)return alert('⭐ 需要 5 個星光碎片才能強化。');
+  m.star-=5;p.enhance++;msg='⭐ 強化成功！永久協助攻擊 +2。';
+ }else if(action==='evolve'){
+  if(p.evolutions>=2)return alert('🌙 目前已開放的兩次進化都完成了！');
+  if(p.level<10)return alert('🐉 豆芽需要先達到 Lv.10。');
+  const cost=p.evolutions===0?3:5;
+  if(m.crystal<cost)return alert('💎 這次進化需要 '+cost+' 顆月光龍晶。');
+  if(!confirm('進化後豆芽將回到 Lv.1，EXP 歸零，暫時可能變弱；永久加成與強化會保留。確定進化嗎？'))return;
+  m.crystal-=cost;p.evolutions++;p.evolved=true;p.level=1;p.exp=0;
+  msg=p.evolutions===1?'🌙 第一次進化成功！豆芽化為月光少年龍，永久提高協助攻擊成長，等級重置為 Lv.1。':'🛡️ 第二次進化成功！豆芽化為月影飛龍，解鎖自動技能「月光庇護」，等級重置為 Lv.1。';
+ }
+ entrySave();petHome();$('petCareStatus').textContent=msg;
+}
+function moonPetLoot(monster){
+ const p=ensurePetCare(),m=p.materials,drops=[];
+ function add(key,name,n=1){m[key]+=n;drops.push(name+' ×'+n)}
+ if(monster==='moonBoss'){
+  if(Math.random()<.30)add('crystal','💎 月光龍晶');add('star','⭐ 星光碎片',2);add('treat','🍖 小龍點心');
+ }else{
+  if(Math.random()<.55)add('treat','🍖 小龍點心');
+  if(Math.random()<.38)add('star','⭐ 星光碎片');
+ }
+ return drops;
+}
+function petHome(){
+ const care=ensurePetCare(),lv=care.level,exp=care.exp;
+ const rank=['幼龍豆芽','月光少年龍','月影飛龍'][care.evolutions];
+ const attack=petBaseAttack();
+ $('petRank').textContent='🌿 '+rank;
+ $('petLevel').textContent='⭐ Lv.'+lv+' · 進化 '+care.evolutions+'/2';
+ $('petStageText').textContent=['🐣 升級不會改變造型；達 Lv.10 並收集龍晶後可以第一次進化。','🌙 已獲得永久攻擊加成！重新培養至 Lv.10，即可進行第二次進化。','🛡️ 已學會月光庇護：每場戰鬥受到反擊時，依親密度機率嘗試月光庇護；成功一次減傷 20%。'][care.evolutions];
+ $('petAttack').textContent='+'+attack;
+ $('petMaterials').innerHTML=`<div class="pet-stat"><small>🍖 小龍點心</small><strong>${care.materials.treat}</strong></div><div class="pet-stat"><small>💎 月光龍晶</small><strong>${care.materials.crystal}</strong></div><div class="pet-stat"><small>⭐ 星光碎片</small><strong>${care.materials.star}</strong></div><div class="pet-stat"><small>💕 親密度／技能成功率</small><strong>${care.affection}/100（${care.affection}%）</strong></div>`;
+ const cost=care.evolutions===0?3:5;
+ $('petCareStatus').textContent=`⭐ 強化 +${care.enhance}/5 · 🐉 進化 ${care.evolutions}/2 · ${care.evolutions>=2?'已解鎖月光庇護':`下次進化需 Lv.10 ＋ 💎 龍晶 ×${cost}`}。龍晶僅月影守護者有 30% 機率掉落。`;
+ $('petFeed').disabled=care.materials.treat<1||care.affection>=100;
+ $('petUpgrade').disabled=care.materials.star<5||care.enhance>=5;
+ $('petEvolve').disabled=care.evolutions>=2||lv<10||care.materials.crystal<cost;
+ $('petEvolve').innerHTML=care.evolutions>=2?'🌙 進化已完成<small>目前開放兩階段</small>':`💎 進化<small>Lv.10 ＋ 月光龍晶 ×${cost}</small>`;
+ $('petExp').textContent=lv>=10?'已達進化等級':exp+' / 50';
+ $('petExpText').textContent=lv>=10?'Lv.10 MAX':exp+' / 50 EXP';
+ $('petExpBar').style.width=(lv>=10?100:Math.max(0,Math.min(100,exp*2)))+'%';
+ $('petNext').textContent=lv>=10?'已達 Lv.10！收集素材後進化，經驗不再累積。':'距離 Lv.'+(lv+1)+' 還差 '+(50-exp)+' EXP';
+ $('petMilestones').innerHTML=[
+  [true,'🐣 幼龍同行','答對兩題後自動協助攻擊；升級只提高傷害，不改變外貌'],
+  [care.evolutions>=1,'🌙 第一次進化・月光少年龍','Lv.10 ＋ 月光龍晶 ×3；永久提高協助攻擊成長，進化後 Lv.1'],
+  [care.evolutions>=2,'🛡️ 第二次進化・月影飛龍','再次 Lv.10 ＋ 月光龍晶 ×5；月光庇護依親密度判定，成功後本場減傷一次 20%'],
+  [false,'🔒 後續進化','未來地圖再開放新的形態與能力']
+ ].map(([done,title,desc])=>`<div class="pet-skill ${done?'':'locked'}"><b>${done?'✅':'🔒'} ${title}</b><div class="muted">${desc}</div></div>`).join('');
+ const ctx=$('petPortrait').getContext('2d');ctx.imageSmoothingEnabled=false;
+ rect(ctx,0,0,240,190,'#d8ead4');rect(ctx,0,151,240,39,'#a3cb9d');
+ ctx.save();ctx.translate(care.evolutions===0?32:care.evolutions===1?19:12,care.evolutions===0?39:care.evolutions===1?31:20);ctx.scale(care.evolutions===0?4.2:care.evolutions===1?4.5:4.8,care.evolutions===0?4.2:care.evolutions===1?4.5:4.8);
+ dragon(ctx,0,0,1,lv);ctx.restore();
+ show('petScreen');
+}
+function drawMap(){let canvas=$('map'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;rect(ctx,0,0,640,340,'#8ec9a2');for(let i=0;i<220;i++){let x=(i*97+31)%640,y=(i*53+19)%340;rect(ctx,x,y,3,3,i%4===0?'#e7df9b':'#6fb58c')}rect(ctx,0,228,640,50,'#d9c58d');rect(ctx,280,0,68,340,'#d9c58d');for(let i=0;i<12;i++){let x=(i*109+37)%640,y=(i*79+29)%340;if((x>250&&x<370)||(y>210&&y<290))continue;rect(ctx,x,y,40,35,'#426f55');rect(ctx,x+7,y-12,28,29,'#4c9068');rect(ctx,x+15,y+30,8,14,'#725b43')}function house(x,y,roof){rect(ctx,x+12,y+40,100,66,'#e7d7aa');rect(ctx,x,y+25,124,23,roof);rect(ctx,x+16,y+10,92,19,roof);rect(ctx,x+51,y+65,24,41,'#8d654b');rect(ctx,x+20,y+60,21,21,'#87c5c7');rect(ctx,x+86,y+60,21,21,'#87c5c7')}house(55,42,'#a95d5a');house(438,35,'#617eb1');house(448,215,'#c28d56');sprite(ctx,304,142,2.3,player.classId,player.lookId);dragon(ctx,367,185,1.5,player.pet?.level||1);rect(ctx,290,130,100,5,'#e9e3b8');rect(ctx,290,135,100,2,'#b8a47e')};build();
+
+// Alpha 0.5: 依照使用者提供的《生詞小卡-TOCFL準備一》前兩頁，依原順序選取 40 組。
+// 越南文為遊戲題庫新補充的翻譯，原 PDF 僅提供中文與拼音。
+const WORDS=[
+['我','wǒ','Tôi'],['你/妳','nǐ','Bạn'],['他/她','tā','Anh ấy / Cô ấy'],['我們','wǒmen','Chúng tôi'],
+['你們/妳們','nǐmen','Các bạn'],['他們/她們','tāmen','Họ'],['您','nín','Ngài / Ông / Bà (kính ngữ)'],['誰','shéi','Ai'],
+['姓名','xìngmíng','Họ và tên'],['人','rén','Người'],['國','guó','Nước / Quốc gia'],['中國','Zhōngguó','Trung Quốc'],
+['美國','Měiguó','Mỹ'],['日本','Rìběn','Nhật Bản'],['台灣/臺灣','Táiwān','Đài Loan'],['名字','míngzi','Tên'],
+['家','jiā','Nhà'],['電話','diànhuà','Điện thoại'],['時間','shíjiān','Thời gian'],['小時','xiǎoshí','Giờ (đơn vị thời gian)'],
+['現在','xiànzài','Bây giờ'],['今年','jīnnián','Năm nay'],['今天','jīntiān','Hôm nay'],['明天','míngtiān','Ngày mai'],
+['昨天','zuótiān','Hôm qua'],['早上','zǎoshàng','Buổi sáng sớm'],['上午','shàngwǔ','Buổi sáng'],['中午','zhōngwǔ','Buổi trưa'],
+['下午','xiàwǔ','Buổi chiều'],['晚上','wǎnshàng','Buổi tối'],['一','yī','Một'],['二','èr','Hai'],
+['三','sān','Ba'],['四','sì','Bốn'],['五','wǔ','Năm (số 5)'],['六','liù','Sáu'],
+['七','qī','Bảy'],['八','bā','Tám'],['九','jiǔ','Chín'],['十','shí','Mười']
+];
+
+// 準備級二：選自使用者提供的 12 頁生詞小卡；越南文為新編測試譯文，仍待教師校對。
+const MOON_WORDS=[["男", "nán", "Nam"], ["女", "nǚ", "Nữ"], ["孩子", "háizi", "Trẻ em"], ["小姐", "xiǎojiě", "Cô"], ["先生", "xiānshēng", "Ông"], ["太太", "tàitai", "Bà"], ["女兒", "nǚér", "Con gái"], ["兒子", "érzi", "Con trai"], ["大家", "dàjiā", "Mọi người"], ["路", "lù", "Đường"], ["手機", "shǒujī", "Điện thoại di động"], ["明年", "míngnián", "Năm sau"], ["去年", "qùnián", "Năm ngoái"], ["生日", "shēngrì", "Sinh nhật"], ["月", "yuè", "Tháng"], ["日", "rì", "Ngày"], ["星期", "xīngqí", "Tuần"], ["週末", "zhōumò", "Cuối tuần"], ["天", "tiān", "Ngày / Trời"], ["公園", "gōngyuán", "Công viên"], ["國家", "guójiā", "Quốc gia"], ["分鐘", "fēnzhōng", "Phút"], ["家人", "jiārén", "Người nhà"], ["胖", "pàng", "Mập"], ["矮", "ǎi", "Thấp"], ["瘦", "shòu", "Gầy"], ["萬", "wàn", "Mười nghìn"], ["前天", "qiántiān", "Hôm kia"], ["後天", "hòutiān", "Ngày kia"], ["自己", "zìjǐ", "Bản thân"], ["最", "zuì", "Nhất"], ["怕", "pà", "Sợ"], ["美", "měi", "Đẹp"], ["真的", "zhēnde", "Thật sự"], ["非常", "fēicháng", "Rất"], ["工作", "gōngzuò", "Công việc"], ["醫生", "yīshēng", "Bác sĩ"], ["一些", "yīxiē", "Một ít"], ["本", "běn", "Quyển"], ["張", "zhāng", "Tờ"], ["英文", "yīngwén", "Tiếng Anh"], ["紙", "zhǐ", "Giấy"], ["問題", "wèntí", "Vấn đề"], ["意思", "yìsi", "Ý nghĩa"], ["餐廳", "cāntīng", "Nhà hàng"], ["畫", "huà", "Tranh"], ["讀", "dú", "Đọc"], ["為什麼", "wèishénme", "Tại sao"], ["下課", "xiàkè", "Tan học"], ["說話", "shuōhuà", "Nói chuyện"], ["考試", "kǎoshì", "Thi"], ["懂", "dǒng", "Hiểu"], ["教", "jiāo", "Dạy"], ["告訴", "gàosù", "Nói cho biết"], ["錯", "cuò", "Sai"], ["功課", "gōngkè", "Bài tập"], ["教室", "jiàoshì", "Phòng học"], ["句子", "jùzi", "Câu"], ["休息", "xiūxí", "Nghỉ ngơi"], ["房間", "fángjiān", "Phòng"], ["樓", "lóu", "Tầng"], ["門", "mén", "Cửa"], ["門口", "ménkǒu", "Cửa ra vào"], ["桌子", "zhuōzi", "Cái bàn"], ["椅子", "yǐzi", "Cái ghế"], ["床", "chuáng", "Giường"], ["天氣", "tiānqì", "Thời tiết"], ["空氣", "kōngqì", "Không khí"], ["冷", "lěng", "Lạnh"], ["熱", "rè", "Nóng"], ["雨", "yǔ", "Mưa"], ["下雨", "xiàyǔ", "Trời mưa"], ["風", "fēng", "Gió"], ["山", "shān", "Núi"], ["花", "huā", "Hoa"], ["魚", "yú", "Cá"], ["雞", "jī", "Gà"], ["牛", "niú", "Bò"], ["豬", "zhū", "Heo"], ["咖啡", "kāfēi", "Cà phê"], ["茶", "chá", "Trà"], ["穿", "chuān", "Mặc"], ["起床", "qǐchuáng", "Thức dậy"], ["睡覺", "shuìjiào", "Ngủ"], ["先", "xiān", "Trước"], ["每", "měi", "Mỗi"], ["玩", "wán", "Chơi"], ["運動", "yùndòng", "Vận động"], ["走路", "zǒulù", "Đi bộ"], ["唱歌", "chànggē", "Hát"], ["跳", "tiào", "Nhảy"], ["跳舞", "tiàowǔ", "Nhảy múa"], ["球", "qiú", "Bóng"], ["介紹", "jièshào", "Giới thiệu"], ["裡面", "lǐmiàn", "Bên trong"], ["附近", "fùjìn", "Gần đây"], ["拿", "ná", "Cầm"], ["站", "zhàn", "Đứng"], ["快", "kuài", "Nhanh"], ["慢", "màn", "Chậm"], ["計程車", "jìchéngchē", "Taxi"], ["火車", "huǒchē", "Tàu hỏa"], ["飛機", "fēijī", "Máy bay"], ["手", "shǒu", "Tay"], ["腳", "jiǎo", "Chân"], ["身體", "shēntǐ", "Cơ thể"], ["眼睛", "yǎnjīng", "Mắt"], ["鼻子", "bízi", "Mũi"], ["藥", "yào", "Thuốc"], ["累", "lèi", "Mệt"], ["頭", "tóu", "Đầu"], ["耳朵", "ěrduo", "Tai"], ["感冒", "gǎnmào", "Cảm lạnh"], ["生病", "shēngbìng", "Bị bệnh"], ["餓", "è", "Đói"], ["痛", "tòng", "Đau"], ["嘴巴", "zuǐba", "Miệng"], ["看病", "kànbìng", "Khám bệnh"], ["鞋子", "xiézi", "Giày"], ["衣服", "yīfú", "Quần áo"], ["新", "xīn", "Mới"], ["短", "duǎn", "Ngắn"], ["舊", "jiù", "Cũ"], ["筷子", "kuàizi", "Đũa"], ["杯子", "bēizi", "Cái cốc"], ["菜", "cài", "Món ăn"], ["肉", "ròu", "Thịt"], ["喝", "hē", "Uống"], ["小吃", "xiǎochī", "Món ăn vặt"], ["牛奶", "niúnǎi", "Sữa"], ["蛋", "dàn", "Trứng"], ["麵", "miàn", "Mì"], ["湯", "tāng", "Canh"], ["包子", "bāozi", "Bánh bao"], ["蛋糕", "dàngāo", "Bánh kem"], ["麵包", "miànbāo", "Bánh mì"], ["水果", "shuǐguǒ", "Trái cây"], ["香蕉", "xiāngjiāo", "Chuối"], ["食物", "shíwù", "Thức ăn"], ["飲料", "yǐnliào", "Đồ uống"], ["果汁", "guǒzhī", "Nước ép"], ["甜", "tián", "Ngọt"], ["菜單", "càidān", "Thực đơn"], ["巧克力", "qiǎokèlì", "Sô cô la"], ["碗", "wǎn", "Bát"], ["冰", "bīng", "Đá"], ["一起", "yīqǐ", "Cùng nhau"], ["因為", "yīnwèi", "Bởi vì"], ["所以", "suǒyǐ", "Cho nên"], ["可能", "kěnéng", "Có thể"], ["馬上", "mǎshàng", "Ngay lập tức"]];
+let activeRegion="forest";function activeWords(){return activeRegion==="moon"?MOON_WORDS:WORDS}
+function maxHP(){return CLASSES[player.classId].hp+(player.level-1)*7+equipmentHP(player.level)}
+function defense(){return CLASSES[player.classId].def+Math.floor((combatLevel()-1)/3)*5+equipmentDef()}
+function baseDamage(){return Math.round((CLASSES[player.classId].atk+9+(player.level-1)*3)*(1+equipmentAtk()))}
+const SKILLS={warrior:'連擊斬',mage:'魔法爆發',ranger:'追加射擊',priest:'治療之光'};
+const MONSTERS={moonSlime:{name:'月光史萊姆',hp:450,attack:18,exp:2.2,gold:2,emoji:'🔮',desc:'魔力護盾：每三回合吸收部分傷害'},moonMushroom:{name:'螢光蘑菇',hp:600,attack:22,exp:2.8,gold:2.5,emoji:'🍄',desc:'每三次反擊會釋放強化孢子'},moonBoss:{name:'月影守護者',hp:700,attack:19,exp:4,gold:3.5,emoji:'🦉',desc:'強大的月光守護者，每三次反擊發動重擊'},slime:{name:'森林史萊姆',hp:205,attack:8,exp:1,gold:1,emoji:'🟢',desc:'適合初次冒險'},mushroom:{name:'跳跳蘑菇',hp:250,attack:10,exp:1.3,gold:1.2,emoji:'🍄',desc:'反擊較強；每三次反擊會額外放出孢子'},boss:{name:'森林守衛',hp:400,attack:12,exp:1.8,gold:1.6,emoji:'🌳',desc:'建議 Lv.5；每三次反擊發動重擊'}};
+let selectedMonster='slime';let battle=null;let battleFromExploration=false;let syncedBattleLevel=null;function combatLevel(){return syncedBattleLevel??player.level}function combatMaxHP(){return CLASSES[player.classId].hp+(combatLevel()-1)*7}function combatDefense(){return CLASSES[player.classId].def+Math.floor((combatLevel()-1)/3)*5}function combatDamage(){return CLASSES[player.classId].atk+9+(combatLevel()-1)*3}
+function randShuffle(arr){for(let i=arr.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+function initBattle(){
+  if(!battleFromExploration)syncedBattleLevel=$('teacherSync').checked?Number($('teacherSyncLevel').value):null;
+  clearCombatEffects();
+  const pool=randShuffle([...Array(activeWords().length).keys()]);
+  $('nextQuestion').onclick=nextBattle;
+  $('retryMonster').classList.add('hidden');
+  battle={order:pool,index:0,hp:battleFromExploration?Math.max(1,Math.min(combatMaxHP(),explorationState().hp??combatMaxHP())):combatMaxHP(),maxHp:combatMaxHP(),enemyHp:MONSTERS[selectedMonster].hp,enemyMax:MONSTERS[selectedMonster].hp,monster:selectedMonster,answered:false,done:false,correct:0,firstTry:0,streak:0,mistakes:0,attempts:0,wrongChoices:[],review:[],petCharge:0,petHits:0,enemyHits:0,guard:0,moonGuardUsed:false,combatLog:[]};
+  $('battle').querySelector('h2').textContent=activeRegion==='moon'?'🌙 月光山谷 · 冒險試煉':'🌲 新手森林 · 冒險試煉';$('battleNote').textContent=MONSTERS[selectedMonster].desc+'。戰鬥 Lv.'+combatLevel()+'，最大生命 '+combatMaxHP()+'，防禦 '+combatDefense()+'。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。';$('leaveBattle').textContent=battleFromExploration?(activeRegion==='moon'?'返回月光遠征':'返回森林探索'):(activeRegion==='moon'?'返回月光山谷':'返回森林入口');show('battle');drawArena();renderQuestion();
+}
+function currentWord(){return activeWords()[battle.order[battle.index]]}
+function sayWord(){if(!battle||battle.done)return;let word=currentWord()[0].split('/')[0];if(!('speechSynthesis' in window)){ $('feedback').textContent='此瀏覽器不支援語音朗讀，請改用 Chrome 或支援中文語音的瀏覽器。';return}window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(word);u.lang='zh-TW';u.rate=.78;u.pitch=1;let vs=window.speechSynthesis.getVoices();let v=vs.find(x=>x.lang.toLowerCase()==='zh-tw')||vs.find(x=>x.lang.toLowerCase().startsWith('zh'));if(v)u.voice=v;window.speechSynthesis.speak(u)}
+function renderQuestion(){
+ const w=currentWord();battle.answered=false;battle.attempts=0;battle.wrongChoices=[];
+ const listening=battle.index%2===1;
+ $('stageLabel').textContent=listening?(activeRegion==='moon'?'準備級二':'準備級一')+' · 聽中文選漢字':(activeRegion==='moon'?'準備級二':'準備級一')+' · 中文選'+(window.gameAnswerLanguage?.()==='en'?'英文':'越南文');
+ $('questionType').textContent=listening?'🔊 聽力辨識':'📖 生詞記憶';
+ $('questionPrompt').classList.remove('hidden');$('questionPrompt').textContent=listening?listeningQuestionLabel():w[0];
+ $('replayAudio').classList.toggle('hidden',!listening);
+ $('roundText').textContent='第 '+(battle.index+1)+' 題';
+ $('feedback').textContent=listening?'🔊 自動播放中文發音；需要時可點「再聽一次」。':'請選出正確的越南文意思。';
+ $('nextQuestion').classList.add('hidden');
+ $('battleSkill').textContent=CLASSES[player.classId].icon+' '+CLASSES[player.classId].name+' · '+SKILLS[player.classId];
+ let candidates=randShuffle([...Array(activeWords().length).keys()].filter(i=>i!==battle.order[battle.index] && (listening?activeWords()[i][0]!==w[0]:(window.gameAnswerText?.(activeWords()[i])||activeWords()[i][2])!==(window.gameAnswerText?.(w)||w[2])))).slice(0,3);
+ let indices=randShuffle([battle.order[battle.index],...candidates]);
+ let root=$('answerChoices');root.replaceChildren();
+ indices.forEach(idx=>{let b=document.createElement('button');b.className='answer';b.textContent=activeWords()[idx][listening?0:2];b.dataset.idx=idx;b.onclick=()=>answer(idx,b,listening);root.appendChild(b)});
+ $('streakLabel').textContent='🔥 連擊 '+battle.streak+' · 🐉 '+battle.petCharge+'/2';
+ updateTeacherHints();updateBattleHUD();drawArena();
+ // 每次切換到聽力題都自動朗讀；檢查題目索引避免延遲播放上一題。
+ if(listening){const currentBattle=battle,currentIndex=battle.index;setTimeout(()=>{if(battle===currentBattle&&!battle.done&&!battle.answered&&battle.index===currentIndex)sayWord()},300)}
+}
+function updateTeacherHints(){
+ if(!battle||battle.done)return;
+ const on=$('teacherMode').checked;
+ const listening=battle.index%2===1;
+ const words=activeWords();
+ document.querySelectorAll('.answer').forEach(b=>{
+  const idx=Number(b.dataset.idx),w=words[idx];
+  if(!w)return;
+  // 聽力題維持只有漢字，不洩漏答案；生詞題的教師模式才加中文註解。
+  b.textContent=listening?w[0]:(window.gameAnswerText?.(w)||w[2])+(on?'\n（'+w[0]+'）':'');
+  b.style.whiteSpace=on&&!listening?'pre-line':'';
+ });
+}
+function listeningQuestionLabel(){const lang=document.getElementById('gameLanguage')?.value||'zh';return lang==='en'?'🔊 Listen to the Question':lang==='vi'?'🔊 Hãy nghe câu hỏi':'🔊 請聽題目';}
+function answer(idx,button,listening){
+ if(!battle||battle.answered||battle.done)return;
+ let right=battle.order[battle.index],correct=idx===right,w=currentWord();
+ battle.attempts++;
+ if(!correct){
+  battle.mistakes++;battle.streak=0;
+  if(!battle.review.includes(right))battle.review.push(right);
+  button.classList.add('wrong');button.disabled=true;
+  battle.wrongChoices.push(idx);
+  $('streakLabel').textContent='🔥 連擊 0';
+  combatLog([{icon:'❌',kind:'hurt-line',text:battle.attempts===1?'答錯了，先看提示再試一次。':'再試一次！正確答案已標示。'},{icon:'❤️',kind:'hurt-line',text:'生命 -5 HP'},{icon:'📖',kind:'word-line',text:w[0]+'（'+w[1]+'）＝ '+(window.gameAnswerText?.(w)||w[2])}]);
+  if(battle.attempts>=2){document.querySelectorAll('.answer').forEach(b=>{if(Number(b.dataset.idx)===right)b.classList.add('correct')})}
+  battle.hp=Math.max(0,battle.hp-5);showCombatEffect('💢 答錯 -5 HP','hurt');updateBattleHUD();drawArena();if(battle.hp===0)finishBattle(false);return;
+ }
+ battle.answered=true;
+ document.querySelectorAll('.answer').forEach(b=>{b.disabled=true;if(Number(b.dataset.idx)===right)b.classList.add('correct')});
+ const first=battle.attempts===1;
+ if(first){battle.correct++;battle.firstTry++;battle.streak++}else battle.streak=0;
+ let damage=first?combatDamage():Math.max(7,Math.floor(combatDamage()*.5));
+ let effects=[];
+ if(first){
+  if(battle.streak>=3){let bonus=16+Math.floor((combatLevel()-1)/3)*2;damage+=bonus;effects.push('🔥 三連擊 +'+bonus);battle.streak=0}
+  if(player.classId==='warrior'&&battle.correct%2===0){let bonus=10+Math.floor((combatLevel()-1)/3)*2;damage+=bonus;effects.push('⚔️ 連擊斬 +'+bonus)}
+  if(player.classId==='mage'&&battle.correct%3===0){let bonus=19+Math.floor((combatLevel()-1)/3)*3;damage+=bonus;effects.push('🔮 魔法爆發 +'+bonus)}
+  if(player.classId==='ranger'&&Math.random()<.4){let bonus=12+Math.floor((combatLevel()-1)/3)*2;damage+=bonus;effects.push('🏹 追加射擊 +'+bonus)}
+  if(player.classId==='priest'&&battle.firstTry%2===0){const heal=8+Math.floor((combatLevel()-1)/3)*2;const recovered=Math.min(heal,battle.maxHp-battle.hp);battle.hp+=recovered;effects.push('✨ 治療之光 +'+recovered+' HP')}
+  battle.petCharge++;
+  if(battle.petCharge>=2){battle.petCharge=0;let petDamage=petBaseAttack();damage+=petDamage;battle.petHits++;effects.push('🐉 豆芽噴火 +'+petDamage)}
+ }
+ if(battle.monster==='moonSlime' && (battle.index+1)%3===0){const shield=Math.round(damage*.25);damage-=shield;effects.push('🔮 月光護盾吸收 '+shield+' 傷害')}
+ battle.enemyHp=Math.max(0,battle.enemyHp-damage);
+ // 每題完成後怪物反擊一次；不會讓初學者直接遊戲結束。
+ let counter=0;
+ if(battle.enemyHp>0){const mon=MONSTERS[battle.monster];counter=Math.max(activeRegion==='moon'?5:2,mon.attack-Math.floor(combatDefense()/5));battle.enemyHits++;if(battle.monster!=='slime' && battle.monster!=='moonSlime'&&battle.enemyHits%3===0){counter+=battle.monster==='boss'?8:(battle.monster==='moonBoss'?7:(activeRegion==='moon'?12:4));effects.push(battle.monster==='boss'?'🌳 守衛重擊！':'🍄 孢子爆發！')}if(ensurePetCare().evolutions>=2&&!battle.moonGuardUsed){const affinity=ensurePetCare().affection;if(Math.random()*100<affinity){battle.moonGuardUsed=true;const shield=Math.max(1,Math.round(counter*.20));counter-=shield;effects.push('🌙 月光庇護成功！減少 '+shield+' 傷害')}else{effects.push('🌙 月光庇護未成功（親密度 '+affinity+'%），下次反擊可再嘗試')}}battle.hp=Math.max(0,battle.hp-counter);effects.push('⚔️ 敵人反擊 -'+counter+' HP')}
+ $('streakLabel').textContent='🔥 連擊 '+battle.streak+' · 🐉 '+battle.petCharge+'/2';
+ combatLog([{icon:first?'✅':'📝',kind:'attack-line',text:first?'首次作答正確！':'訂正成功！'},{icon:'⚔️',kind:'attack-line',text:'造成 '+damage+' 點傷害'},...effects.map(e=>({icon:'✨',kind:e.includes('反擊')?'hurt-line':'',text:e})),{icon:'📖',kind:'word-line',text:w[0]+'（'+w[1]+'）＝ '+(window.gameAnswerText?.(w)||w[2])}]);
+ showCombatEffect('-'+damage+(battle.petCharge===0&&first?' 🐉':''),'attack');
+ updateBattleHUD();drawArena(true);
+ if(battle.enemyHp===0){finishBattle(true);return;}if(battle.hp===0){finishBattle(false);return;}$('nextQuestion').textContent='下一題 →';$('nextQuestion').classList.remove('hidden');
+}
+function updateBattleHUD(){if(!battle)return;$('enemyBar').style.width=(battle.enemyHp/battle.enemyMax*100)+'%';$('enemyName').textContent=MONSTERS[battle.monster].name+' · HP '+battle.enemyHp+'/'+battle.enemyMax;$('battleHP').textContent='❤️ 生命 '+battle.hp+' / '+battle.maxHp}
+function nextBattle(){if(!battle||!battle.answered||battle.done)return;if(battle.enemyHp<=0){finishBattle(true);return}if(battle.hp<=0){finishBattle(false);return}battle.index++;if(battle.index>=battle.order.length){battle.order.push(...randShuffle([...Array(activeWords().length).keys()]));}renderQuestion()}
+function finishBattle(won){
+ if(!battle||battle.done)return;battle.done=true;
+ // 完成全部八題才有獎勵；訂正可通關，首次答對才有額外獎勵。
+ let exp=won?Math.round((16+battle.firstTry*6)*MONSTERS[battle.monster].exp):0,coins=won?Math.round((8+battle.firstTry*3)*MONSTERS[battle.monster].gold):0;
+ if(won&&battle.firstTry===battle.index+1){exp+=Math.round(15*MONSTERS[battle.monster].exp);coins+=Math.round(8*MONSTERS[battle.monster].gold)}
+ // 月光山谷怪物經驗為原本80%；新手森林維持100%。
+ if(activeRegion==='moon')exp=Math.round(exp*.8);
+ player.exp+=exp;player.gold+=coins;
+ const oldLevel=player.level,oldExp=player.exp-exp,oldPetLevel=player.pet.level;let leveled=0;while(player.exp>=expNeeded(player.level)){player.exp-=expNeeded(player.level);player.level++;leveled++}
+ if(won){const pet=ensurePetCare();if(pet.level<10){pet.exp+=10;while(pet.exp>=50&&pet.level<10){pet.exp-=50;pet.level++}if(pet.level>=10)pet.exp=0}}
+ const petDrops=won&&activeRegion==='moon'?moonPetLoot(battle.monster):[];
+ if(battleFromExploration){const es=explorationState();es.hp=won?Math.min(combatMaxHP(),Math.max(1,battle.hp)+Math.max(1,Math.floor(combatMaxHP()*.15))):Math.max(0,battle.hp);if(es.bossPending){es.bossPending=false;es.finished=true;es.won=won;if(won){es.clears=(es.clears||0)+1;player.unlocks=player.unlocks||{};(activeRegion==='moon'?player.unlocks.moonCleared=true:player.unlocks.forestCleared=true);player.gold+=activeRegion==='moon'?90:40;player.exp+=activeRegion==='moon'?Math.round(90*.8):50;while(player.exp>=expNeeded(player.level)){player.exp-=expNeeded(player.level);player.level++}}}}
+ try{safeWriteSave(player)}catch(e){alert('本次獎勵已計入畫面，但瀏覽器無法儲存，請確認儲存空間。')}
+ const correct=battle.firstTry,total=battle.index+1;
+ const tile=(icon,label,value)=>`<div class="result-tile"><span class="tile-icon">${icon}</span><span class="tile-label">${label}</span><strong>${value}</strong></div>`;
+ const levelLabel=`Lv.${oldLevel} → Lv.${player.level}`;
+ const expLabel=leveled?`升級後 ${player.exp} / ${expNeeded(player.level)} EXP`:`${oldExp} → ${player.exp} / ${expNeeded(player.level)} EXP`;
+ const review=battle.review.length?`<div class="result-review">📖 待複習：${battle.review.map(i=>escapeHTML(activeWords()[i][0])).join('、')}</div>`:'';
+ const levelUp=leveled?`<div class="result-levelup"><strong>🎉 LEVEL UP！</strong><span>${levelLabel} · ❤️ +${leveled*7} · ⚔️ +${leveled*3} · 🛡️ +${defense()-(CLASSES[player.classId].def+Math.floor((oldLevel-1)/3)*5)}</span></div>`:'';
+ const petUp=player.pet.level>oldPetLevel?`<div class="result-levelup"><strong>🐉 小龍升級！</strong><span>Lv.${oldPetLevel} → Lv.${player.pet.level}</span></div>`:'';
+ $('feedback').innerHTML=`<div class="result-panel" role="status">
+  <div class="result-head"><span class="result-symbol">${won?'🏆':'💔'}</span><strong>${won?'戰鬥勝利！':'戰鬥失敗'}</strong><small>${escapeHTML(MONSTERS[battle.monster].name)}${won?'已被擊敗':' · 再接再厲'}</small></div>
+  <div class="result-grid">
+   ${tile('✅','首次作答正確',`${correct} / ${total}`)}
+   ${tile('🎯','答錯次數',battle.mistakes)}
+   ${tile('✨','獲得經驗',`+${exp} EXP`)}
+   ${tile('🪙','獲得金幣',`+${coins}`)}
+  </div>
+  <div class="result-progress">
+   <div class="result-progress-title"><b>⭐ 角色等級</b><b>${levelLabel}</b></div>
+   <div class="result-track"><div style="width:${Math.max(0,Math.min(100,player.exp/expNeeded(player.level)*100))}%"></div></div>
+   <small>${expLabel}</small>
+  </div>
+  ${levelUp}${petUp}
+  ${petDrops.length?`<div class="result-review">🎒 月光素材：${petDrops.join('、')}</div>`:''}
+  <div class="result-foot"><span>🐉 小龍協助 ${battle.petHits} 次</span><span>🌳 怪物反擊 ${battle.enemyHits} 次</span></div>
+  ${review}
+ </div>`;
+ $('answerChoices').replaceChildren();$('questionPrompt').textContent='';$('questionPrompt').classList.add('hidden');$('replayAudio').classList.add('hidden');$('nextQuestion').textContent=battleFromExploration?'🧭 繼續遠征':(activeRegion==='moon'?'🌙 返回月光山谷':'🌲 返回森林入口');$('nextQuestion').classList.remove('hidden');$('nextQuestion').onclick=()=>{const fromExplore=battleFromExploration;battle=null;battleFromExploration=false;$('retryMonster').classList.add('hidden');$('nextQuestion').onclick=nextBattle;if(fromExplore)resumeExploration();else returnToRegion()};$('retryMonster').classList.toggle('hidden',battleFromExploration&&explorationState().finished);$('retryMonster').onclick=()=>{const monster=battle.monster;const fromExplore=battleFromExploration;startRoute(monster,fromExplore)};
+ $('battleNote').textContent='錯題：'+(battle.review.map(i=>activeWords()[i][0]).join('、')||'無')+'。擊敗怪物即可獲勝；生命歸零則失敗。';drawArena();
+}
+function drawArena(attack=false){
+ const canvas=$('arena'),ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+ rect(ctx,0,0,640,280,activeRegion==='moon'?'#4b548a':'#9ed4bc');rect(ctx,0,208,640,72,activeRegion==='moon'?'#6265a1':'#83b67e');
+ for(let i=0;i<12;i++){let x=i*61+12;rect(ctx,x,55+(i%3)*17,22,160,'#557e67');rect(ctx,x-18,35+(i%3)*17,59,66,'#458d68');rect(ctx,x-10,18+(i%3)*17,44,55,'#65aa79')}
+ rect(ctx,0,222,640,8,'#d5bf83');for(let i=0;i<32;i++)rect(ctx,i*23,240+(i%3)*9,7,4,'#689e6a');
+ sprite(ctx,116+(attack?22:0),100,2.8,player.classId,player.lookId);dragon(ctx,222,166,1.7,player.pet?.level||1);
+ if((!battle||battle.enemyHp>0)&&(!battle||battle.monster==='slime')){rect(ctx,448,153,104,61,'#459a7d');rect(ctx,462,122,76,40,'#65c3a1');rect(ctx,478,145,9,11,'#263b4a');rect(ctx,515,145,9,11,'#263b4a');rect(ctx,487,177,29,6,'#367b67');rect(ctx,452,204,20,12,'#3e8b74');rect(ctx,526,204,20,12,'#3e8b74');rect(ctx,469,118,13,10,'#b8e8ba')}
+ if(battle&&battle.enemyHp>0&&battle.monster==='mushroom'){rect(ctx,453,165,96,47,'#dfb7a3');rect(ctx,468,123,66,53,'#bb4c62');rect(ctx,451,151,100,25,'#bb4c62');rect(ctx,476,139,13,10,'#fff0d2');rect(ctx,514,149,13,10,'#fff0d2');rect(ctx,479,183,8,10,'#302b39');rect(ctx,517,183,8,10,'#302b39')}
+ if(battle&&battle.enemyHp>0&&battle.monster==='boss'){rect(ctx,459,130,86,85,'#78654b');rect(ctx,450,107,104,48,'#477e56');rect(ctx,463,85,78,45,'#5a9b66');rect(ctx,474,154,12,12,'#f7d986');rect(ctx,519,154,12,12,'#f7d986');rect(ctx,489,185,27,6,'#2e4538');rect(ctx,438,169,25,14,'#78654b');rect(ctx,543,169,25,14,'#78654b')}
+ if(battle&&battle.enemyHp>0&&battle.monster.startsWith('moon')){const slime=battle.monster==='moonSlime',mush=battle.monster==='moonMushroom';rect(ctx,453,slime?153:130,95,slime?63:84,slime?'#8b84e7':mush?'#5c8db7':'#6576bd');rect(ctx,464,slime?132:105,74,40,slime?'#aaa3ff':mush?'#ba7bd1':'#8d9ce1');rect(ctx,476,160,10,11,'#f5efff');rect(ctx,516,160,10,11,'#f5efff');rect(ctx,481,164,4,5,'#30365e');rect(ctx,520,164,4,5,'#30365e');if(!slime){rect(ctx,443,118,104,17,mush?'#e8a1df':'#c9c6ff');rect(ctx,467,93,60,24,mush?'#c77bd5':'#c2b3ff')}}
+ if(attack){
+  // Class-specific attack animations: only priests display the healing cross.
+  const cls=player.classId;
+  if(cls==='warrior'){
+   // Forward thrust: a long steel blade, sharp point, dark guard and leather grip.
+   // Motion trails are icy blue instead of the priest's gold.
+   rect(ctx,321,145,107,3,'#8db5dc');rect(ctx,335,152,95,3,'#b8d7f2');
+   rect(ctx,334,164,103,13,'#708ea8');rect(ctx,338,165,100,8,'#e8f5ff');
+   rect(ctx,345,166,91,3,'#ffffff');
+   for(let i=0;i<16;i++)rect(ctx,438+i,164+Math.floor(i/3),1,Math.max(1,13-Math.floor(i/2)),'#c9e4f8');
+   rect(ctx,328,154,8,34,'#455a77');rect(ctx,313,168,30,6,'#455a77');
+   rect(ctx,294,169,23,5,'#93694d');rect(ctx,288,166,8,11,'#b9d7ef');
+    }else if(cls==='ranger'){
+   // A fast horizontal shot: feathered tail, narrow shaft, steel point, and trailing green streaks.
+   // The arrow points right toward the enemy, parallel to the warrior's forward thrust.
+   rect(ctx,299,151,99,2,'#75d9ad');rect(ctx,315,169,88,2,'#a0f2cb');
+   rect(ctx,340,159,102,4,'#805b39');rect(ctx,350,159,91,2,'#f1d39b');
+   // Fletching stays at the rear of the projectile.
+   rect(ctx,332,151,8,8,'#53bd91');rect(ctx,336,154,10,5,'#a6f4d2');
+   rect(ctx,332,163,8,8,'#53bd91');rect(ctx,336,163,10,5,'#a6f4d2');
+   // Silver arrowhead, pointed on the right.
+   rect(ctx,440,155,9,12,'#bcd8e0');rect(ctx,449,157,7,8,'#e6f7fb');
+   rect(ctx,456,159,5,4,'#ffffff');
+   // Small particles trail behind rather than surrounding the priest's healing effect.
+   rect(ctx,310,158,12,2,'#b8ffe0');rect(ctx,290,164,18,2,'#6ad5a4');
+  }else if(cls==='mage'){
+   // Purple magic orb and sparkles.
+   rect(ctx,374,139,29,29,'#9e7ae3');rect(ctx,381,132,15,43,'#c5a2ff');
+   rect(ctx,367,146,43,15,'#c5a2ff');rect(ctx,385,143,8,10,'#fff4ff');
+   rect(ctx,354,126,7,7,'#e5d2ff');rect(ctx,419,171,7,7,'#e5d2ff');
+  }else if(cls==='priest'){
+   // Golden healing cross is reserved for the priest.
+   rect(ctx,345,148,58,7,'#fff2a0');rect(ctx,385,134,9,36,'#fff2a0');
+  }
+ }
+}
+function clearCombatEffects(){const f=$('floatDamage');f.classList.remove('pop');f.textContent='';$('arena').classList.remove('arenaHit');const flash=$('skillFlash');flash.classList.remove('on','projectileFlash');flash.style.background='transparent'}
+function showCombatEffect(message,type){
+ const f=$('floatDamage');f.textContent=message;f.style.color=type==='hurt'?'#ff9b9b':'#ffdf67';
+ f.classList.remove('pop');void f.offsetWidth;f.classList.add('pop');
+ const flash=$('skillFlash');flash.classList.remove('on','projectileFlash');if(type!=='hurt'&&(player.classId==='warrior'||player.classId==='ranger'))flash.classList.add('projectileFlash');flash.style.background=type==='hurt'?'radial-gradient(circle at 28% 55%,#ff888877,transparent 43%)':player.classId==='mage'?'radial-gradient(circle at 70% 55%,#ad83ff99,transparent 44%)':player.classId==='priest'?'radial-gradient(circle at 40% 55%,#ffe38e99,transparent 43%)':player.classId==='ranger'?'linear-gradient(90deg,transparent 0%,#75dba566 30%,#c6ffe6cc 73%,transparent 100%)':'linear-gradient(90deg,transparent 0%,#7caee688 30%,#e2f5ffdd 73%,transparent 100%)';void flash.offsetWidth;flash.classList.add('on');const arena=$('arena');arena.classList.remove('arenaHit');void arena.offsetWidth;arena.classList.add('arenaHit');
+}
+function updateMapUnlock(){
+ const cleared=!!(player.unlocks&&player.unlocks.forestCleared)||!!(player.exploration&&player.exploration.clears>0);
+ if(cleared){player.unlocks=player.unlocks||{};player.unlocks.forestCleared=true;}
+ const node=$('mapProgress');if(!node)return;
+ node.innerHTML=cleared
+ ? '<strong>🏆 新手森林遠征：已通關</strong><div>🔓 月光山谷已開放！請返回村莊進入新地圖。</div><small>目前開放準備級二的練習戰鬥。</small>'
+ : '<strong>🗺️ 地圖解鎖進度</strong><div>🌲 新手森林：已開放（普通關卡為自由練習）</div><div>🔒 月光山谷：須擊敗新手森林遠征 Boss 才能解鎖</div><small>普通關卡不計入地圖解鎖；遠征通關紀錄會永久保存在角色存檔中。</small>';
+}
+function openForest(){if(!player)return;activeRegion='forest';show('forest');updateMapUnlock();drawForestMap();$('lastMonster').textContent='上次挑戰：'+(MONSTERS[selectedMonster]?.name||'尚未挑戰')+'（請選擇怪物開始戰鬥）'}
+function drawForestMap(){const c=$('forestMap'),ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;rect(ctx,0,0,640,290,'#a4d5b0');for(let i=0;i<11;i++){let x=i*64+8;rect(ctx,x,65+(i%3)*12,22,150,'#618f70');rect(ctx,x-10,34+(i%3)*12,45,65,'#458a60');rect(ctx,x-4,20+(i%3)*12,33,44,'#6db17c')}rect(ctx,0,225,640,65,'#87bd85');rect(ctx,0,225,640,8,'#d6c48b');sprite(ctx,105,147,2,player.classId,player.lookId);dragon(ctx,170,183,1.25);rect(ctx,350,190,50,33,'#4aa184');rect(ctx,359,175,34,22,'#70cba5');rect(ctx,366,190,5,6,'#29334b');rect(ctx,383,190,5,6,'#29334b');rect(ctx,452,190,44,33,'#e0bca7');rect(ctx,447,174,54,20,'#ba5363');rect(ctx,458,181,7,6,'#fff1d4');rect(ctx,484,181,7,6,'#fff1d4');rect(ctx,545,160,55,65,'#80694c');rect(ctx,536,142,72,35,'#4f9060');rect(ctx,547,127,50,26,'#6aae76');rect(ctx,552,181,8,8,'#f9df88');rect(ctx,583,181,8,8,'#f9df88')}
+function startRoute(type,fromExplore=false){activeRegion=type.startsWith('moon')?'moon':'forest';battleFromExploration=fromExplore;selectedMonster=type;$('nextQuestion').onclick=nextBattle;initBattle()}
+ $('forestBtn').onclick=openForest;
+$('moonBtn').onclick=()=>{if(!player.unlocks?.forestCleared && !(player.exploration?.clears>0)){alert('請先完成新手森林 20 步遠征，擊敗森林守衛，才能進入月光山谷！');return}activeRegion='moon';show('moon');drawMoonMap()};
+$('moonBack').onclick=hub;const oldMoonClick=$('moonBtn').onclick;$('moonBtn').onclick=()=>{oldMoonClick();if(document.getElementById('moon').classList.contains('active')){const cleared=!!player.unlocks?.moonCleared;$('moonProgress').textContent=cleared?'🏆 月光山谷遠征已通關！入門級祕境已解鎖。':'🌙 挑戰 25 步遠征並擊敗月影守護者，才能解鎖下一張地圖。'}};
+$('moonSlime').onclick=()=>startRoute('moonSlime');$('moonMushroom').onclick=()=>startRoute('moonMushroom');$('moonBoss').onclick=()=>startRoute('moonBoss');
+function returnToRegion(){if(activeRegion==='moon'){$('moonBtn').click()}else openForest()}
+function drawMoonMap(){const c=$('moonMap'),ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;rect(ctx,0,0,640,290,'#252d5d');for(let i=0;i<45;i++){let x=(i*137+21)%640,y=(i*79+13)%200;rect(ctx,x,y,3+(i%3),3+(i%3),i%2?'#a4a8e9':'#cce9ff')}rect(ctx,490,25,70,70,'#f4e8ba');rect(ctx,0,214,640,76,'#424d87');for(let i=0;i<10;i++){let x=i*73;rect(ctx,x+14,85,20,133,'#394572');rect(ctx,x,60+(i%3)*12,53,60,'#5964a1');rect(ctx,x+10,43+(i%3)*12,32,32,'#7780c5')}rect(ctx,0,220,640,8,'#9d8ec8');sprite(ctx,95,141,2,player.classId,player.lookId);dragon(ctx,165,170,1.35,player.pet?.level||1);for(let i=0;i<5;i++){let x=315+i*54;rect(ctx,x,194,19,26,'#6ac8d4');rect(ctx,x+5,180,9,18,'#b3f5f4')}}
+$('forestBack').onclick=hub;
+ $('slimeRoute').onclick=()=>startRoute('slime');
+ $('mushroomRoute').onclick=()=>startRoute('mushroom');
+ $('bossRoute').onclick=()=>startRoute('boss');
+$('teacherMode').onchange=updateTeacherHints;const syncChange=()=>{if(battle&&!battle.done){alert('等級同步設定會在下一場戰鬥生效。');}};$('teacherSync').onchange=syncChange;$('teacherSyncLevel').onchange=syncChange;$('moonTeacherSync').onchange=()=>{$('teacherSync').checked=$('moonTeacherSync').checked;};$('moonTeacherLevel').onchange=()=>{$('teacherSyncLevel').value=$('moonTeacherLevel').value;};
+$('leaveBattle').onclick=()=>{if(window.speechSynthesis)window.speechSynthesis.cancel();const fromExplore=battleFromExploration;if(fromExplore&&battle&&!battle.done){if(!confirm(window.gameConfirmText('leaveBattle')))return;explorationState().hp=Math.max(1,battle.hp);saveExploration()}battle=null;battleFromExploration=false;if(fromExplore)resumeExploration();else returnToRegion()};
+$('replayAudio').onclick=sayWord;
+$('nextQuestion').onclick=nextBattle;
+
+
+// Alpha 1.7：遠征進度沿用角色存檔與備份格式；舊版無限步數不帶入新遠征。
+const EXPEDITION_LENGTH=20;function expeditionLength(){return activeRegion==='moon'?25:20}function regionTitle(){return activeRegion==='moon'?'月光山谷':'新手森林'}
+function saveExploration(){try{safeWriteSave(player);return true}catch(e){$('exploreMessage').textContent='⚠️ 無法儲存探索進度，請先備份並確認瀏覽器儲存權限。';return false}}
+function explorationState(){
+ const field=activeRegion==='moon'?'moonExploration':'exploration';if(!player[field]||typeof player[field]!=='object')player[field]={steps:0,finds:0,hp:combatMaxHP(),inventory:{herb:0}};
+ const e=player[field];e.inventory=e.inventory||{herb:0};
+ if(!Number.isFinite(e.hp))e.hp=combatMaxHP();e.hp=Math.max(0,Math.min(combatMaxHP(),e.hp));
+ if(e.expeditionVersion!==(activeRegion==='moon'?23:17)){e.steps=0;e.active=false;e.finished=false;e.won=false;e.bossPending=false;e.expeditionVersion=activeRegion==='moon'?23:17;}
+ return e;
+}
+function beginExpedition(){if(activeRegion==='moon'){$('teacherSync').checked=$('moonTeacherSync').checked;$('teacherSyncLevel').value=$('moonTeacherLevel').value;}syncedBattleLevel=$('teacherSync').checked?Number($('teacherSyncLevel').value):null;const e=explorationState();e.steps=0;e.hp=combatMaxHP();e.active=true;e.finished=false;e.won=false;e.bossPending=false;e.startGold=player.gold;e.startLevel=player.level;e.startExp=player.exp;e.startHerb=e.inventory.herb||0;e.encounters=0;e.heals=0;e.traps=0;e.stepsWithoutHealing=0;e.herbsUsed=0;e.consecutiveEncounters=0;e.negativeStreak=0;e.bossCampUsed=false;saveExploration();enterExploration()}
+function retreatExpedition(){const e=explorationState();e.active=false;e.finished=false;e.bossPending=false;saveExploration();returnToRegion()}
+function finishExpedition(){
+ const e=explorationState();e.active=false;saveExploration();show('explore');drawExploration(e.won?'chest':'path');
+ const gold=player.gold-e.startGold;
+ const herb=(e.inventory.herb||0)-(e.startHerb||0);
+ const title=e.won?(activeRegion==='moon'?'🏆 月光山谷遠征完成！':'🏆 新手森林遠征完成！'):'💔 遠征失敗';
+ const unlock=activeRegion==='moon'?'🔓 已解鎖入門級祕境！':'🔓 月光山谷已解鎖';
+ $('exploreMessage').innerHTML=
+ '<strong>'+title+'</strong>'+
+ '<div style="margin-top:9px">👣 '+e.steps+' / '+expeditionLength()+'</div>'+
+ '<div>⚔️ ×'+(e.encounters||0)+'　🪤 ×'+(e.traps||0)+'　🔥💧 ×'+(e.heals||0)+'</div>'+
+ '<div>🪙 '+(gold>=0?'+':'')+gold+'　🌿 '+(herb>=0?'+':'')+herb+'</div>'+
+ (e.won?'<div>🎁 首領通關獎勵已領取！</div><div>'+unlock+'</div>':'<div>可以重新出發挑戰！</div>');
+ exploreOptions([['🧭 再次遠征',beginExpedition],['🏡 撤退並保留獎勵',retreatExpedition]]);
+}
+function drawExploration(event='path'){
+ const c=$('exploreCanvas'),ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;
+ rect(ctx,0,0,640,290,activeRegion==='moon'?'#343b72':'#a5d6b7');rect(ctx,0,225,640,65,activeRegion==='moon'?'#5b6196':'#83b982');
+ for(let i=0;i<11;i++){const x=i*64+8;rect(ctx,x,68+(i%3)*12,22,158,'#608d70');rect(ctx,x-10,35+(i%3)*12,45,64,activeRegion==='moon'?'#535f9b':'#43865d');rect(ctx,x-4,18+(i%3)*12,33,45,activeRegion==='moon'?'#7c84c7':'#6eaf7c')}
+ rect(ctx,0,226,640,8,activeRegion==='moon'?'#b5a6d9':'#d9c48b');if(activeRegion==='moon'){rect(ctx,545,14,50,50,'#f5e5a8');for(let j=0;j<18;j++)rect(ctx,(j*71+13)%640,(j*43+9)%120,3,3,'#d3d6ff')}sprite(ctx,90,148,2,player.classId,player.lookId);dragon(ctx,165,183,1.35,player.pet.level);
+ const x=385,y=163;
+ if(event==='chest'){rect(ctx,x,y+30,96,54,'#9a603a');rect(ctx,x-4,y+22,104,22,'#e4a94d');rect(ctx,x+42,y+27,16,42,'#ffe19b');rect(ctx,x+44,y+45,12,9,'#59442c')}
+ else if(event==='herb'){for(let i=0;i<5;i++){rect(ctx,x+i*22,y+45-(i%2)*16,13,40,'#3c9361');rect(ctx,x+i*22-10,y+35-(i%2)*16,20,13,'#72bf75');rect(ctx,x+i*22+5,y+18-(i%2)*16,16,16,'#9ddc89')}}
+ else if(event==='stone'){rect(ctx,x,y,106,86,'#8e9a9b');rect(ctx,x+10,y-14,86,18,'#b5c0b8');rect(ctx,x+25,y+17,54,9,'#dae1cc');rect(ctx,x+32,y+41,42,8,'#dae1cc')}
+ else if(event==='camp'){for(let i=0;i<4;i++)rect(ctx,x+i*19,y+66,35,12,'#865b40');rect(ctx,x+30,y+8,35,57,'#f8b64d');rect(ctx,x+42,y-13,20,42,'#ffe27c');rect(ctx,x+19,y+32,24,29,'#ed7444')}
+ else if(event==='trap'){rect(ctx,x,y+62,135,20,'#77593d');for(let i=0;i<6;i++){rect(ctx,x+i*23,y+22,10,44,'#a9aeb1');rect(ctx,x+i*23+3,y+9,4,16,'#e9e9d5')}}
+ else if(event==='spring'){rect(ctx,x-25,y+50,170,40,'#66bbd4');rect(ctx,x,y+38,120,20,'#a2e9f0');rect(ctx,x+40,y-12,24,46,'#7bd3e7')}
+ else if(event==='monster'){rect(ctx,x,y+35,86,48,'#47a486');rect(ctx,x+15,y+5,57,45,'#6dcaa6');rect(ctx,x+24,y+39,8,10,'#263b4a');rect(ctx,x+54,y+39,8,10,'#263b4a')}
+ else if(event==='boss'){rect(ctx,x,y+24,96,62,'#79614a');rect(ctx,x-10,y,115,42,'#477e56');rect(ctx,x+12,y-23,75,37,'#5a9b66');rect(ctx,x+20,y+45,12,12,'#ffe397');rect(ctx,x+65,y+45,12,12,'#ffe397')}
+ else if(event==='quiet'){rect(ctx,x+35,y+23,16,56,'#f5c852');rect(ctx,x+12,y+42,65,15,'#fff1a8')}
+ else {rect(ctx,x+30,y+40,35,42,'#9f7046');rect(ctx,x+18,y+28,60,22,'#76b87a')}
+ $('exploreSteps').textContent=explorationState().steps;renderExploreStatus();
+}
+function renderExploreStatus(){const e=explorationState();const t=$('exploreStatus');if(t)t.textContent='❤️ 探索生命 '+e.hp+' / '+combatMaxHP()+'　🌿 藥草 ×'+(e.inventory.herb||0)+'（已用 '+(e.herbsUsed||0)+'/3）';$('expeditionProgress').textContent=e.steps+' / '+expeditionLength()+' 步';$('expeditionBar').style.width=Math.min(100,e.steps/expeditionLength()*100)+'%'}
+function exploreOptions(items){const host=$('exploreOptions');host.replaceChildren();items.forEach(([label,fn])=>{const b=document.createElement('button');b.textContent=label;b.onclick=fn;host.appendChild(b)});const e=explorationState();if(e.active&&!e.finished&&!e.bossPending&&(e.inventory.herb||0)>0&&(e.herbsUsed||0)<3&&e.hp>0&&e.hp<combatMaxHP()){const b=document.createElement('button');b.textContent='🌿 使用藥草補血（剩餘 '+(3-(e.herbsUsed||0))+' 次）';b.onclick=()=>{if(!e.active||e.hp<=0||e.hp>=combatMaxHP()||!e.inventory.herb||e.herbsUsed>=3)return;const gain=Math.min(combatMaxHP()-e.hp,Math.max(1,Math.floor(combatMaxHP()*.40)));e.inventory.herb--;e.herbsUsed++;e.hp+=gain;e.stepsWithoutHealing=0;saveExploration();renderExploreStatus();$('exploreMessage').textContent='🌿 使用一株藥草，恢復 '+gain+' 點生命！本次遠征已使用 '+e.herbsUsed+'/3 株。';exploreOptions(items)};host.appendChild(b)}}
+function resumeExploration(){const e=explorationState();if(e.finished){finishExpedition();return}enterExploration();drawExploration('path');if(e.hp<=0){e.finished=true;e.won=false;finishExpedition();return}$('exploreMessage').textContent='🧭 戰鬥結束！若獲勝已恢復 15% 最大生命。距離森林深處還有 '+(expeditionLength()-e.steps)+' 步。';exploreOptions([['👣 繼續探索',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}
+function enterExploration(){if(!player)return;const e=explorationState();$('explore').querySelector('h2').textContent=activeRegion==='moon'?'🌙 月光山谷遠征':'🧭 森林探索';$('explore').querySelector('header.intro p').textContent=activeRegion==='moon'?'跟豆芽一起探索月光山谷！':'跟豆芽一起尋找森林裡的驚喜！';$('explore').querySelector('.body > p.muted').dataset.region=activeRegion;$('exploreBack').textContent=activeRegion==='moon'?'返回月光山谷':'返回森林入口';const exploreSubtitle=$('explore').querySelector('.body > p.muted');$('explore').querySelector('.result-progress small').textContent=activeRegion==='moon'?'🌙 山谷入口 → 🦉 月影守護者':'🏕️ 森林入口 → 👑 森林深處';$('explore').querySelector('.body > p.muted').textContent='每次遠征共 '+expeditionLength()+' 步。勝利後恢復 15% 生命；前 5 步降低遇敵機率，最多連續遇敵 2 次；每次遠征最多 4 個陷阱，連續 2 次危險後優先出現恢復事件。月光山谷首領前有一次免費休息（恢復 60% 生命）。藥草恢復 40% 最大生命，營火恢復 30%；藥草可在探索途中主動使用（每次遠征最多 3 株）。終點須擊敗首領才能解鎖下一張地圖。';if(!e.active||e.finished){beginExpedition();return}show('explore');if(e.bossPending){showBossApproach();return}drawExploration('path');$('exploreMessage').textContent='🧭 你和豆芽走進'+regionTitle()+'。第 '+expeditionLength()+' 步將遇到'+(activeRegion==='moon'?'月影守護者':'森林守衛')+'！';exploreOptions([['👣 往森林深處走',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}
+function exploreReward(gold,exp,msg,event){if(activeRegion==='moon')exp=Math.round(exp*.8);const oldLv=player.level;player.gold+=gold;player.exp+=exp;while(player.exp>=expNeeded(player.level)){player.exp-=expNeeded(player.level);player.level++}explorationState().finds++;saveExploration();drawExploration(event);$('exploreMessage').textContent=msg+(gold?' +'+gold:'')+(exp?' ✨ +'+exp+' EXP':'')+(player.level>oldLv?' · ⭐ Lv.'+player.level:'');exploreOptions([['👣 繼續探索',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}
+function showBossApproach(){const state=explorationState();drawExploration('boss');if(activeRegion==='moon'&&!state.bossCampUsed){$('exploreMessage').textContent='🏕️ 你和豆芽抵達月影守護者前的休息營地！可以免費休息一次，恢復最多 60% 最大生命，再挑戰首領。';exploreOptions([['🏕️ 在營地休息（恢復 60% 生命）',()=>{if(state.bossCampUsed)return;const gain=Math.min(combatMaxHP()-state.hp,Math.max(1,Math.floor(combatMaxHP()*.60)));state.hp+=gain;state.bossCampUsed=true;state.heals++;state.stepsWithoutHealing=0;saveExploration();renderExploreStatus();showBossApproach()}],['⚔️ 不休息，直接挑戰',()=>startRoute('moonBoss',true)],['🏡 撤退並保留獎勵',retreatExpedition]]);return}$('exploreMessage').textContent=activeRegion==='moon'?'👑 月色突然變暗，月影守護者出現在山谷深處！營地已休息，準備迎戰！':'👑 森林深處傳來沉重的腳步聲！森林守衛就在前方。';exploreOptions([['⚔️ 挑戰最終首領',()=>startRoute(activeRegion==='moon'?'moonBoss':'boss',true)],['🏡 撤退並保留獎勵',retreatExpedition]])}
+function exploreStep(){const state=explorationState();if(!state.active||state.finished)return;if(state.steps>=expeditionLength())return;state.steps++;state.stepsWithoutHealing=(state.stepsWithoutHealing||0)+1;saveExploration();if(state.steps===expeditionLength()){state.bossPending=true;saveExploration();showBossApproach();return}const lowHP=state.hp>0&&state.hp<combatMaxHP()*.5;const recoveryGuarantee=lowHP&&(state.stepsWithoutHealing||0)>=8;const dangerRecovery=(state.negativeStreak||0)>=2;let r=(recoveryGuarantee||dangerRecovery)?(Math.random()<.75?.36:.595):Math.random();if(!dangerRecovery&&!recoveryGuarantee&&(state.consecutiveEncounters||0)>=2)r=.30;else if(!dangerRecovery&&!recoveryGuarantee&&state.steps<=5&&r>=.65)r=.30; if((state.traps||0)>=4 && r>=(activeRegion==='moon'?.38:.46) && r<(activeRegion==='moon'?.59:.61))r=.30; if(r<(activeRegion==='moon'?.60:.65))state.consecutiveEncounters=0; if(r<(activeRegion==='moon'?.38:.46)||r>=(activeRegion==='moon'?.59:.61)&&r<(activeRegion==='moon'?.60:.65)||r>=(activeRegion==='moon'?.95:1))state.negativeStreak=0;
+ if(r<(activeRegion==='moon'?.10:.13)){drawExploration('chest');$('exploreMessage').textContent='🎁 你在樹根下發現一個舊寶箱！豆芽興奮地繞著它跑。';exploreOptions([['🔓 打開寶箱',()=>exploreReward(12+Math.floor(Math.random()*10),0,'🪙' ,'chest')],['👣 繼續走',exploreStep]])}
+ else if(r<(activeRegion==='moon'?.20:.25)){drawExploration('herb');$('exploreMessage').textContent='🌿 小溪旁長著藥草！「藥草」（yàocǎo）＝ cây thuốc。採集後可在遠征途中使用，每株恢復 40% 最大生命。';exploreOptions([['🌱 採集藥草',()=>{state.inventory.herb=(state.inventory.herb||0)+1;exploreReward(0,3,'🌿 +1','herb')}],['👣 繼續走',exploreStep]])}
+ else if(r<(activeRegion==='moon'?.34:.40)){drawExploration('stone');const entries=activeRegion==='moon'?[['先生','xiānshēng','ông / ngài','這位先生是老師。'],['前面','qiánmiàn','phía trước','前面有怪物。'],['晚上','wǎnshàng','buổi tối','晚上有月亮。'],['路','lù','đường','這條路很長。']]:[['森林','sēnlín','rừng','我在森林裡。'],['朋友','péngyǒu','bạn bè','他是我的朋友。'],['小心','xiǎoxīn','cẩn thận','小心！前面有怪物。'],['休息','xiūxí','nghỉ ngơi','我們休息一下。']];const w=entries[Math.floor(Math.random()*entries.length)];$('exploreMessage').textContent='🪧 古老石碑刻著：「'+w[0]+'」（'+w[1]+'）＝ '+w[2]+'。例句：'+w[3];exploreOptions([['📖 讀完石碑',()=>exploreReward(0,12,'📖 已閱讀「'+w[0]+'」！','stone')],['👣 繼續走',exploreStep]])}
+ else if(r<(activeRegion==='moon'?.38:.46)){drawExploration('camp');$('exploreMessage').textContent='🔥 發現一處安全的營火。可以坐下來休息，恢復生命值。';exploreOptions([['❤️ 休息補血',()=>{const gain=Math.min(combatMaxHP()-state.hp,Math.max(1,Math.floor(combatMaxHP()*.30)));state.hp+=gain;state.heals++;state.stepsWithoutHealing=0;state.negativeStreak=0;state.consecutiveEncounters=0;saveExploration();drawExploration('camp');$('exploreMessage').textContent='🔥 休息完畢！生命恢復 '+gain+' 點。';exploreOptions([['👣 繼續探索',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}],['👣 繼續走',exploreStep]])}
+ else if(r<(activeRegion==='moon'?.59:.61)){state.traps++;state.negativeStreak=(state.negativeStreak||0)+1;drawExploration('trap');const loss=Math.min(state.hp-1,Math.max(5,Math.floor(combatMaxHP()*.12)));state.hp-=loss;saveExploration();renderExploreStatus();$('exploreMessage').textContent='🪤 哎呀！踩到陷阱，生命 -'+loss+'！幸好豆芽及時提醒你。';exploreOptions([['👣 小心前進',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}
+ else if(r<(activeRegion==='moon'?.60:.65)){drawExploration('spring');$('exploreMessage').textContent='💧 你發現一口清澈的泉水。';exploreOptions([['💧 喝水恢復生命',()=>{const gain=Math.min(combatMaxHP()-state.hp,Math.max(1,Math.floor(combatMaxHP()*.35)));state.hp+=gain;state.heals++;state.stepsWithoutHealing=0;state.negativeStreak=0;state.consecutiveEncounters=0;saveExploration();drawExploration('spring');$('exploreMessage').textContent='💧 清泉讓你恢復 '+gain+' 點生命！';exploreOptions([['👣 繼續探索',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}],['👣 繼續走',exploreStep]])}
+ else if(r<(activeRegion==='moon'?.95:1.00)){state.encounters++;state.negativeStreak=(state.negativeStreak||0)+1;state.consecutiveEncounters=(state.consecutiveEncounters||0)+1;drawExploration('monster');const monster=activeRegion==='moon'?(Math.random()<.55?'moonSlime':'moonMushroom'):(Math.random()<.55?'slime':'mushroom');$('exploreMessage').textContent='⚔️ 草叢突然晃動！一隻'+MONSTERS[monster].name+'出現了！目前生命 '+state.hp+'/'+combatMaxHP()+'。';exploreOptions([['⚔️ 開始華語戰鬥',()=>startRoute(monster,true)],['🏃 避開怪物',()=>{drawExploration('path');$('exploreMessage').textContent='🍃 你和豆芽悄悄繞過怪物。';exploreOptions([['👣 繼續探索',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}]])}
+ else{drawExploration('quiet');$('exploreMessage').textContent=(activeRegion==='moon'?'🌙 月光穿過樹葉。':'🌤️ 陽光穿過樹葉。')+'豆芽在草地上打了個滾，什麼危險也沒發生。';exploreOptions([['👣 繼續探索',exploreStep],['🏡 撤退並保留獎勵',retreatExpedition]])}
+}
+$('moonTeacherSync').checked=$('teacherSync').checked;$('moonTeacherLevel').value=$('teacherSyncLevel').value;
+$('moonExploreStart').onclick=()=>{activeRegion='moon';const e=explorationState();if(e.active&&!e.finished)enterExploration();else beginExpedition()};
+$('exploreStart').onclick=()=>{const e=explorationState();if(e.active&&!e.finished){enterExploration()}else beginExpedition()};
+$('exploreBack').onclick=()=>{const e=explorationState();if(e.active&&confirm(window.gameConfirmText('retreat')))retreatExpedition();else if(!e.active)returnToRegion()};
+
+// Alpha 3.2 · 入門級秘境，詞彙順序忠於使用者上傳的18頁詞卡。
+const ENTRY_PAGES=[[["零", "líng", "Số không"], ["爺爺", "yéye", "Ông nội"], ["奶奶", "nǎinai", "Bà nội"], ["家庭", "jiātíng", "Gia đình"], ["別人", "biérén", "Người khác"], ["大人", "dàrén", "Người lớn"], ["老人", "lǎorén", "Người già"], ["年輕", "niánqīng", "Trẻ tuổi"], ["男生", "nánshēng", "Nam sinh"], ["女生", "nǚshēng", "Nữ sinh"], ["號碼", "hàomǎ", "Số"], ["在", "zài", "Ở"], ["哪", "nǎ", "Nào"], ["地址", "dìzhǐ", "Địa chỉ"], ["市", "shì", "Thành phố"], ["名", "míng", "Tên"], ["城", "chéngshì", "Thành phố"], ["城市/城", "chéngshì/chéng", "Đường phố"], ["電子郵件", "diànzǐyóujiàn", "Thư điện tử"], ["禮拜", "lǐbài", "Tuần"]], [["從前", "cóngqián", "Trước đây"], ["剛剛/剛", "gānggāng/gāng", "Vừa mới"], ["一會兒/一會", "yīhuǐr/yīhuǐ", "Một lát"], ["結婚", "jiéhūn", "Kết hôn"], ["春天/春", "chūntiān/chūn", "Mùa xuân"], ["夏天/夏", "xiàtiān/xià", "Mùa hè"], ["秋天/秋", "qiūtiān/qiū", "Mùa thu"], ["冬天/冬", "dōngtiān/dōng", "Mùa đông"], ["笑", "xiào", "Cười"], ["哭", "kū", "Khóc"], ["高興", "gāoxìng", "Vui vẻ"], ["緊張", "jǐnzhāng", "Căng thẳng"], ["可愛", "kěài", "Đáng yêu"], ["生氣", "shēngqì", "Tức giận"], ["難過", "nánguò", "Buồn"], ["聰明", "cōngmíng", "Thông minh"], ["相信", "xiāngxìn", "Tin tưởng"], ["經驗", "jīngyàn", "Kinh nghiệm"], ["辛苦", "xīnkǔ", "Vất vả"], ["願意", "yuànyì", "Sẵn lòng"]], [["習慣", "xíguàn", "Thói quen"], ["當然", "dāngrán", "Đương nhiên"], ["更", "gèng", "Hơn nữa"], ["醫院", "yīyuàn", "Bệnh viện"], ["公司", "gōngsī", "Công ty"], ["辦公室", "bàngōngshì", "Văn phòng"], ["工人", "gōngrén", "Công nhân"], ["護士", "hùshì", "Y tá"], ["司機", "sījī", "Tài xế"], ["老闆/老板", "lǎobǎn", "Ông chủ"], ["上班", "shàngbān", "Đi làm"], ["下班", "xiàbān", "Tan làm"], ["能力", "nénglì", "Năng lực"], ["努力", "nǔlì", "Cố gắng"], ["準備", "zhǔnbèi", "Chuẩn bị"], ["打算", "dǎsuàn", "Dự định"], ["計畫/計劃", "jìhuà", "Kế hoạch"], ["機會", "jīhuì", "Cơ hội"], ["如果", "rúguǒ", "Nếu"], ["小學", "xiǎoxué", "Trường tiểu học"]], [["高中", "gāozhōng", "Trường trung học phổ thông"], ["上學", "shàngxué", "Đi học"], ["開學", "kāixué", "Khai giảng"], ["班", "bān", "Lớp"], ["年級", "niánjí", "Khối lớp"], ["作業", "zuòyè", "Bài tập về nhà"], ["成績", "chéngjī", "Thành tích"], ["語言", "yǔyán", "Ngôn ngữ"], ["華語/華文", "huáyǔ/huáwén", "Tiếng Hoa"], ["黑板", "hēibǎn", "Bảng đen"], ["課本", "kèběn", "Sách giáo khoa"], ["字典", "zìdiǎn", "Từ điển"], ["注意", "zhùyì", "Chú ý"], ["讀書", "dúshū", "Đọc sách"], ["回答", "huídá", "Trả lời"], ["答", "dá", "Đáp"], ["句", "jù", "Câu"], ["圖", "tú", "Hình ảnh"], ["部分(˙ㄈㄣ)/部份(˙ㄈㄣ)", "bùfen", "Một phần"], ["想法", "xiǎngfǎ", "Ý tưởng"]], [["學習", "xuéxí", "Học tập"], ["練習", "liànxí", "Luyện tập"], ["參加", "cānjiā", "Tham gia"], ["文化", "wénhuà", "Văn hóa"], ["認為", "rènwéi", "Cho rằng"], ["清楚", "qīngchǔ", "Rõ ràng"], ["決定", "juédìng", "Quyết định"], ["記得", "jìde", "Nhớ"], ["忘", "wàng", "Quên"], ["棒", "bàng", "Giỏi"], ["行", "xíng", "Được"], ["行", "háng", "Ngành"], ["講", "jiǎng", "Nói"], ["加", "jiā", "Thêm"], ["算", "suàn", "Tính toán"], ["交", "jiāo", "Nộp"], ["借", "jiè", "Mượn"], ["還", "huán", "Trả lại"], ["辦法", "bànfǎ", "Cách giải quyết"], ["方法", "fāngfǎ", "Phương pháp"]], [["有用", "yǒuyòng", "Có ích"], ["進步", "jìnbù", "Tiến bộ"], ["圖書館", "túshūguǎn", "Thư viện"], ["廁所", "xǐshǒujiān", "Nhà vệ sinh"], ["宿舍", "sùshè", "Ký túc xá"], ["屋(子)", "wū(zi)", "Nhà"], ["間", "jiān", "Gian"], ["大樓", "dàlóu", "Tòa nhà"], ["樓上", "lóushàng", "Tầng trên"], ["樓下", "lóuxià", "Tầng dưới"], ["樓梯", "lóutī", "Cầu thang"], ["電梯", "diàntī", "Thang máy"], ["廚房", "chúfáng", "Nhà bếp"], ["客廳", "kètīng", "Phòng khách"], ["窗戶(˙ㄏㄨ)", "chuāng(zi)", "Cửa sổ"], ["家具", "jiājù", "Đồ nội thất"], ["沙發", "shāfā", "Ghế sô pha"], ["盒/盒(子)", "hé/hézi", "Hộp"], ["關", "guān", "Đóng"], ["燈", "dēng", "Đèn"]], [["冷氣(機)", "lěngqì(jī)", ""], ["冰箱", "bīngxiāng", ""], ["台", "tái", ""], ["電", "diàn", ""], ["乾淨", "gānjìng", ""], ["房租", "fángzū", ""], ["租", "zū", ""], ["世界", "shìjiè", ""], ["火", "huǒ", ""], ["雪", "xuě", ""], ["下雪", "xiàxuě", ""], ["地", "dì", ""], ["河", "hé", ""], ["湖", "hú", ""], ["馬", "mǎ", ""], ["鳥", "niǎo", ""], ["貓", "māo", ""], ["狗", "gǒu", ""], ["海", "hǎi", ""], ["草", "cǎo", ""]], [["樹", "shù", ""], ["隻", "zhī", ""], ["長", "zhǎng", ""], ["太陽", "tàiyáng", ""], ["洗", "xǐ", ""], ["洗澡", "xǐzǎo", ""], ["有空兒", "yǒukòng", ""], ["發現", "fāxiàn", ""], ["餐", "cān", ""], ["搬", "bān", ""], ["掛", "guà", ""], ["脫", "tuō", ""], ["過年", "guònián", ""], ["新年", "xīnnián", ""], ["游泳", "yóuyǒng", ""], ["跑/跑步", "pǎo/pǎobù", ""], ["踢", "tī", ""], ["足球", "zúqiú", ""], ["籃球", "lánqiú", ""], ["網球", "wǎngqiú", ""]], [["棒球", "bàngqiú", ""], ["比賽", "bǐsài", ""], ["開始", "kāishǐ", ""], ["騎", "qí", ""], ["自行車", "jiǎotàchē", ""], ["上網", "shàngwǎng", ""], ["網路", "wǎnglù", ""], ["網站", "wǎngzhàn", ""], ["報紙", "bàozhǐ", ""], ["次", "cì", ""], ["電影院", "diànyǐngyuàn", ""], ["部", "bù", ""], ["場", "chǎng", ""], ["音樂", "yīnyuè", ""], ["票", "piào", ""], ["活動", "huódòng", ""], ["故事(˙ㄕ)", "gùshi", ""], ["聊天兒", "liáotiān", ""], ["有時", "yǒushíhou", ""], ["平常", "píngcháng", ""]], [["總是", "zǒngshì", ""], ["已經", "yǐjīng", ""], ["後來", "hòulái", ""], ["各", "gè", ""], ["變", "biàn", ""], ["才", "cái", ""], ["客人", "kèrén", ""], ["客氣(˙ㄑㄧ)", "kèqi", ""], ["不客氣", "bùkèqì", ""], ["不好意思", "bùhǎoyìsi", ""], ["喂(ㄨㄟˊ)", "wéi", ""], ["喂", "wèi", ""], ["麻煩(˙ㄈㄢ)", "máfan", ""], ["禮物", "lǐwù", ""], ["歡迎", "huānyíng", ""], ["寄", "jì", ""], ["接", "jiē", ""], ["郵局", "yóujú", ""], ["銀行", "yínháng", ""], ["壞", "huài", ""]], [["幫忙", "bāngmáng", ""], ["幫助", "bāngzhù", ""], ["小朋友", "xiǎopéngyǒu", ""], ["信", "xìn", ""], ["信封", "xìnfēng", ""], ["認識", "rènshì", ""], ["最近", "zuìjìn", ""], ["聽說", "tīngshuō", ""], ["見面", "jiànmiàn", ""], ["事情", "shìqíng", ""], ["幫", "bāng", ""], ["錢包", "qiánbāo", ""], ["拉", "lā", ""], ["啊", "ā", ""], ["怎麼辦", "zěnmebàn", ""], ["車站", "chēzhàn", ""], ["汽車", "qìchē", ""], ["機場", "fēijīchǎng", ""], ["馬路", "mǎlù", ""], ["路口", "lùkǒu", ""]], [["十字路口", "shízìlùkǒu", ""], ["對面", "duìmiàn", ""], ["旅行", "lǚxíng", ""], ["飯店", "fàndiàn", ""], ["旅館", "lǚguǎn", ""], ["袋子", "dàizi", ""], ["參觀", "cānguān", ""], ["地圖", "dìtú", ""], ["相機", "zhàoxiàngjī", ""], ["照相", "zhàoxiàng", ""], ["相片兒", "zhàopiàn", ""], ["風景", "fēngjǐng", ""], ["南/南部", "nán/nánbù", ""], ["西/西部", "xī/xībù", ""], ["北/北部", "běi/běibù", ""], ["東/東部", "dōng/dōngbù", ""], ["中間", "zhōngjiān", ""], ["離", "lí", ""], ["離開", "líkāi", ""], ["經過", "jīngguò", ""]], [["往", "wǎng", ""], ["送", "sòng", ""], ["放", "fàng", ""], ["近", "jìn", ""], ["遠", "yuǎn", ""], ["向", "xiàng", ""], ["轉", "zhuǎn", ""], ["掉", "diào", ""], ["一直", "yīzhí", ""], ["最後", "zuìhòu", ""], ["病人", "bìngrén", ""], ["頭髮/髮", "tóufǎ/fǎ", ""], ["指頭", "shǒuzhǐ(tou)", ""], ["肚(子)", "dù(zi)", ""], ["臉", "liǎn", ""], ["心", "xīn", ""], ["健康", "jiànkāng", ""], ["渴", "kě", ""], ["舒服(˙ㄈㄨ)", "shūfu", ""], ["眼鏡", "yǎnjìng", ""]], [["賣", "mài", ""], ["付", "fù", ""], ["希望", "xīwàng", ""], ["書店", "shūdiàn", ""], ["商店", "shāngdiàn", ""], ["市場", "shìchǎng", ""], ["超市", "chāojíshìchǎng", ""], ["信用卡", "xìnyòngkǎ", ""], ["重要", "zhòngyào", ""], ["顏色", "yánsè", ""], ["黃色", "huángsè", ""], ["白色", "báisè", ""], ["手錶/手表/錶/表", "shǒubiǎo/biǎo", ""], ["襪(子)", "wà(zi)", ""], ["雙", "shuāng", ""], ["裙(子)", "qún(zi)", ""], ["褲(子)", "kù(zi)", ""], ["大衣", "dàyī", ""], ["帽(子)", "mào(zi)", ""], ["皮包", "píbāo", ""]], [["外套", "wàitào", ""], ["小心", "xiǎoxīn", ""], ["比較/較", "bǐjiào/jiào", ""], ["差不多", "chābùduō", ""], ["戴", "dài", ""], ["試", "shì", ""], ["輕", "qīng", ""], ["重", "zhòng", ""], ["樣子", "yàngzi", ""], ["特別", "tèbié", ""], ["簡單", "jiǎndān", ""], ["其他/其它", "qítā", ""], ["聲", "shēngyīn", ""], ["好像", "hǎoxiàng", ""], ["奇怪", "qíguài", ""], ["三明治", "sānmíngzhì", ""], ["漢堡", "hànbǎo", ""], ["蘋果", "píngguǒ", ""], ["西瓜", "xīguā", ""], ["啤酒", "píjiǔ", ""]], [["紅茶", "hóngchá", ""], ["點心", "diǎnxīn", ""], ["冰淇淋", "bīngqílín", ""], ["青菜", "qīngcài", ""], ["糖", "táng", ""], ["叉(子)", "chā(zi)", ""], ["刀(子)", "dāo(zi)", ""], ["湯匙", "tāngchí", ""], ["盤/盤(子)", "pán(zi)", ""], ["片", "piàn", ""], ["瓶/瓶(子)", "píng(zi)", ""], ["支", "zhī", ""], ["份", "fèn", ""], ["道", "dào", ""], ["一半/一半兒", "yībàn/yībànr", ""], ["味道", "wèidào", ""], ["酸", "suān", ""], ["苦", "kǔ", ""], ["鹹", "xián", ""], ["辣", "là", ""]], [["香", "xiāng", ""], ["條", "tiáo", ""], ["種", "zhǒng", ""], ["包", "bāo", ""], ["全部", "quánbù", ""], ["所有", "suǒyǒu", ""], ["需要", "xūyào", ""], ["烤", "kǎo", ""], ["過", "guò", ""], ["但是/但", "dànshì/dàn", ""], ["或是", "huòshì", ""], ["要是", "yàoshì", ""], ["把", "bǎ", ""], ["被", "bèi", ""], ["讓", "ràng", ""], ["雖然", "suīrán", ""], ["那麼", "nàme", ""], ["這麼", "zhème", ""], ["本來", "běnlái", ""], ["啦", "la", ""]], [["呀", "yā", ""], ["以為", "yǐwéi", ""], ["有的", "yǒude", ""], ["替", "tì", ""], ["一下(子)/一下子兒", "yīxià(zi)/yīxiàzir", ""], ["不過", "bùguò", ""], ["地", "de", ""]]];
+const ENTRY_ZONES=[['🌸','花語草原','花精靈、蜜蜂、藤蔓怪'],['🏘️','學院遺跡','書靈、紙蝙蝠、墨水怪'],['🌊','碧波濕地','水滴怪、河蟹、荷葉蛙'],['🌲','翠影森林','樹苗怪、風羽鳥、苔蘚獸'],['🏔️','旅人峽谷','岩石怪、山狐、石像鬼'],['✨','星光市集','寶箱怪、甜點怪、燈籠精']];
+const ENTRY_MONSTERS=[
+ [['花精靈','🌼','#f2b9c5'],['蜜蜂斥候','🐝','#e5bb59'],['藤蔓怪','🌿','#6da77e']],
+ [['書靈','📖','#a2a5d5'],['紙蝙蝠','🦇','#9f8cbd'],['墨水怪','🖋️','#656c98']],
+ [['水滴怪','💧','#6cb8ce'],['河蟹','🦀','#d78b79'],['荷葉蛙','🐸','#83b998']],
+ [['樹苗怪','🌱','#9cbd78'],['風羽鳥','🐦','#8bbacb'],['苔蘚獸','🪨','#729c7d']],
+ [['岩石怪','🪨','#aaa3a0'],['山狐','🦊','#d8a277'],['石像鬼','🦇','#9291ae']],
+ [['寶箱怪','🧰','#d4aa65'],['甜點怪','🍰','#e3a3bb'],['燈籠精','🏮','#d7a270']]
+];
+let entryZone=0,entryRun=null,entryFight=null;
+function entryProgress(){player.entryProgress=player.entryProgress||{cleared:0,records:[],runs:0};return player.entryProgress}
+function entrySave(){try{safeWriteSave(player)}catch(e){alert('存檔失敗，請先備份角色。')}}
+function entryWords(){return ENTRY_PAGES.slice(entryZone*3,entryZone*3+3).flat()}
+function entryDraw(canvasId,monster=null){let c=$(canvasId),ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;let colors=['#b3d9b2','#b8b4db','#8fcbd4','#91b5a0','#c7ad91','#d6b6c8'],bg=colors[entryZone];rect(ctx,0,0,c.width,c.height,bg);let ground=c.height-54;rect(ctx,0,ground,c.width,54,entryZone%2?'#7478a3':'#7cae87');for(let i=0;i<10;i++){let x=i*69+12;rect(ctx,x,ground-96-(i%3)*11,15,96+(i%3)*11,'#6c8975');rect(ctx,x-13,ground-132-(i%3)*11,43,52,entryZone%2?'#7d80aa':'#6aaf86')}for(let i=0;i<22;i++)rect(ctx,(i*73+11)%640,ground+8+(i%3)*11,5,3,'#d8d1a0');sprite(ctx,115,ground-94,2.3,player.classId,player.lookId);dragon(ctx,215,ground-48,1.35,player.pet?.level||1);if(monster){const [name,emoji,color]=monster;let x=455,y=ground-93;rect(ctx,x+8,y+30,91,62,color);rect(ctx,x+23,y,62,52,color);rect(ctx,x+30,y+50,9,9,'#26374e');rect(ctx,x+68,y+50,9,9,'#26374e');rect(ctx,x+39,y+69,25,5,'#40506a');rect(ctx,x+11,y+25,12,13,'#f4e6b3');rect(ctx,x+86,y+25,12,13,'#f4e6b3');if(['🐝','🦇','🐦'].includes(emoji)){rect(ctx,x-12,y+27,26,35,'#d5c8e3');rect(ctx,x+95,y+27,26,35,'#d5c8e3')}if(['🦀','🐸','🦊'].includes(emoji)){rect(ctx,x-10,y+67,26,13,color);rect(ctx,x+91,y+67,26,13,color)}if(['🌿','🌱','🌼'].includes(emoji)){rect(ctx,x+20,y-13,14,23,'#6c9f67');rect(ctx,x+67,y-20,14,30,'#80b36e')}if(['🪨','🧰','🏮'].includes(emoji)){rect(ctx,x+5,y+2,98,14,'#f3d49b');rect(ctx,x+40,y+4,24,16,'#70546d')}ctx.font='42px sans-serif';ctx.fillText(emoji,x+32,y+20)}}
+function entryOpen(){if(!player)return;let cleared=!!player.unlocks?.moonCleared||!!player.moonExploration?.clears;if(!cleared){alert('請先通關月光山谷遠征，才能進入第三張地圖。');return}show('entry');entryRenderMap()}
+function entryRenderMap(){let p=entryProgress();$('entryZones').replaceChildren();ENTRY_ZONES.forEach(([icon,name,desc],i)=>{let b=document.createElement('button');b.className='forestRoute';b.disabled=i>p.cleared;b.style.opacity=b.disabled?'.5':'1';b.innerHTML='<span class="routeIcon">'+icon+'</span><b>'+(i>p.cleared?'🔒 ':'')+name+'</b><small>第'+(i*3+1)+'–'+Math.min(18,i*3+3)+'頁 · '+ENTRY_PAGES.slice(i*3,i*3+3).flat().length+'詞</small>';b.onclick=()=>{entryZone=i;entryRenderMap()};if(i===entryZone)b.style.borderColor='#4d9c7e';$('entryZones').appendChild(b)});if(entryZone>p.cleared)entryZone=p.cleared;let [icon,name]=ENTRY_ZONES[entryZone];$('entryWorldLabel').textContent=icon+' '+name;$('entryStats').textContent='📖 本區詞卡：'+entryWords().length+' 張 · 🏆 已完成 '+p.cleared+'/6 區 · ⚔️ 敵人：'+ENTRY_MONSTERS[entryZone].map(m=>m[0]).join('、')+'，以及區域首領。'+(['🌸 通關解鎖花語武器','🏘️ 通關解鎖學院護甲','🌊 通關解鎖潮汐之靴','🌲 通關解鎖翠影頭盔','🏔️ 通關解鎖旅人徽章','✨ 首領勝利有 30% 機率掉落月光龍晶'][entryZone]);entryDraw('entryMap',ENTRY_MONSTERS[entryZone][0]);$('entryStart').textContent='🧭 探索 '+name+'（12步）'}
+function entryActions(options){let root=$('entryActions');root.replaceChildren();for(let [title,fn] of options){let b=document.createElement('button');b.className='forestRoute';b.style.justifyContent='center';b.textContent=title;b.onclick=fn;root.appendChild(b)}}
+function entryStart(){let lv=$('entryLevelTest').checked?Number($('entryTestLevel').value):player.level;let max=CLASSES[player.classId].hp+(lv-1)*7+equipmentHP(lv);entryRun={zone:entryZone,step:0,hp:max,max,herbs:2,heals:0,encounters:0,won:false,lv};entryProgress().runs++;entrySave();entryShowRun('🌸 新的遠征開始！豆芽跟在你身邊。'+($('entryLevelTest').checked?' 🧪 本次教師測試 Lv.'+lv:' 角色等級 Lv.'+lv),null);entryActions([['👣 前進探索',entryStep],['🏡 返回地圖',entryOpen]])}
+function entryShowRun(message,monster){show('entryRun');$('entryRunTitle').textContent=ENTRY_ZONES[entryZone][0]+' '+ENTRY_ZONES[entryZone][1];$('entryRunSubtitle').textContent='第 '+(entryZone*3+1)+'–'+Math.min(18,entryZone*3+3)+' 頁生詞';$('entryStepCount').textContent=entryRun.step+' / 12';$('entryProgressBar').style.width=(entryRun.step/12*100)+'%';$('entryStepLabel').textContent='👣 '+entryRun.step+' steps';$('entryRunHP').textContent='❤️ '+entryRun.hp+' / '+entryRun.max+'　🌿 藥草 '+entryRun.herbs+' 株（每株恢復40%生命） · Lv.'+entryRun.lv;$('entryEvent').textContent=message;entryDraw('entryScene',monster)}
+function entryHerb(){if(entryRun.herbs<=0)return;let gain=Math.min(entryRun.max-entryRun.hp,Math.ceil(entryRun.max*.4));entryRun.hp+=gain;entryRun.herbs--;entryShowRun('🌿 使用藥草，恢復 '+gain+' 點生命。',null);entryActions([['👣 繼續前進',entryStep],['🏡 返回地圖',entryOpen]])}
+function entryStep(){if(!entryRun||entryRun.step>=12)return;entryRun.step++;let s=entryRun.step;if(s===12){entryRun.hp=Math.min(entryRun.max,entryRun.hp+Math.ceil(entryRun.max*.5));entryShowRun('🏕️ 首領營地！休息後恢復50%生命。最終首領只考本區生詞與聽力。',ENTRY_MONSTERS[entryZone][2]);entryActions([['👑 挑戰區域首領',()=>entryStartFight(true)],['🌿 使用藥草',entryHerb],['🏡 返回地圖',entryOpen]]);return}let r=Math.random();if(r<.24){let gain=Math.ceil(entryRun.max*.22);entryRun.hp=Math.min(entryRun.max,entryRun.hp+gain);entryRun.heals++;entryShowRun('💧 發現清泉！恢復 '+gain+' 點生命。',null);entryActions([['👣 繼續前進',entryStep],['🌿 使用藥草',entryHerb]])}else if(r<.41){entryRun.herbs++;entryShowRun('🌿 找到一株藥草！',null);entryActions([['👣 繼續前進',entryStep],['🌿 使用藥草',entryHerb]])}else if(r<.51){let loss=Math.min(Math.max(0,entryRun.hp-1),Math.ceil(entryRun.max*.07));entryRun.hp-=loss;entryShowRun('🪤 小陷阱！生命 -'+loss+'。',null);entryActions([['👣 繼續前進',entryStep],['🌿 使用藥草',entryHerb]])}else{let m=ENTRY_MONSTERS[entryZone][Math.floor(Math.random()*3)];entryRun.encounters++;entryShowRun('⚔️ 遇到 '+m[0]+'！你可以選擇戰鬥或避開。',m);entryActions([['⚔️ 華語戰鬥',()=>entryStartFight(false,m)],['🏃 避開怪物',()=>{entryShowRun('🍃 成功避開怪物。',null);entryActions([['👣 繼續前進',entryStep],['🌿 使用藥草',entryHerb]])}],['🌿 使用藥草',entryHerb]])}}
+function entryStartFight(boss,monster){let m=boss?['秘境守護者','👑','#b48ab5']:monster||ENTRY_MONSTERS[entryZone][0];let hp=boss?Math.max(460,Math.round(entryRun.lv*8+370)):Math.max(230,Math.round(entryRun.lv*4+170));entryFight={boss,m,hp,max:hp,index:0,streak:0,pet:0,correct:0,mistakes:0,order:randShuffle(entryWords().map((_,i)=>i)),moonGuardUsed:false,done:false};$('entryTeacherMode').checked=$('teacherMode').checked;show('entryFight');$('entryFightTitle').textContent=(boss?'👑 首領：':'⚔️ ')+m[0];$('entryFightSubtitle').textContent='只有生詞與聽力 · 無句型題';entryQuestion()}
+function entrySay(){if(!entryFight||entryFight.done)return;let w=entryWords()[entryFight.order[entryFight.index]][0].split('/')[0];if(!window.speechSynthesis)return;window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(w);u.lang='zh-TW';u.rate=.78;window.speechSynthesis.speak(u)}
+function entryQuestion(){let f=entryFight;if(f.hp<=0){entryFinishFight(true);return}if(entryRun.hp<=0){entryFinishFight(false);return}if(f.index>=f.order.length)f.order.push(...randShuffle(entryWords().map((_,i)=>i)));let words=entryWords(),right=f.order[f.index],w=words[right];let listening=!(window.gameHasAnswer?.(w)&&f.index%2===0);f.listening=listening;f.right=right;f.answered=false;let available=words.map((x,i)=>i).filter(i=>i!==right&&(listening||window.gameHasAnswer?.(words[i]))&&(listening?words[i][0]!==w[0]:window.gameAnswerText(words[i])!==window.gameAnswerText(w)));let choices=randShuffle([right,...randShuffle(available).slice(0,3)]);$('entryQuestionType').textContent=listening?'🔊 聽力辨識':'📖 生詞記憶';$('entryPrompt').textContent=listening?listeningQuestionLabel():w[0];$('entryListen').classList.toggle('hidden',!listening);$('entryFeedback').textContent=listening?'聽中文，選出正確的漢字。':'選出正確的意思。';$('entryNext').classList.add('hidden');$('entryAnswers').replaceChildren();choices.forEach(i=>{let b=document.createElement('button');b.className='answer';b.dataset.wordIndex=i;b.textContent=listening?words[i][0]:(window.gameAnswerText?.(words[i])||words[i][0])+($('entryTeacherMode').checked?'（'+words[i][0]+'）':'');b.onclick=()=>entryAnswer(i,b);$('entryAnswers').appendChild(b)});$('entryEnemyHP').textContent=f.m[0]+' · HP '+f.hp+'/'+f.max;$('entryEnemyBar').style.width=f.hp/f.max*100+'%';$('entryHeroHP').textContent='❤️ '+entryRun.hp+'/'+entryRun.max;$('entryCombo').textContent='🔥 連擊 '+f.streak+' · 🐉 '+f.pet+'/2';$('entryFightCount').textContent='第 '+(f.index+1)+' 題';entryDraw('entryArena',f.m);if(listening)setTimeout(()=>{if(entryFight===f&&!f.answered)entrySay()},250)}
+function entryAnswer(i,b){let f=entryFight;if(f.answered||f.done)return;let w=entryWords()[f.right];if(i!==f.right){f.mistakes++;b.classList.add('wrong');b.disabled=true;f.streak=0;$('entryFeedback').textContent='❌ '+(document.getElementById('gameLanguage')?.value==='en'?'Try again! '+(f.listening?'Listen once more.':'Choose the correct meaning.'):document.getElementById('gameLanguage')?.value==='vi'?'Thử lại! '+(f.listening?'Hãy nghe lại.':'Chọn nghĩa đúng.'):'再試一次！'+(f.listening?'請再聽一次。':'請找出正確的意思。'));return}f.answered=true;let first=!document.querySelector('#entryAnswers .wrong');if(first){f.correct++;f.streak++}else f.streak=0;let dmg=Math.round((CLASSES[player.classId].atk+9+(entryRun.lv-1)*3)*(1+equipmentAtk())*(first?1:.55));if(f.streak>=3){dmg+=20;f.streak=0}if(first){f.pet++;if(f.pet>=2){dmg+=petBaseAttack();f.pet=0}}let priestHeal=0;if(first&&player.classId==='priest'&&f.correct%2===0){const heal=8+Math.floor((entryRun.lv-1)/3)*2;priestHeal=Math.min(heal,entryRun.max-entryRun.hp);entryRun.hp+=priestHeal}f.hp=Math.max(0,f.hp-dmg);let counter=0;if(f.hp>0){const rawCounter=Math.max(4,Math.round((f.boss?18:11)+entryZone*2-entryRun.lv*.11));counter=Math.max(1,rawCounter-Math.ceil(rawCounter*equipmentReduction()));let guardNote='';if(ensurePetCare().evolutions>=2&&!f.moonGuardUsed){const affinity=ensurePetCare().affection;if(Math.random()*100<affinity){f.moonGuardUsed=true;const saved=Math.max(1,Math.round(counter*.2));counter-=saved;guardNote='；🌙 月光庇護成功，減傷 '+saved}else{guardNote='；🌙 月光庇護未成功（'+affinity+'%），下次可重試'}}f.guardNote=guardNote;entryRun.hp=Math.max(0,entryRun.hp-counter)}b.classList.add('correct');$('entryAnswers').querySelectorAll('button').forEach(x=>x.disabled=true);$('entryFeedback').textContent='✅ '+w[0]+'（'+w[1]+'）'+(w[2]?'＝ '+w[2]:'')+'\n⚔️ 造成 '+dmg+' 點傷害'+(priestHeal?'；✨ 治療之光 +'+priestHeal+' HP':'')+(counter?'；敵人反擊 -'+counter+' HP':'')+(f.guardNote||'');$('entryFeedback').style.whiteSpace='pre-line';$('entryEnemyHP').textContent=f.m[0]+' · HP '+f.hp+'/'+f.max;$('entryEnemyBar').style.width=f.hp/f.max*100+'%';$('entryHeroHP').textContent='❤️ '+entryRun.hp+'/'+entryRun.max;$('entryNext').classList.remove('hidden');$('entryNext').textContent=f.hp<=0?'🏆 查看勝利':entryRun.hp<=0?'💔 查看結果':'下一題 →'}
+function entryFinishFight(won){let f=entryFight;f.done=true;let exp=won?Math.round((f.boss?100:28)+f.correct*4):0,gold=won?(f.boss?100:30)+f.correct*3:0;if(gold&&equipItem('trinket')?.goldBonus)gold+=Math.round(gold*equipItem('trinket').goldBonus);player.exp+=exp;player.gold+=gold;while(player.exp>=expNeeded(player.level)){player.exp-=expNeeded(player.level);player.level++}if(won){const pet=ensurePetCare();if(pet.level<10){pet.exp+=10;while(pet.exp>=50&&pet.level<10){pet.exp-=50;pet.level++}if(pet.level>=10)pet.exp=0}}let dragonLoot='';if(won&&f.boss){let p=entryProgress();p.cleared=Math.max(p.cleared,entryZone+1);p.records[entryZone]=(p.records[entryZone]||0)+1;entryRun.won=true;if(entryZone===5){if(Math.random()<.30){ensurePetCare().materials.crystal++;dragonLoot=' 💎 星光市集掉落：月光龍晶 ×1！'}else dragonLoot=' ✨ 本次沒有掉落龍晶，可以再次挑戰。'}}entrySave();show('entryRun');entryShowRun((won?'🏆 戰鬥勝利！':'💔 戰鬥失敗。')+' '+f.m[0]+' · 答對 '+f.correct+' 題，答錯 '+f.mistakes+' 次，獲得 '+exp+' EXP、'+gold+' 金幣。'+(won&&f.boss?' 🎉 本區通關！'+(entryZone<5?'已解鎖下一區。':'六區挑戰完成！'):'')+dragonLoot,f.m);if(won&&f.boss){entryActions([['🗺️ 返回秘境地圖',entryOpen],['🔁 再次挑戰本區',entryStart]])}else if(won){entryRun.hp=Math.min(entryRun.max,entryRun.hp+Math.ceil(entryRun.max*.15));entryActions([['👣 繼續探索',entryStep],['🌿 使用藥草',entryHerb],['🏡 返回地圖',entryOpen]])}else entryActions([['🧭 重新遠征',entryStart],['🏡 返回地圖',entryOpen]])}
+$('entryLevelTest').onchange=()=>{$('entryTestLevel').disabled=!$('entryLevelTest').checked;$('entryLevelHint').textContent=$('entryLevelTest').checked?'Lv.'+$('entryTestLevel').value+' 將從遠征開始立即生效，包含第一場戰鬥；不會改動角色真正的等級。':'使用角色目前真正的等級 Lv.'+player.level+'。'};$('entryTestLevel').onchange=()=>$('entryLevelTest').onchange();$('entryBtn').onclick=entryOpen;$('entryBack').onclick=hub;$('entryStart').onclick=entryStart;$('entryRunBack').onclick=entryOpen;$('entryFightBack').onclick=()=>{if(confirm('確定要撤退？本次戰鬥不會得到獎勵。')){entryFight.done=true;entryOpen()}};$('entryListen').onclick=entrySay;$('entryTeacherMode').onchange=()=>{$('teacherMode').checked=$('entryTeacherMode').checked;if(entryFight&&!entryFight.answered){const words=entryWords();document.querySelectorAll('#entryAnswers button').forEach(b=>{const i=Number(b.dataset.wordIndex);if(Number.isInteger(i))b.textContent=entryFight.listening?words[i][0]:(window.gameAnswerText?.(words[i])||words[i][0])+($('entryTeacherMode').checked?'（'+words[i][0]+'）':'')})}};$('entryNext').onclick=()=>{let f=entryFight;if(f.hp<=0)entryFinishFight(true);else if(entryRun.hp<=0)entryFinishFight(false);else{f.index++;entryQuestion()}};
+
+// Alpha 3.5 — 裝備與存檔相容：沿用原本 player 物件，不變更存檔版本。
+const SHOP_ITEMS=[
+ {id:'starterWeapon',name:'冒險者武器',emoji:'⚔️',slot:'weapon',price:300,atk:.05,desc:'依職業配發：戰士鐵劍、法師法杖、遊俠短弓、牧師權杖；攻擊 +5%'},
+ {id:'leatherArmor',name:'冒險者皮甲',emoji:'🛡️',slot:'armor',price:300,reduce:.05,desc:'受到傷害 -5%'},
+ {id:'moonAmulet',name:'月光護符',emoji:'🌙',slot:'accessory',price:600,hp:.08,unlock:'moon',desc:'最大生命 +8%；通關月光山谷解鎖'},
+ {id:'flowerBow',name:'花語武器',emoji:'🏹',slot:'weapon',price:900,atk:.08,unlock:'flower',desc:'依職業配發花語系列武器；攻擊 +8%；通關花語草原解鎖'},
+ {id:'academyArmor',name:'學院護甲',emoji:'🛡️',slot:'armor',price:1100,reduce:.10,unlock:'entry2',desc:'受到傷害 -10%；通關學院遺跡解鎖'},
+ {id:'tideBoots',name:'潮汐之靴',emoji:'🥾',slot:'boots',price:1200,hp:.06,unlock:'entry3',desc:'最大生命 +6%；通關碧波濕地解鎖'},
+ {id:'shadowHelm',name:'翠影頭盔',emoji:'🪖',slot:'helmet',price:1400,reduce:.04,unlock:'entry4',desc:'受到傷害 -4%；通關翠影森林解鎖'},
+ {id:'canyonTrinket',name:'旅人徽章',emoji:'🎗️',slot:'trinket',price:1600,goldBonus:.10,unlock:'entry5',desc:'戰鬥金幣 +10%；通關旅人峽谷解鎖'}
+];
+const SHOP_SLOT={weapon:'武器',armor:'防具',accessory:'飾品',helmet:'頭部',boots:'鞋子',trinket:'配件'};
+function ownedItems(){return Array.isArray(player.ownedEquipment)?player.ownedEquipment:[]}
+function equippedItems(){return player.equippedEquipment||{}}
+function equipItem(slot){return SHOP_ITEMS.find(x=>x.id===equippedItems()[slot])||null}
+function equipmentAtk(){return equipItem('weapon')?.atk||0}
+function equipmentReduction(){return Math.min(.65,(equipItem('armor')?.reduce||0)+(equipItem('helmet')?.reduce||0))}
+function equipmentDef(){return 0}
+function equipmentHP(lv){return Math.round((CLASSES[player.classId].hp+(lv-1)*7)*((equipItem('accessory')?.hp||0)+(equipItem('boots')?.hp||0)))}
+function shopUnlocked(item){if(item.unlock==='moon')return !!(player.unlocks?.moonCleared||player.moonExploration?.clears);if(item.unlock==='flower')return (player.entryProgress?.cleared||0)>=1;if(/^entry[2-5]$/.test(item.unlock||''))return (player.entryProgress?.cleared||0)>=Number(item.unlock.slice(5));return true}
+function shopName(item){if(item.id==='starterWeapon')return {warrior:'冒險者鐵劍',mage:'冒險者法杖',ranger:'冒險者短弓',priest:'冒險者權杖'}[player.classId]||item.name;if(item.id==='flowerBow')return {warrior:'花語長劍',mage:'花語法杖',ranger:'花語長弓',priest:'花語權杖'}[player.classId]||item.name;if(item.id==='academyArmor')return {warrior:'學院鎧甲',mage:'學院法袍',ranger:'學院皮甲',priest:'學院聖袍'}[player.classId]||item.name;return item.name}
+function shopEmoji(item){if(item.id==='starterWeapon'||item.id==='flowerBow')return {warrior:'⚔️',mage:'🔮',ranger:'🏹',priest:'✨'}[player.classId]||item.emoji;return item.emoji}
+function shopOpen(){show('shopScreen');shopRender()}
+function shopRender(){
+ $('shopWallet').textContent='🪙 目前金幣：'+player.gold+'　⭐ Lv.'+player.level;
+ const goods=$('shopGoods');goods.replaceChildren();
+ for(const item of SHOP_ITEMS){let owned=ownedItems().includes(item.id),unlocked=shopUnlocked(item),allowed=!item.classId||item.classId===player.classId;
+ let card=document.createElement('div');card.className='shop-item';let icon=document.createElement('div');icon.className='shop-emoji';icon.textContent=shopEmoji(item);card.append(icon);
+ let title=document.createElement('strong');title.textContent=shopName(item);card.append(title);let desc=document.createElement('small');desc.textContent=item.desc;card.append(desc);
+ let price=document.createElement('b');price.textContent='🪙 '+item.price+' 金幣';card.append(price);let btn=document.createElement('button');btn.className='secondary';btn.textContent=owned?'✓ 已擁有':!allowed?'職業不符':!unlocked?'🔒 尚未解鎖':player.gold<item.price?'金幣不足':'購買';btn.disabled=owned||!unlocked||!allowed||player.gold<item.price;
+ btn.onclick=()=>{if(!shopUnlocked(item)||ownedItems().includes(item.id)||player.gold<item.price||(!allowed))return;if(!confirm('花費 '+item.price+' 金幣購買「'+shopName(item)+'」？'))return;player.gold-=item.price;player.ownedEquipment=ownedItems().concat(item.id);entrySave();shopRender()};card.append(btn);goods.append(card)}
+
+}
+
+// Alpha 3.6: the existing six character slots are the only equipment management UI.
+let activeEquipSlot=null;
+function renderCharacterEquipment(){
+ for(const el of document.querySelectorAll('[data-equip-slot]')){
+  const slot=el.dataset.equipSlot, item=equipItem(slot);
+  const emoji={weapon:'⚔️',armor:'🛡️',accessory:'🌙',helmet:'🪖',boots:'🥾',trinket:'🎗️'}[slot]||'🎒';
+  el.innerHTML=(item?shopEmoji(item):emoji)+'<small>'+SHOP_SLOT[slot]+'</small>';
+  el.title=item?shopName(item)+'（點選更換）':'點選穿戴'+SHOP_SLOT[slot];
+  el.setAttribute('aria-label',el.title);
+  el.style.background=item?'#e1f3e6':'#fffdf5';
+ }
+ const panel=$('characterEquipPicker');
+ if(!activeEquipSlot){panel.classList.add('hidden');return}
+ panel.classList.remove('hidden');panel.replaceChildren();
+ const heading=document.createElement('div');heading.style.cssText='font-weight:900;font-size:19px;margin-bottom:10px';heading.textContent='🎒 '+SHOP_SLOT[activeEquipSlot]+' · 選擇裝備';panel.append(heading);
+ const owned=SHOP_ITEMS.filter(item=>item.slot===activeEquipSlot&&ownedItems().includes(item.id)&&(!item.classId||item.classId===player.classId));
+ if(!owned.length){const p=document.createElement('p');p.textContent='尚未擁有此欄位的裝備，請到晨曦村商店購買。';panel.append(p)}
+ for(const item of owned){const btn=document.createElement('button');btn.className='secondary';btn.style.cssText='width:100%;margin:5px 0';btn.textContent=(equippedItems()[activeEquipSlot]===item.id?'✓ 穿戴中 · ':'穿戴 · ')+shopEmoji(item)+' '+shopName(item);btn.disabled=equippedItems()[activeEquipSlot]===item.id;btn.onclick=()=>{player.equippedEquipment={...equippedItems(),[activeEquipSlot]:item.id};entrySave();activeEquipSlot=null;characterHome()};panel.append(btn)}
+ if(equippedItems()[activeEquipSlot]){const btn=document.createElement('button');btn.className='secondary';btn.style.cssText='width:100%;margin:5px 0';btn.textContent='卸下'+SHOP_SLOT[activeEquipSlot];btn.onclick=()=>{player.equippedEquipment={...equippedItems(),[activeEquipSlot]:null};entrySave();activeEquipSlot=null;characterHome()};panel.append(btn)}
+ const close=document.createElement('button');close.className='secondary';close.textContent='關閉';close.style.cssText='width:100%;margin-top:8px';close.onclick=()=>{activeEquipSlot=null;renderCharacterEquipment()};panel.append(close);
+}
+for(const el of document.querySelectorAll('[data-equip-slot]')){
+ const open=()=>{activeEquipSlot=el.dataset.equipSlot;renderCharacterEquipment()};
+ el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+}
+
+$('shopBtn').onclick=shopOpen;$('shopBack').onclick=hub;
+
+// Alpha 3.8.8: 全地圖共用教師工具，集中於晨曦村首頁。
+function syncGlobalTeacherSettings(){
+ const enabled=$('globalTeacherSync').checked,lv=$('globalTeacherLevel').value,mode=$('globalTeacherMode').checked;
+ $('globalTeacherLevel').disabled=!enabled;
+ $('teacherSync').checked=enabled;$('teacherSyncLevel').value=lv;
+ $('moonTeacherSync').checked=enabled;$('moonTeacherLevel').value=lv;
+ $('entryLevelTest').checked=enabled;$('entryTestLevel').value=lv;
+ $('entryTestLevel').disabled=!enabled;
+ $('teacherMode').checked=mode;$('entryTeacherMode').checked=mode;
+ if(typeof updateTeacherHints==='function')updateTeacherHints();
+ if(typeof entryFight!=='undefined'&&entryFight&&!entryFight.answered&&typeof entryWords==='function'){
+  const words=entryWords();document.querySelectorAll('#entryAnswers button').forEach(b=>{
+   const i=Number(b.dataset.wordIndex);if(Number.isInteger(i)&&words[i])b.textContent=entryFight.listening?words[i][0]:(window.gameAnswerText?.(words[i])||words[i][0])+(mode?'（'+words[i][0]+'）':'');
+  });
+ }
+}
+['globalTeacherSync','globalTeacherLevel','globalTeacherMode'].forEach(id=>$(id).addEventListener('change',syncGlobalTeacherSettings));
+syncGlobalTeacherSettings();
+
+// Alpha 3.9.0: multilingual interface layer, isolated from player saves.
+(function(){
+const LANG_KEY='mandarin-adventurer-ui-language';
+const UI={
+'建立你的冒險者':['Tạo nhân vật phiêu lưu','Create Your Adventurer'],
+'選擇職業與外觀，踏上學習華語的奇幻旅程！':['Chọn nghề nghiệp và ngoại hình để bắt đầu hành trình học tiếng Hoa!','Choose your class and appearance to begin your Chinese-learning adventure!'],
+'冒險者暱稱':['Tên nhân vật','Adventurer Name'],'選擇職業':['Chọn nghề nghiệp','Choose a Class'],'角色外觀':['Ngoại hình','Appearance'],'頭髮長度':['Độ dài tóc','Hair Length'],'髮色與膚色':['Màu tóc và da','Hair and Skin Color'],
+'開始冒險 ✦':['Bắt đầu phiêu lưu ✦','Start Adventure ✦'],'已有角色存檔？':['Đã có bản lưu?','Already Have a Save?'],'直接匯入舊版備份，不需要先建立新角色。':['Nhập bản sao lưu cũ mà không cần tạo nhân vật mới.','Import an existing backup without creating a new character.'],'📥 匯入冒險者存檔':['📥 Nhập bản lưu nhân vật','📥 Import Character Save'],
+'晨曦村 · 冒險大廳':['Làng Bình Minh · Sảnh phiêu lưu','Dawn Village · Adventure Hall'],'今天也來展開一場華語冒險吧！':['Hãy tiếp tục cuộc phiêu lưu tiếng Hoa hôm nay!','Ready for another Chinese adventure?'],
+'修改外觀':['Đổi ngoại hình','Change Appearance'],'重建角色':['Tạo lại nhân vật','Reset Character'],'備份存檔':['Sao lưu','Back Up Save'],'匯入存檔':['Nhập bản lưu','Import Save'],
+'🧪 教師測試工具':['🧪 Công cụ kiểm tra cho giáo viên','🧪 Teacher Testing Tools'],'👩‍🏫 教師測試模式（顯示中文提示）':['👩‍🏫 Chế độ giáo viên (hiện gợi ý tiếng Hoa)','👩‍🏫 Teacher Mode (show Chinese hints)'],'教師等級同步':['Đồng bộ cấp thử nghiệm','Sync Test Level'],
+'僅供老師測試；等級於下一場戰鬥或新遠征生效，不會改變真正的角色等級。關閉後使用角色原本等級。':['Chỉ dành cho giáo viên. Cấp thử nghiệm có hiệu lực ở trận hoặc chuyến đi tiếp theo; không đổi cấp thật.','Teacher testing only. The selected level applies to the next battle or expedition without changing the actual character level.'],
+'裝備商店':['Cửa hàng trang bị','Equipment Shop'],'購買冒險裝備':['Mua trang bị','Buy Equipment'],'角色資料':['Thông tin nhân vật','Character Profile'],'能力與經驗':['Chỉ số và kinh nghiệm','Stats and Experience'],'初始寵物':['Thú cưng','Dragon Companion'],'培養小龍':['Nuôi rồng nhỏ','Raise Your Dragon'],'森林冒險':['Phiêu lưu rừng','Forest Adventure'],'準備級一 · 開始挑戰':['Cấp chuẩn bị 1 · Bắt đầu','Preparatory Level 1 · Start'],'月光山谷':['Thung lũng Ánh Trăng','Moonlight Valley'],'入門級秘境':['Bí cảnh nhập môn','Novice Realm'],
+'返回村莊':['Về làng','Return to Village'],'返回地圖':['Về bản đồ','Back to Map'],'撤退':['Rút lui','Retreat'],'下一題 →':['Câu tiếp →','Next Question →'],'🔊 再聽一次':['🔊 Nghe lại','🔊 Listen Again'],'生詞記憶':['Ghi nhớ từ vựng','Vocabulary Challenge'],'生詞與聽力':['Từ vựng và nghe','Vocabulary and Listening'],
+'🏪 晨曦村裝備店':['🏪 Cửa hàng Làng Bình Minh','🏪 Dawn Village Equipment Shop'],'🛒 商店商品':['🛒 Sản phẩm','🛒 Shop Items'],'用冒險金幣選購裝備，購買後到角色資料穿戴。':['Dùng xu để mua trang bị. Vào hồ sơ nhân vật để mặc.','Spend coins on equipment, then equip it in your character profile.'],
+'🧙 冒險者檔案':['🧙 Hồ sơ nhân vật','🧙 Adventurer Profile'],'晨曦村冒險者':['Nhà phiêu lưu Làng Bình Minh','Dawn Village Adventurer'],'每一段旅程，都會成為你的故事。':['Mỗi chuyến phiêu lưu đều trở thành câu chuyện của bạn.','Every adventure becomes part of your story.'],'⚔️ 基本能力':['⚔️ Chỉ số cơ bản','⚔️ Base Stats'],'❤️ 最大生命':['❤️ Máu tối đa','❤️ Max HP'],'⚔️ 攻擊力':['⚔️ Tấn công','⚔️ Attack'],'🛡️ 防禦力':['🛡️ Phòng thủ','🛡️ Defense'],'🪙 持有金幣':['🪙 Số xu','🪙 Coins'],'⭐ 冒險經驗':['⭐ Kinh nghiệm','⭐ Adventure EXP'],
+'頭部':['Đầu','Head'],'武器':['Vũ khí','Weapon'],'飾品':['Phụ kiện','Accessory'],'防具':['Giáp','Armor'],'鞋子':['Giày','Boots'],'配件':['Trang sức','Trinket'],
+'劍士':['Kiếm sĩ','Warrior'],'法師':['Pháp sư','Mage'],'遊俠':['Cung thủ','Ranger'],'祭司':['Tu sĩ','Priest'],'男生外觀':['Nam','Male'],'女生外觀':['Nữ','Female'],'短髮':['Tóc ngắn','Short Hair'],'中長髮':['Tóc vừa','Medium Hair'],'長髮':['Tóc dài','Long Hair'],
+'穩定輸出':['Sát thương ổn định','Steady Damage'],'魔法爆發':['Sát thương phép bùng nổ','Magic Burst'],'靈活連擊':['Liên kích linh hoạt','Agile Combos'],'治療守護':['Hồi máu và bảo vệ','Healing and Protection'],
+'🌲 新手森林 · 冒險試煉':['🌲 Rừng Tân Thủ · Thử thách','🌲 Beginner Forest · Trial'],'返回森林入口':['Về lối vào rừng','Back to Forest Entrance'],'🔊 再聽一次':['🔊 Nghe lại','🔊 Listen Again'],'⚔️ 再次挑戰同一怪物':['⚔️ Thử lại quái vật này','⚔️ Retry This Monster'],
+'🌸 花語草原':['🌸 Đồng cỏ Hoa Ngữ','🌸 Blossom Meadow'],'探索與學習':['Khám phá và học tập','Explore and Learn'],'🧭 遠征進度':['🧭 Tiến độ hành trình','🧭 Expedition Progress'],'🧭 開始區域遠征':['🧭 Bắt đầu hành trình','🧭 Start Expedition'],'👣 前進探索':['👣 Tiếp tục khám phá','👣 Explore Ahead'],'🏡 返回地圖':['🏡 Về bản đồ','🏡 Back to Map'],
+'學生模式不顯示中文翻譯':['Chế độ học viên không hiển thị nghĩa tiếng Hoa','Student mode hides Chinese answer hints'],
+'新手冒險者':['Người phiêu lưu mới','New Adventurer'],'初始小龍':['Rồng nhỏ','Baby Dragon'],'🌿 晨曦村':['🌿 Làng Bình Minh','🌿 Dawn Village'],
+'語言 / Language':['Ngôn ngữ','Language']};
+const MORE_UI={'金幣': ['xu', 'Gold'], '冒險者': ['Nhà phiêu lưu', 'Adventurer'], '持有金幣': ['Số xu', 'Gold Owned'], '最大生命': ['Máu tối đa', 'Max HP'], '攻擊力': ['Tấn công', 'Attack'], '防禦力': ['Phòng thủ', 'Defense'], '冒險經驗': ['Kinh nghiệm', 'Adventure EXP'], '冒險紀錄': ['Nhật ký phiêu lưu', 'Adventure Log'], '返回村莊': ['Về làng', 'Return to Village'], '返回森林入口': ['Về cửa rừng', 'Back to Forest'], '返回地圖': ['Về bản đồ', 'Back to Map'], '下一題 →': ['Câu tiếp theo →', 'Next Question →'], '再次挑戰同一怪物': ['Đấu lại quái vật', 'Fight Again'], '生詞記憶': ['Ghi nhớ từ vựng', 'Vocabulary Practice'], '🔊 聽力辨識': ['🔊 Luyện nghe', '🔊 Listening Practice'], '📖 生詞記憶': ['📖 Ghi nhớ từ vựng', '📖 Vocabulary Practice'], '🔊 請聽中文發音': ['🔊 Hãy nghe tiếng Hoa', '🔊 Listen to the Chinese'], '答錯了，先看提示再試一次。': ['Trả lời sai! Xem gợi ý rồi thử lại.', 'Incorrect! Check the hint and try again.'], '再試一次！正確答案已標示。': ['Hãy thử lại! Đáp án đúng đã được đánh dấu.', 'Try again! The correct answer is highlighted.'], '生命 -5 HP': ['HP -5', 'HP -5'], '選擇答案，讓冒險者發動攻擊！': ['Chọn đáp án để tấn công!', 'Choose an answer to attack!'], '請選出正確的越南文意思。': ['Hãy chọn nghĩa đúng.', 'Choose the correct meaning.'], '🔊 自動播放中文發音；需要時可點「再聽一次」。': ['🔊 Tự động phát âm tiếng Hoa; nhấn nghe lại nếu cần.', '🔊 Chinese audio plays automatically; tap replay if needed.'], '新手森林': ['Rừng Tân Thủ', 'Beginner Forest'], '月光山谷': ['Thung lũng Ánh Trăng', 'Moonlight Valley'], '入門級秘境': ['Bí cảnh Sơ cấp', 'Novice Realm'], '森林史萊姆': ['Slime rừng', 'Forest Slime'], '跳跳蘑菇': ['Nấm nhảy', 'Jumping Mushroom'], '森林守衛': ['Vệ binh rừng', 'Forest Guardian'], '月光史萊姆': ['Slime ánh trăng', 'Moonlight Slime'], '螢光蘑菇': ['Nấm phát sáng', 'Glowing Mushroom'], '月影守護者': ['Vệ thần bóng trăng', 'Moonshadow Guardian'], '裝備': ['Trang bị', 'Equipment'], '裝備欄': ['Ô trang bị', 'Equipment Slots'], '選擇裝備': ['Chọn trang bị', 'Choose Equipment'], '穿戴中': ['Đang trang bị', 'Equipped'], '穿戴': ['Trang bị', 'Equip'], '卸下防具': ['Tháo giáp', 'Unequip Armor'], '關閉': ['Đóng', 'Close'], '已擁有': ['Đã sở hữu', 'Owned'], '購買': ['Mua', 'Buy'], '裝備商店': ['Cửa hàng trang bị', 'Equipment Shop'], '豆芽': ['Mầm Nhỏ', 'Sprout'], '小龍': ['Rồng nhỏ', 'Little Dragon'], '小龍經驗': ['Kinh nghiệm rồng', 'Dragon EXP'], '親密度': ['Độ thân thiết', 'Affection'], '月光龍晶': ['Pha lê rồng ánh trăng', 'Moon Dragon Crystal'], '星光碎片': ['Mảnh sao', 'Star Fragment'], '小龍點心': ['Bánh thưởng cho rồng', 'Dragon Treat'], '月光山谷素材': ['Nguyên liệu thung lũng', 'Valley Materials'], '餵食': ['Cho ăn', 'Feed'], '強化': ['Cường hóa', 'Upgrade'], '進化': ['Tiến hóa', 'Evolve'], '成長里程碑': ['Cột mốc phát triển', 'Growth Milestones'], '冒險者皮甲': ['Giáp da nhà phiêu lưu', 'Adventurer Leather Armor'], '學院皮甲': ['Giáp da học viện', 'Academy Leather Armor'], '潮汐靴': ['Ủng thủy triều', 'Tidal Boots'], '月光護符': ['Bùa ánh trăng', 'Moonlight Charm'], '史萊姆草地': ['Đồng cỏ Slime', 'Slime Meadow'], '蘑菇小徑': ['Đường mòn nấm', 'Mushroom Path'], '森林遠征': ['Thám hiểm rừng', 'Forest Expedition'], '月光遠征': ['Thám hiểm ánh trăng', 'Moonlight Expedition'], '探索地圖': ['Bản đồ khám phá', 'Exploration Map'], '探索與學習': ['Khám phá và học', 'Explore and Learn'], '探索生命': ['Máu thám hiểm', 'Exploration HP'], '遠征進度': ['Tiến độ thám hiểm', 'Expedition Progress'], '遠征': ['Thám hiểm', 'Expedition'], '第': ['Câu', 'Question'], '題': ['câu', 'question'], '步': ['bước', 'steps'], '入門練習': ['Luyện tập cơ bản', 'Basic Practice'], '進階練習': ['Luyện tập nâng cao', 'Advanced Practice'], '頭目挑戰': ['Thử thách trùm', 'Boss Challenge'], '角色資料': ['Hồ sơ nhân vật', 'Character Profile'], '生命': ['Máu', 'HP'], '攻擊': ['Tấn công', 'Attack'], '防禦': ['Phòng thủ', 'Defense'], '等級': ['Cấp', 'Level'], '花語草原': ['Đồng cỏ Hoa Ngữ', 'Blossom Meadow'], '學院遺跡': ['Di tích học viện', 'Academy Ruins'], '碧波濕地': ['Đầm lầy xanh', 'Azure Wetlands'], '翠影森林': ['Rừng Bóng Ngọc', 'Emerald Forest'], '旅人峽谷': ['Hẻm núi lữ khách', 'Traveler Canyon'], '星光市集': ['Chợ ánh sao', 'Starlight Market'], '準備級一': ['Cấp Chuẩn bị 1', 'Novice Level 1'], '準備級二': ['Cấp Chuẩn bị 2', 'Novice Level 2'], '中文選越南文': ['Chọn nghĩa tiếng Việt', 'Choose the meaning'], '聽中文選漢字': ['Nghe và chọn chữ Hán', 'Listen and choose characters'], '連擊斬': ['Chém liên hoàn', 'Combo Slash'], '魔法爆發': ['Bùng nổ phép thuật', 'Magic Burst'], '追加射擊': ['Bắn thêm', 'Follow-up Shot'], '治療之光': ['Ánh sáng hồi phục', 'Healing Light'], '教師測試模式': ['Chế độ kiểm tra giáo viên', 'Teacher Test Mode'], '教師等級同步': ['Đồng bộ cấp thử nghiệm', 'Sync Test Level']};
+UI["💌 如果您有任何改善建議，歡迎寄信至："]=["💌 Nếu bạn có góp ý để cải thiện trò chơi, vui lòng gửi email đến: ","💌 Have suggestions for improvement? Email us at: "];
+Object.assign(UI,MORE_UI);
+const EN_WORDS={'我':'I / me','你/妳':'you','他/她':'he / she','我們':'we / us','你們/妳們':'you (plural)','他們/她們':'they / them','您':'you (polite)','誰':'who','姓名':'full name','人':'person','國':'country','中國':'China','美國':'United States','日本':'Japan','台灣/臺灣':'Taiwan','名字':'name','家':'home / family','電話':'telephone','時間':'time','小時':'hour','現在':'now','今年':'this year','今天':'today','明天':'tomorrow','昨天':'yesterday','早上':'early morning','上午':'morning','中午':'noon','下午':'afternoon','晚上':'evening','一':'one','二':'two','三':'three','四':'four','五':'five','六':'six','七':'seven','八':'eight','九':'nine','十':'ten'};
+const VI_WORDS={};for(const w of WORDS)VI_WORDS[w[0]]=w[2];
+// Alpha 3.9.4: answer language is independent from interface language.
+const ANSWER_KEY='mandarin-adventurer-answer-language';
+let answerLanguage=localStorage.getItem(ANSWER_KEY)||'vi';
+const EXTRA_EN_WORDS={"男": "male", "女": "female", "孩子": "child", "小姐": "Miss / young woman", "先生": "Mr. / gentleman", "太太": "Mrs. / wife", "女兒": "daughter", "兒子": "son", "大家": "everyone", "路": "road", "手機": "mobile phone", "明年": "next year", "去年": "last year", "生日": "birthday", "月": "month / moon", "日": "day / date", "星期": "week", "週末": "weekend", "天": "day / sky", "公園": "park", "國家": "country", "分鐘": "minute", "家人": "family member", "胖": "overweight", "矮": "short (height)", "瘦": "thin", "萬": "ten thousand", "前天": "the day before yesterday", "後天": "the day after tomorrow", "自己": "oneself", "最": "most", "怕": "be afraid of", "美": "beautiful", "真的": "really", "非常": "very / extremely", "工作": "work / job", "醫生": "doctor", "一些": "some", "本": "measure word for books", "張": "measure word for flat objects", "英文": "English", "紙": "paper", "問題": "question / problem", "意思": "meaning", "餐廳": "restaurant", "畫": "draw / painting", "讀": "read", "為什麼": "why", "下課": "finish class", "說話": "speak", "考試": "exam", "懂": "understand", "教": "teach", "告訴": "tell", "錯": "wrong", "功課": "homework", "教室": "classroom", "句子": "sentence", "休息": "rest", "房間": "room", "樓": "floor / building", "門": "door", "門口": "doorway", "桌子": "table", "椅子": "chair", "床": "bed", "天氣": "weather", "空氣": "air", "冷": "cold", "熱": "hot", "雨": "rain", "下雨": "rain (verb)", "風": "wind", "山": "mountain", "花": "flower", "魚": "fish", "雞": "chicken", "牛": "cow", "豬": "pig", "咖啡": "coffee", "茶": "tea", "穿": "wear", "起床": "get up", "睡覺": "sleep", "先": "first", "每": "every", "玩": "play", "運動": "exercise", "走路": "walk", "唱歌": "sing", "跳": "jump", "跳舞": "dance", "球": "ball", "介紹": "introduce", "裡面": "inside", "附近": "nearby", "拿": "take / hold", "站": "stand", "快": "fast", "慢": "slow", "計程車": "taxi", "火車": "train", "飛機": "airplane", "手": "hand", "腳": "foot / leg", "身體": "body", "眼睛": "eyes", "鼻子": "nose", "藥": "medicine", "累": "tired", "頭": "head", "耳朵": "ears", "感冒": "have a cold", "生病": "be sick", "餓": "hungry", "痛": "painful", "嘴巴": "mouth", "看病": "see a doctor", "鞋子": "shoes", "衣服": "clothes", "新": "new", "短": "short (length)", "舊": "old (used)", "筷子": "chopsticks", "杯子": "cup", "菜": "vegetable / dish", "肉": "meat", "喝": "drink", "小吃": "snack / street food", "牛奶": "milk", "蛋": "egg", "麵": "noodles", "湯": "soup", "包子": "steamed bun", "蛋糕": "cake", "麵包": "bread", "水果": "fruit", "香蕉": "banana", "食物": "food", "飲料": "beverage", "果汁": "fruit juice", "甜": "sweet", "菜單": "menu", "巧克力": "chocolate", "碗": "bowl", "冰": "ice", "一起": "together", "因為": "because", "所以": "therefore", "可能": "possibly", "馬上": "immediately"};
+Object.assign(EN_WORDS,EXTRA_EN_WORDS);
+window.gameConfirmText=(kind)=>{const lang=document.getElementById('gameLanguage')?.value||'zh';const messages={leaveBattle:{zh:'離開戰鬥將放棄本次獎勵，確定嗎？',en:'Leave this battle? You will lose the rewards from this battle.',vi:'Rời trận chiến? Bạn sẽ mất phần thưởng của trận này.'},retreat:{zh:'確定撤退？已獲得的獎勵會保留，但本次遠征步數會重置。',en:'Retreat from this expedition? You will keep earned rewards, but expedition progress will reset.',vi:'Rút lui khỏi chuyến thám hiểm? Bạn giữ phần thưởng đã nhận, nhưng tiến độ thám hiểm sẽ được đặt lại.'}};return messages[kind]?.[lang]||messages[kind]?.zh||'';};
+const selector=document.getElementById('gameLanguage');
+const answerSelector=document.createElement('select');answerSelector.id='answerLanguage';answerSelector.setAttribute('aria-label','Answer language');
+answerSelector.innerHTML='<option value="vi">Tiếng Việt</option><option value="en">English</option>';
+answerSelector.value=answerLanguage;
+const answerLabel=document.createElement('label');answerLabel.htmlFor='answerLanguage';answerLabel.id='answerLanguageLabel';answerLabel.textContent='📝 答題語言';
+const answerWrap=document.createElement('div');answerWrap.className='answer-language-switch';answerWrap.style.cssText='display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 15px;';
+answerWrap.append(answerLabel,answerSelector);
+selector.parentElement.insertAdjacentElement('afterend',answerWrap);
+function updateAnswerLabel(){answerLabel.textContent=current==='vi'?'📝 Ngôn ngữ đáp án':current==='en'?'📝 Answer Language':'📝 答題語言';}
+window.gameAnswerLanguage=()=>answerLanguage;
+window.gameAnswerText=(w)=>answerLanguage==='en'?(EN_WORDS[w[0]]||null):w[2];
+window.gameHasAnswer=(w)=>Boolean(window.gameAnswerText(w));
+function refreshAnswerDisplay(){
+ if(typeof battle!=='undefined'&&battle&&!battle.done&&typeof updateTeacherHints==='function')updateTeacherHints();
+ if(typeof entryFight!=='undefined'&&entryFight&&!entryFight.done&&typeof entryWords==='function'){
+  const words=entryWords();document.querySelectorAll('#entryAnswers button').forEach(b=>{
+   const i=Number(b.dataset.wordIndex);if(!Number.isInteger(i)||!words[i])return;
+   const w=words[i],value=window.gameAnswerText(w);
+   b.textContent=entryFight.listening?w[0]:(value||w[0])+($('entryTeacherMode').checked?'（'+w[0]+'）':'');
+  });
+ }
+}
+answerSelector.addEventListener('change',()=>{answerLanguage=answerSelector.value;localStorage.setItem(ANSWER_KEY,answerLanguage);refreshAnswerDisplay();apply();});
+const original=new WeakMap();let busy=false;let current=localStorage.getItem(LANG_KEY)||'zh';
+updateAnswerLabel();
+selector.value=current;
+Object.assign(UI,{
+ '暖棕':['Nâu ấm','Warm Brown'],
+ '深黑':['Đen đậm','Deep Black'],
+ '金髮':['Tóc vàng','Blonde'],
+ '銀髮':['Tóc bạc','Silver Hair'],
+ '輸入 1–16 個字':['Nhập 1–16 ký tự','Enter 1–16 characters']
+});
+function updateNamePlaceholder(){const field=document.getElementById('name');if(field)field.placeholder=current==='vi'?'Nhập 1–16 ký tự':current==='en'?'Enter 1–16 characters':'輸入 1–16 個字';}
+
+// Alpha 3.9.7: verified full-phrase translations for menus, records, equipment and dragon.
+Object.assign(UI,{
+"花語武器":["Vũ khí Hoa Ngữ","Blossom Weapon"],
+"花語長弓":["Cung dài Hoa Ngữ","Blossom Longbow"],
+"花語長劍":["Kiếm dài Hoa Ngữ","Blossom Longsword"],
+"花語法杖":["Trượng Hoa Ngữ","Blossom Staff"],
+"花語權杖":["Quyền trượng Hoa Ngữ","Blossom Scepter"],
+"冒險者短弓":["Cung ngắn nhà phiêu lưu","Adventurer Shortbow"],
+"冒險者鐵劍":["Kiếm sắt nhà phiêu lưu","Adventurer Iron Sword"],
+"冒險者法杖":["Trượng nhà phiêu lưu","Adventurer Staff"],
+"冒險者權杖":["Quyền trượng nhà phiêu lưu","Adventurer Scepter"],
+"學院鎧甲":["Giáp học viện","Academy Armor"],
+"學院法袍":["Áo choàng pháp sư học viện","Academy Mage Robe"],
+"學院聖袍":["Áo thánh học viện","Academy Holy Robe"],
+"翠影頭盔":["Mũ bảo hộ rừng ngọc","Emerald Helmet"],
+"星光戒指":["Nhẫn ánh sao","Starlight Ring"],
+"依職業配發：戰士鐵劍、法師法杖、遊俠短弓、牧師權杖；攻擊 +5%":["Vũ khí khởi đầu theo nghề; tấn công +5%","Class-specific starter weapon; attack +5%"],
+"依職業配發花語系列武器；攻擊 +8%；通關花語草原解鎖":["Vũ khí Hoa Ngữ theo nghề; tấn công +8%; mở khóa sau khi vượt Đồng cỏ Hoa Ngữ","Class-specific Blossom weapon; attack +8%; unlock by clearing Blossom Meadow"],
+"受到傷害 -5%":["Giảm sát thương nhận vào 5%","Damage taken -5%"],
+"受到傷害 -10%；通關學院遺跡解鎖":["Giảm sát thương nhận vào 10%; mở khóa sau khi vượt Di tích học viện","Damage taken -10%; unlock by clearing Academy Ruins"],
+"最大生命 +8%；通關月光山谷解鎖":["Máu tối đa +8%; mở khóa sau khi vượt Thung lũng Ánh Trăng","Max HP +8%; unlock by clearing Moonlight Valley"],
+"最大生命 +6%；通關碧波濕地解鎖":["Máu tối đa +6%; mở khóa sau khi vượt Đầm lầy xanh","Max HP +6%; unlock by clearing Azure Wetlands"],
+"受到傷害 -4%；通關翠影森林解鎖":["Giảm sát thương nhận vào 4%; mở khóa sau khi vượt Rừng Bóng Ngọc","Damage taken -4%; unlock by clearing Emerald Forest"],
+"戰鬥金幣 +10%；通關旅人峽谷解鎖":["Xu nhận được từ trận chiến +10%; mở khóa sau khi vượt Hẻm núi Lữ Khách","Gold earned from battles +10%; unlock by clearing Traveler Canyon"],
+"攻擊 +5%":["Tấn công +5%","Attack +5%"],
+"攻擊 +8%":["Tấn công +8%","Attack +8%"],
+"通關":["Vượt qua","Clear"],
+"解鎖":["Mở khóa","Unlock"],
+"依職業配發":["Trang bị theo nghề","Class-specific equipment"],
+"🌙 月光少年龍":["🌙 Rồng thiếu niên ánh trăng","🌙 Moonlight Young Dragon"],
+"月光少年龍":["Rồng thiếu niên ánh trăng","Moonlight Young Dragon"],
+"月影飛龍":["Rồng bay bóng trăng","Moonshadow Dragon"],
+"🐣 幼龍同行":["🐣 Rồng non đồng hành","🐣 Baby Dragon Companion"],
+"🌙 第一次進化・月光少年龍":["🌙 Tiến hóa lần 1 · Rồng thiếu niên ánh trăng","🌙 First Evolution · Moonlight Young Dragon"],
+"🛡️ 第二次進化・月影飛龍":["🛡️ Tiến hóa lần 2 · Rồng bay bóng trăng","🛡️ Second Evolution · Moonshadow Dragon"],
+"🔒 後續進化":["🔒 Các lần tiến hóa sau","🔒 Future Evolutions"],
+"答對兩題後自動協助攻擊；升級只提高傷害，不改變外貌":["Tự động hỗ trợ tấn công sau hai câu trả lời đúng ngay lần đầu; lên cấp chỉ tăng sát thương, không đổi ngoại hình.","Automatically attacks after two first-try correct answers; leveling increases damage only, not appearance."],
+"Lv.10 ＋ 月光龍晶 ×3；永久提高協助攻擊成長，進化後 Lv.1":["Lv.10 + 3 pha lê rồng ánh trăng; tăng vĩnh viễn sức mạnh hỗ trợ, sau tiến hóa về Lv.1.","Lv.10 + 3 Moon Dragon Crystals; permanently boosts assist-attack growth; returns to Lv.1 after evolving."],
+"再次 Lv.10 ＋ 月光龍晶 ×5；月光庇護依親密度判定，成功後本場減傷一次 20%":["Đạt Lv.10 lần nữa + 5 pha lê rồng; Bảo hộ Ánh trăng kích hoạt theo độ thân thiết, giảm 20% sát thương cho một đòn phản công trong trận.","Reach Lv.10 again + 5 Moon Dragon Crystals; Moonlight Protection triggers based on affection and reduces one counterattack by 20% per battle."],
+"未來地圖再開放新的形態與能力":["Hình dạng và kỹ năng mới sẽ xuất hiện ở bản đồ tương lai.","New forms and abilities will unlock in future maps."],
+"每次擊敗怪物，豆芽獲得 10 EXP。每 50 EXP 升一級；戰鬥中每累積兩次首次作答正確，豆芽就會協助攻擊。成長資料會與角色一起儲存。":["Mỗi lần đánh bại quái vật, Mầm Nhỏ nhận 10 EXP. Cứ 50 EXP lên một cấp. Sau hai lần trả lời đúng ngay lần đầu, rồng sẽ hỗ trợ tấn công. Tiến độ được lưu cùng nhân vật.","Sprout earns 10 EXP for each defeated monster and levels up every 50 EXP. After two first-try correct answers, Sprout assists with an attack. Dragon progress is saved with your character."],
+"已獲得永久攻擊加成！重新培養至 Lv.10，即可進行第二次進化。":["Đã nhận tăng sức tấn công vĩnh viễn! Nuôi đến Lv.10 để tiến hóa lần hai.","Permanent attack bonus unlocked! Raise the dragon to Lv.10 again for its second evolution."],
+"已達 Lv.10！收集素材後進化，經驗不再累積。":["Đã đạt Lv.10! Thu thập nguyên liệu để tiến hóa; EXP sẽ không tăng thêm.","Lv.10 reached! Collect materials to evolve; EXP no longer accumulates."],
+"協助攻擊":["Tấn công hỗ trợ","Assist Attack"],
+"累積經驗":["Kinh nghiệm tích lũy","Accumulated EXP"],
+"技能成功率":["Tỉ lệ kích hoạt kỹ năng","Skill Activation Chance"],
+"月光庇護":["Bảo hộ Ánh trăng","Moonlight Protection"],
+"進化階段":["Giai đoạn tiến hóa","Evolution Stage"],
+"進化":["Tiến hóa","Evolve"],
+"小龍點心 ×1，親密度 +1":["1 bánh thưởng cho rồng, độ thân thiết +1","1 Dragon Treat, affection +1"],
+"星光碎片 ×5，提升協助攻擊":["5 mảnh sao, tăng sức tấn công hỗ trợ","5 Star Fragments, increase assist attack"],
+"🌿 新手森林遠征":["🌿 Hành trình Rừng Tân Thủ","🌿 Beginner Forest Expedition"],
+"新手森林遠征":["Hành trình Rừng Tân Thủ","Beginner Forest Expedition"],
+"🏆 已通關，取得月光山谷解鎖資格":["🏆 Đã vượt qua! Đã mở khóa Thung lũng Ánh Trăng.","🏆 Cleared! Moonlight Valley unlocked."],
+"🔒 尚未通關 · 完成 20 步遠征並擊敗森林守衛":["🔒 Chưa hoàn thành · Đi 20 bước và đánh bại Vệ binh rừng","🔒 Not cleared · Complete 20 steps and defeat the Forest Guardian"],
+"🧭 遠征紀錄":["🧭 Nhật ký hành trình","🧭 Expedition Record"],
+"🐉 冒險夥伴：豆芽":["🐉 Bạn đồng hành: Mầm Nhỏ","🐉 Companion: Sprout"],
+"一起踏上冒險之路":["Cùng nhau lên đường phiêu lưu","Adventuring together"],
+"✨ 專屬技能":["✨ Kỹ năng riêng","✨ Class Skills"],
+"🔒 技能系統將於後續版本開放":["🔒 Hệ thống kỹ năng sẽ ra mắt ở phiên bản sau","🔒 Skills will unlock in a future update"],
+"角色資料會依照目前存檔顯示；換版本前請先在村莊備份存檔。":["Hồ sơ hiển thị dữ liệu đã lưu. Hãy sao lưu ở làng trước khi đổi phiên bản.","Your profile reflects your current save. Back up in the village before updating."],
+"📖 本地圖先只考生詞，不加入句型題。每區三頁詞卡；聽力題涵蓋全部347詞，已完成越南文校對的詞卡才出現翻譯題。擊敗區域首領可解鎖下一區。":["📖 Bản đồ này chỉ luyện từ vựng, chưa có câu mẫu. Mỗi khu gồm ba trang thẻ từ; phần nghe bao gồm cả 347 từ. Câu hỏi dịch chỉ dùng những từ đã kiểm tra nghĩa tiếng Việt. Đánh bại trùm khu vực để mở khu tiếp theo.","📖 This map practices vocabulary only, not sentence patterns. Each zone has three pages of word cards. Listening covers all 347 words; translation questions use only words with verified Vietnamese meanings. Defeat each zone boss to unlock the next area."],
+"選擇要挑戰的怪物，準備級一 · 華語練習":["Chọn quái vật để thử sức · Luyện tiếng Hoa cấp chuẩn bị 1","Choose a monster · Preparatory Level 1 Chinese practice"],
+"每種怪物都可以重複挑戰。史萊姆適合初學者，森林守衛建議 Lv.5 再挑戰。":["Bạn có thể đánh lại mọi quái vật. Slime phù hợp người mới; nên đạt Lv.5 trước khi đấu Vệ binh rừng.","All monsters can be challenged repeatedly. Slimes suit beginners; Lv.5 is recommended for the Forest Guardian."],
+"存檔保存在目前檔案的瀏覽器儲存空間。Android 不同開啟方式可能使用不同的儲存區，請先備份再換版本；清除網站資料、使用無痕模式或換裝置也可能遺失進度。":["Dữ liệu được lưu trong trình duyệt đang mở trò chơi. Trên Android, cách mở tệp khác nhau có thể dùng bộ nhớ khác nhau. Hãy sao lưu trước khi cập nhật; xóa dữ liệu trang, dùng chế độ ẩn danh hoặc đổi thiết bị có thể làm mất tiến độ.","Saves are stored in the browser used to open this game. Different ways of opening files on Android may use separate storage. Back up before updating; clearing site data, using incognito mode, or changing devices may erase progress."],
+"答錯不造成傷害，訂正才能繼續。怪物會反擊，小龍每兩次首次作答正確會協助攻擊；擊敗怪物立即獲勝；怪物還活著就繼續答題。":["Trả lời sai không gây sát thương; phải sửa đúng mới tiếp tục. Quái vật sẽ phản công. Rồng hỗ trợ sau hai lần trả lời đúng ngay lần đầu. Đánh bại quái vật để chiến thắng; nếu nó còn sống, hãy tiếp tục trả lời.","Wrong answers deal no damage; correct them to continue. Monsters counterattack. Your dragon assists after two first-try correct answers. Defeat the monster to win; otherwise keep answering."],
+"六大區域 · 347 張生詞卡 · 多樣化怪物":["Sáu khu vực · 347 thẻ từ · Nhiều loại quái vật","Six zones · 347 vocabulary cards · Varied monsters"],
+"第三張地圖 · 347 詞 · 六大區域":["Bản đồ thứ ba · 347 từ · Sáu khu vực","Third map · 347 words · Six zones"],
+"歡迎回到晨曦村":["Chào mừng trở lại Làng Bình Minh","Welcome back to Dawn Village"],
+"選擇森林冒險繼續練習。":["Chọn Phiêu lưu rừng để tiếp tục luyện tập.","Choose Forest Adventure to keep practicing."],
+"目前有":["Hiện có","Currently have"],
+"角色":["Nhân vật","Character"],
+"已解鎖":["Đã mở khóa","Unlocked"],
+"尚未解鎖":["Chưa mở khóa","Locked"],
+"已通關":["Đã vượt qua","Cleared"],
+"準備級二 · 已解鎖":["Cấp chuẩn bị 2 · Đã mở khóa","Preparatory Level 2 · Unlocked"],
+"🔒 完成森林遠征解鎖":["🔒 Hoàn thành hành trình rừng để mở khóa","🔒 Complete Forest Expedition to unlock"],
+"存檔":["Bản lưu","Save"],
+"探索":["Khám phá","Explore"],
+"次":["lần","times"],
+"小龍":["Rồng nhỏ","Little Dragon"],
+"還差":["Còn thiếu","Remaining"],
+"森林史萊姆":["Slime rừng","Forest Slime"],
+"森林守衛":["Vệ binh rừng","Forest Guardian"],
+"入門級祕境":["Bí cảnh nhập môn","Novice Realm"]
+});
+
+const UI_FIX={
+"🌱 幼龍豆芽":["🌱 Rồng con Mầm Nhỏ","🌱 Baby Dragon Sprout"],
+"幼龍豆芽":["Rồng con Mầm Nhỏ","Baby Dragon Sprout"],
+"🐉 冒險夥伴：豆芽":["🐉 Bạn đồng hành: Mầm Nhỏ","🐉 Companion: Sprout"],
+"地圖解鎖進度":["Tiến độ mở khóa bản đồ","Map Unlock Progress"],
+"🗺️ 地圖解鎖進度":["🗺️ Tiến độ mở khóa bản đồ","🗺️ Map Unlock Progress"],
+"🌲 新手森林：已開放（普通關卡為自由練習）":["🌲 Rừng Tân Thủ: Đã mở (có thể luyện tập tự do)","🌲 Beginner Forest: Open (free practice available)"],
+"🔒 月光山谷：須擊敗新手森林遠征首領才能解鎖":["🔒 Thung lũng Ánh Trăng: Đánh bại trùm hành trình Rừng Tân Thủ để mở khóa","🔒 Moonlight Valley: Defeat the Beginner Forest expedition boss to unlock"],
+"普通關卡不計入地圖解鎖；遠征通關紀錄會永久保存在角色存檔中。":["Các trận luyện tập không mở khóa bản đồ. Kết quả hành trình được lưu vĩnh viễn trong hồ sơ nhân vật.","Practice battles do not unlock maps. Expedition clears are saved permanently in your character data."],
+"🧭 遠征紀錄":["🧭 Nhật ký hành trình","🧭 Expedition Record"],
+"遠征紀錄":["Nhật ký hành trình","Expedition Record"],
+"🪙 目前金幣：0":["🪙 Số xu hiện có: 0","🪙 Current gold: 0"],
+"金幣不足":["Không đủ xu","Not enough gold"],
+"🪙 金幣不足":["🪙 Không đủ xu","🪙 Not enough gold"],
+"購買後請前往「角色資料」，點選角色旁的裝備欄穿戴或更換。裝備永久擁有，不消耗耐久度。":["Sau khi mua, vào Hồ sơ nhân vật để trang bị hoặc thay đổi vật phẩm. Trang bị thuộc sở hữu vĩnh viễn và không hao độ bền.","After purchasing, open Character Profile to equip or change items. Equipment is permanent and has no durability loss."],
+"潮汐之靴":["Giày Thủy Triều","Tidal Boots"],
+"旅人徽章":["Huy hiệu Lữ Khách","Traveler Badge"],
+"🌱 幼龍":["🌱 Rồng con","🌱 Baby Dragon"],
+"🌿 幼龍":["🌿 Rồng con","🌿 Baby Dragon"],
+"🌿 幼龍豆芽":["🌿 Rồng con Mầm Nhỏ","🌿 Baby Dragon Sprout"],
+"🌿 幼龍豆芽的成長小屋":["🌿 Ngôi nhà trưởng thành của Mầm Nhỏ","🌿 Sprout's Growth Cottage"],
+"🐉 豆芽的成長小屋":["🐉 Ngôi nhà trưởng thành của Mầm Nhỏ","🐉 Sprout's Growth Cottage"],
+"一起冒險，一起長大！":["Cùng phiêu lưu, cùng trưởng thành!","Adventure and grow together!"],
+"🔒 後續進化":["🔒 Tiến hóa tiếp theo","🔒 Future Evolutions"],
+"⭐ 強化":["⭐ Cường hóa","⭐ Upgrade"],
+"🌿 幼龍同行":["🌿 Rồng con đồng hành","🌿 Baby Dragon Companion"],
+"請先通關月光山谷遠征，才能進入第三張地圖。":["Hãy hoàn thành hành trình Thung lũng Ánh Trăng trước khi vào bản đồ thứ ba.","Complete the Moonlight Valley expedition before entering the third map."],
+"請先完成新手森林 20 步遠征，擊敗森林守衛，才能進入月光山谷！":["Hãy hoàn thành 20 bước hành trình Rừng Tân Thủ và đánh bại Vệ binh rừng để vào Thung lũng Ánh Trăng!","Complete the 20-step Beginner Forest expedition and defeat the Forest Guardian to enter Moonlight Valley!"],
+};
+Object.assign(UI,UI_FIX);
+
+// Alpha 3.9.9: complete labels found during the three-language screenshot audit.
+Object.assign(UI,{
+'📦 已有角色存檔？':['📦 Đã có bản lưu nhân vật?','📦 Already Have a Character Save?'],
+'角色造型為本原型內建的像素圖，未使用外部圖片。':['Hình nhân vật được vẽ bằng pixel trong trò chơi, không dùng hình ảnh bên ngoài.','Character art is built-in pixel art; no external images are used.'],
+'攻擊':['Tấn công','Attack'],'防禦':['Phòng thủ','Defense'],'生命':['Máu','HP'],
+'祭司 · 初始小龍':['Tu sĩ · Rồng nhỏ','Priest · Baby Dragon'],
+'劍士 · 初始小龍':['Kiếm sĩ · Rồng nhỏ','Warrior · Baby Dragon'],
+'法師 · 初始小龍':['Pháp sư · Rồng nhỏ','Mage · Baby Dragon'],
+'遊俠 · 初始小龍':['Cung thủ · Rồng nhỏ','Ranger · Baby Dragon'],
+'🌿 幼龍豆芽':['🌿 Rồng con Mầm Nhỏ','🌿 Baby Dragon Sprout'],
+'⭐ 小龍經驗':['⭐ Kinh nghiệm rồng','⭐ Dragon EXP'],
+'⭐ 小龍經驗值':['⭐ Kinh nghiệm rồng','⭐ Dragon EXP'],
+'🧭 冒險紀錄':['🧭 Nhật ký phiêu lưu','🧭 Adventure Log'],
+'🌿 新手森林':['🌿 Rừng Tân Thủ','🌿 Beginner Forest'],
+'🗺️ 地圖解鎖進度':['🗺️ Tiến độ mở khóa bản đồ','🗺️ Map Unlock Progress'],
+'🔒 月光山谷：須擊敗新手森林遠征 Boss 才能解鎖':['🔒 Thung lũng Ánh Trăng: Đánh bại trùm hành trình Rừng Tân Thủ để mở khóa','🔒 Moonlight Valley: Defeat the Beginner Forest expedition boss to unlock'],
+'🧭 森林遠征 · 20 步挑戰':['🧭 Hành trình rừng · Thử thách 20 bước','🧭 Forest Expedition · 20-Step Challenge'],
+'🌱 幼龍豆芽':['🌱 Rồng con Mầm Nhỏ','🌱 Baby Dragon Sprout'],
+'💎 進化':['💎 Tiến hóa','💎 Evolve'],
+'🍖 餵食':['🍖 Cho ăn','🍖 Feed'],
+'🌟 成長里程碑':['🌟 Cột mốc trưởng thành','🌟 Growth Milestones'],
+'🌟 強化':['🌟 Cường hóa','🌟 Upgrade'],
+'🌿 幼龍同行':['🌿 Rồng con đồng hành','🌿 Baby Dragon Companion'],
+'🌙 第一次進化 · 月光少年龍':['🌙 Tiến hóa lần 1 · Rồng Thiếu Niên Ánh Trăng','🌙 First Evolution · Moonlight Young Dragon'],
+'🛡️ 第二次進化 · 月影飛龍':['🛡️ Tiến hóa lần 2 · Rồng Bay Bóng Trăng','🛡️ Second Evolution · Moonshadow Dragon'],
+'🔒 🔒 後續進化':['🔒 🔒 Tiến hóa sau này','🔒 🔒 Future Evolutions'],
+'🪙 目前金幣：':['🪙 Số xu hiện có:','🪙 Current Gold:'],
+'⭐ 冒險經驗':['⭐ Kinh nghiệm phiêu lưu','⭐ Adventure EXP'],
+'💫 專屬技能':['💫 Kỹ năng riêng','💫 Class Skills'],
+'📖 累積經驗':['📖 Kinh nghiệm tích lũy','📖 Accumulated EXP'],
+'🔥 協助攻擊':['🔥 Tấn công hỗ trợ','🔥 Assist Attack'],
+'🪙 金幣不足':['🪙 Không đủ xu','🪙 Not enough gold'],
+'🔒 尚未解鎖':['🔒 Chưa mở khóa','🔒 Locked'],
+'🪙 目前金幣':['🪙 Số xu hiện có','🪙 Current Gold'],
+'月光山谷素材':['Nguyên liệu Thung lũng Ánh Trăng','Moonlight Valley Materials'],
+'🎒 月光山谷素材':['🎒 Nguyên liệu Thung lũng Ánh Trăng','🎒 Moonlight Valley Materials'],
+'🧭 遠征進度':['🧭 Tiến độ hành trình','🧭 Expedition Progress'],
+'新手森林遠征':['Hành trình Rừng Tân Thủ','Beginner Forest Expedition'],
+'🌿 新手森林遠征':['🌿 Hành trình Rừng Tân Thủ','🌿 Beginner Forest Expedition'],
+'豆芽':['Mầm Nhỏ','Sprout'],
+'小龍點心':['Bánh thưởng cho rồng','Dragon Treat'],
+'月光龍晶':['Tinh thể Rồng Ánh Trăng','Moon Dragon Crystal'],
+'星光碎片':['Mảnh sao','Star Fragment'],
+'親密度／技能成功率':['Độ thân thiết / Tỉ lệ kích hoạt kỹ năng','Affection / Skill Activation Chance'],
+'💞 親密度／技能成功率':['💞 Độ thân thiết / Tỉ lệ kích hoạt kỹ năng','💞 Affection / Skill Activation Chance'],
+'🧭 遠征紀錄':['🧭 Nhật ký hành trình','🧭 Expedition Record'],
+'🌳 森林守衛':['🌳 Vệ binh rừng','🌳 Forest Guardian'],
+'史萊姆草地':['Đồng cỏ Slime','Slime Meadow'],
+'蘑菇小徑':['Đường Nấm','Mushroom Path'],
+'森林守衛':['Vệ binh rừng','Forest Guardian'],
+'冒險夥伴：豆芽':['Bạn đồng hành: Mầm Nhỏ','Companion: Sprout'],
+'🌿 冒險夥伴：豆芽':['🌿 Bạn đồng hành: Mầm Nhỏ','🌿 Companion: Sprout'],
+'角色造型為本原型內建的像素圖，未使用外部圖片。':['Hình nhân vật là tranh pixel tích hợp, không dùng hình ảnh bên ngoài.','Character art uses built-in pixel graphics, not external images.']
+});
+
+
+Object.assign(UI,{
+"⭐ Lv.1 · 進化 0/2":["⭐ Lv.1 · Tiến hóa 0/2","⭐ Lv.1 · Evolve 0/2"],
+"🐣 升級不會改變造型；達 Lv.10 並收集龍晶後可以第一次進化。":["🐣 Lên cấp không thay đổi ngoại hình; đạt Lv.10 và thu thập pha lê rồng để tiến hóa lần đầu.","🐣 Leveling does not change appearance; reach Lv.10 and collect Dragon Crystals for the first evolution."],
+"🌿 幼龍豆芽":["🌿 Rồng con Mầm Nhỏ","🌿 Baby Dragon Sprout"],
+"✨ 小龍經驗":["✨ Kinh nghiệm rồng","✨ Dragon EXP"],
+"🍖 小龍點心":["🍖 Bánh thưởng cho rồng","🍖 Dragon Treat"],
+"💎 月光龍晶":["💎 Pha lê rồng ánh trăng","💎 Moon Dragon Crystal"],
+"⭐ 星光碎片":["⭐ Mảnh sao","⭐ Star Fragment"],
+"💞 親密度／技能成功率":["💞 Độ thân thiết / Tỉ lệ kích hoạt kỹ năng","💞 Affection / Skill Activation Chance"],
+"🐣 幼龍同行":["🐣 Rồng non đồng hành","🐣 Baby Dragon Companion"],
+"🌙 第一次進化・月光少年龍":["🌙 Tiến hóa lần 1 · Rồng thiếu niên ánh trăng","🌙 First Evolution · Moonlight Young Dragon"],
+"🛡️ 第二次進化・月影飛龍":["🛡️ Tiến hóa lần 2 · Rồng bay bóng trăng","🛡️ Second Evolution · Moonshadow Dragon"],
+"🔒 後續進化":["🔒 Các lần tiến hóa sau","🔒 Future Evolutions"],
+"答對兩題後自動協助攻擊；升級只提高傷害，不改變外貌":["Tự động hỗ trợ tấn công sau hai câu trả lời đúng ngay lần đầu; lên cấp chỉ tăng sát thương, không đổi ngoại hình.","Automatically assists after two first-try correct answers; leveling increases damage only, not appearance."],
+"Lv.10 ＋ 月光龍晶 ×3；永久提高協助攻擊成長，進化後 Lv.1":["Lv.10 + 3 pha lê rồng; tăng vĩnh viễn sức mạnh hỗ trợ, sau tiến hóa trở về Lv.1.","Lv.10 + 3 Moon Dragon Crystals; permanently improves assist-attack growth and returns to Lv.1."],
+"再次 Lv.10 ＋ 月光龍晶 ×5；月光庇護依親密度判定，成功後本場減傷一次 20%":["Đạt Lv.10 lần nữa + 5 pha lê rồng; Bảo hộ Ánh trăng có tỉ lệ kích hoạt theo độ thân thiết và giảm 20% sát thương của một đòn phản công mỗi trận.","Reach Lv.10 again + 5 Moon Dragon Crystals; Moonlight Protection activates based on affection and reduces one counterattack by 20% per battle."],
+"未來地圖再開放新的形態與能力":["Các hình dạng và kỹ năng mới sẽ mở khóa ở những bản đồ sau.","New forms and abilities will unlock in future maps."],
+"每次擊敗怪物，豆芽獲得 10 EXP。每 50 EXP 升一級；戰鬥中每累積兩次首次作答正確，豆芽就會協助攻擊。成長資料會與角色一起儲存。":["Mỗi quái vật bị đánh bại cho Mầm Nhỏ 10 EXP. Cứ 50 EXP sẽ lên một cấp. Sau hai câu trả lời đúng ngay lần đầu, Mầm Nhỏ sẽ hỗ trợ tấn công. Tiến độ của rồng được lưu cùng nhân vật.","Sprout earns 10 EXP per defeated monster and levels up every 50 EXP. After two first-try correct answers, Sprout assists with an attack. Dragon progress is saved with your character."],
+"已達進化等級":["Đã đủ cấp tiến hóa","Evolution level reached"],
+"已解鎖月光庇護":["Đã mở khóa Bảo hộ Ánh trăng","Moonlight Protection unlocked"],
+"🌙 進化已完成":["🌙 Đã hoàn tất tiến hóa","🌙 Evolution complete"],
+"目前開放兩階段":["Hiện có hai giai đoạn","Two stages currently available"],
+"距離 Lv.2 還差 50 EXP":["Còn 50 EXP để đạt Lv.2","50 EXP to Lv.2"]
+});
+
+
+// Alpha 3.9.15: forest and valley expedition interface.
+Object.assign(UI,{"🧭 森林探索": ["🧭 Khám phá rừng", "🧭 Forest Exploration"], "跟豆芽一起尋找森林裡的驚喜！": ["Cùng Mầm Nhỏ khám phá những điều bất ngờ trong rừng!", "Discover forest surprises with Sprout!"], "🏕️ 森林入口 → 👑 森林深處": ["🏕️ Lối vào rừng → 👑 Rừng sâu", "🏕️ Forest Entrance → 👑 Deep Forest"], "🌙 山谷入口 → 🦉 月影守護者": ["🌙 Lối vào thung lũng → 🦉 Vệ thần Bóng Trăng", "🌙 Valley Entrance → 🦉 Moonshadow Guardian"], "👣 往森林深處走": ["👣 Đi sâu vào rừng", "👣 Head Deeper into the Forest"], "👣 繼續探索": ["👣 Tiếp tục khám phá", "👣 Continue Exploring"], "👣 繼續走": ["👣 Tiếp tục đi", "👣 Keep Walking"], "👣 小心前進": ["👣 Đi tiếp cẩn thận", "👣 Proceed Carefully"], "🏡 撤退並保留獎勵": ["🏡 Rút lui và giữ phần thưởng", "🏡 Retreat and Keep Rewards"], "📖 讀完石碑": ["📖 Đọc xong bia đá", "📖 Finish Reading the Stone"], "🔓 打開寶箱": ["🔓 Mở rương", "🔓 Open Chest"], "🌱 採集藥草": ["🌱 Hái cây thuốc", "🌱 Gather Herbs"], "❤️ 休息補血": ["❤️ Nghỉ ngơi hồi máu", "❤️ Rest and Heal"], "💧 喝水恢復生命": ["💧 Uống nước hồi máu", "💧 Drink Water to Heal"], "⚔️ 開始華語戰鬥": ["⚔️ Bắt đầu chiến đấu tiếng Hoa", "⚔️ Start Chinese Battle"], "🏃 避開怪物": ["🏃 Tránh quái vật", "🏃 Avoid Monster"], "⚔️ 挑戰最終首領": ["⚔️ Thách đấu trùm cuối", "⚔️ Challenge Final Boss"], "⚔️ 不休息，直接挑戰": ["⚔️ Không nghỉ, thách đấu ngay", "⚔️ Skip Rest and Fight"], "🏕️ 在營地休息（恢復 60% 生命）": ["🏕️ Nghỉ ở trại (hồi 60% máu)", "🏕️ Rest at Camp (restore 60% HP)"], "森林入口": ["Lối vào rừng", "Forest Entrance"], "森林深處": ["Rừng sâu", "Deep Forest"], "🌿 藥草": ["🌿 Cây thuốc", "🌿 Herbs"], "入門練習 · 205 HP": ["Luyện tập cơ bản · 205 HP", "Basic Practice · 205 HP"], "進階練習 · 250 HP": ["Luyện tập nâng cao · 250 HP", "Advanced Practice · 250 HP"], "頭目挑戰 · 400 HP": ["Thử thách trùm · 400 HP", "Boss Challenge · 400 HP"], "每次遠征共 20 步。勝利後恢復 15% 生命；前 5 步降低遇敵機率，最多連續遇敵 2 次；每次遠征最多 4 個陷阱，連續 2 次危險後優先出現恢復事件。月光山谷首領前有一次免費休息（恢復 60% 生命）。藥草恢復 40% 最大生命，營火恢復 30%；藥草可在探索途中主動使用（每次遠征最多 3 株）。終點須擊敗首領才能解鎖下一張地圖。": ["Mỗi chuyến thám hiểm gồm 20 bước. Sau chiến thắng hồi 15% máu. 5 bước đầu ít gặp quái hơn, tối đa 2 lần liên tiếp; tối đa 4 bẫy mỗi chuyến. Sau 2 sự kiện nguy hiểm liên tiếp, ưu tiên sự kiện hồi phục. Có thể nghỉ miễn phí một lần trước trùm Thung lũng Ánh Trăng (hồi 60% máu). Cây thuốc hồi 40% máu tối đa, lửa trại hồi 30%; dùng tối đa 3 cây thuốc mỗi chuyến. Phải đánh bại trùm cuối để mở bản đồ tiếp theo.", "Each expedition has 20 steps. Winning a battle restores 15% HP. Encounters are less frequent during the first 5 steps, with at most 2 consecutive encounters and 4 traps per run. Recovery events are favored after 2 consecutive dangers. Rest once for free before the Moonlight Valley boss (restore 60% HP). Herbs restore 40% max HP and campfires restore 30%; use up to 3 herbs per expedition. Defeat the final boss to unlock the next map."]});
+// Alpha 3.9.20: concise expedition statistics and localized clear/unlock notices.
+Object.assign(UI,{
+ '🏆 新手森林遠征：已通關':['🏆 Thám hiểm Rừng Tân Thủ: Đã hoàn thành','🏆 Beginner Forest Expedition: Cleared'],
+ '🔓 月光山谷已開放！請返回村莊進入新地圖。':['🔓 Thung lũng Ánh Trăng đã mở! Hãy về làng để vào bản đồ mới.','🔓 Moonlight Valley is unlocked! Return to the village to enter the new map.'],
+ '目前開放準備級二的練習戰鬥。':['Hiện đã có các trận luyện tập Cấp chuẩn bị 2.','Preparatory Level 2 practice battles are now available.'],
+ '🏆 新手森林遠征完成！':['🏆 Hoàn thành thám hiểm Rừng Tân Thủ!','🏆 Beginner Forest Expedition Complete!'],
+ '🏆 月光山谷遠征完成！':['🏆 Hoàn thành thám hiểm Thung lũng Ánh Trăng!','🏆 Moonlight Valley Expedition Complete!'],
+ '💔 遠征失敗':['💔 Thám hiểm thất bại','💔 Expedition Failed'],
+ '🎁 首領通關獎勵已領取！':['🎁 Đã nhận thưởng vượt ải trùm!','🎁 Boss clear reward claimed!'],
+ '🔓 月光山谷已解鎖':['🔓 Đã mở khóa Thung lũng Ánh Trăng','🔓 Moonlight Valley Unlocked'],
+ '🔓 已解鎖入門級祕境！':['🔓 Đã mở khóa Bí cảnh Sơ cấp!','🔓 Beginner Realm Unlocked!'],
+ '可以重新出發挑戰！':['Bạn có thể bắt đầu lại để thử thách lần nữa!','You can start another expedition!'],
+ '🏆 月光山谷遠征已通關！入門級祕境已解鎖。':['🏆 Đã vượt qua Thung lũng Ánh Trăng! Bí cảnh Sơ cấp đã mở khóa.','🏆 Moonlight Valley cleared! Beginner Realm is unlocked.']
+});
+UI['跟豆芽一起探索月光山谷！']=['Cùng Mầm Nhỏ khám phá Thung lũng Ánh Trăng!','Explore Moonlight Valley with Sprout!'];
+UI['🌙 月光山谷遠征']=['🌙 Thám hiểm Thung lũng Ánh Trăng','🌙 Moonlight Valley Expedition'];
+UI['返回月光山谷']=['Trở về Thung lũng Ánh Trăng','Return to Moonlight Valley'];
+UI['🧭 再次遠征']=['🧭 Thám hiểm lần nữa','🧭 Start Another Expedition'];
+const nativeAlert=window.alert.bind(window);
+window.alert=function(message){const raw=String(message),pair=UI[raw];return nativeAlert(pair?(current==='vi'?pair[0]:current==='en'?pair[1]:raw):raw)};
+Object.assign(UI,{"📖 這裡使用準備級二級生詞。普通關卡可反覆練習；普通關卡可以自由練習；通過 25 步山谷遠征，才能取得第三張地圖的解鎖資格。": ["📖 Tại đây luyện từ vựng cấp Chuẩn bị 2. Có thể luyện các màn thường nhiều lần. Hoàn thành chuyến thám hiểm 25 bước để mở khóa bản đồ thứ ba.", "📖 Practice Preparatory Level 2 vocabulary here. Regular battles can be replayed freely. Complete the 25-step expedition to qualify for unlocking the third map."], "🌙 月光遠征 · 25 步挑戰": ["🌙 Thám hiểm ánh trăng · Thử thách 25 bước", "🌙 Moonlight Expedition · 25-Step Challenge"], "🌙 挑戰 25 步遠征並擊敗月影守護者，才能解鎖下一張地圖。": ["🌙 Hoàn thành 25 bước và đánh bại Vệ thần Bóng Trăng để mở khóa bản đồ tiếp theo.", "🌙 Complete the 25-step expedition and defeat the Moonshadow Guardian to unlock the next map."], "🏆 月光山谷遠征已通關！入門級祕境已解鎖。": ["🏆 Đã hoàn thành thám hiểm Thung lũng Ánh Trăng! Bản đồ thứ ba đang được phát triển.", "🏆 Moonlight Valley expedition cleared! The third map is in development."], "🌙 山谷遠征需要擊敗最終首領「月影守護者」。普通練習不計入解鎖。": ["🌙 Phải đánh bại trùm cuối Vệ thần Bóng Trăng trong chuyến thám hiểm. Trận luyện tập không mở khóa bản đồ.", "🌙 Defeat the Moonshadow Guardian at the end of the expedition to unlock the next map. Practice battles do not count."], "月光史萊姆": ["Slime ánh trăng", "Moonlight Slime"], "螢光蘑菇": ["Nấm phát sáng", "Glowing Mushroom"], "月影守護者": ["Vệ thần Bóng Trăng", "Moonshadow Guardian"], "魔力護盾": ["Khiên phép", "Magic Shield"], "孢子強擊": ["Đòn bào tử mạnh", "Spore Strike"], "首領試煉": ["Thử thách trùm", "Boss Trial"], "🌙 月光山谷": ["🌙 Thung lũng Ánh Trăng", "🌙 Moonlight Valley"], "🌙 月光山谷 · 探索地圖": ["🌙 Thung lũng Ánh Trăng · Bản đồ khám phá", "🌙 Moonlight Valley · Exploration Map"]});
+function translation(raw){const t=raw.trim();if(!t)return null;let v=UI[t];if(v)return current==='vi'?v[0]:current==='en'?v[1]:t;
+// Match the actual affection icon and milestone status icons in rendered content.
+if(current!=='zh'){
+ const ix=current==='vi'?0:1;
+ const affection=t.match(/^💕\s*親密度／技能成功率$/u);
+ if(affection)return '💕 '+(current==='vi'?'Độ thân thiết / Tỉ lệ kích hoạt kỹ năng':'Affection / Skill Activation Chance');
+ const milestone=t.match(/^(✅|🔒)\s*(🐣 幼龍同行|🌙 第一次進化・月光少年龍|🛡️ 第二次進化・月影飛龍|🔒 後續進化)$/u);
+ if(milestone&&UI[milestone[2]])return milestone[1]+' '+UI[milestone[2]][ix];
+}
+if(current!=='zh'){
+ const ix=current==='vi'?0:1;
+ const moonCard=t.match(/^(\d+ HP) · (魔力護盾|孢子強擊|首領試煉)$/);
+ if(moonCard)return moonCard[1]+' · '+UI[moonCard[2]][ix];
+ const moonIntro=t.match(/^📖 這裡使用準備級二級生詞。(.+)$/);
+ if(moonIntro)return current==='vi'?'📖 Luyện từ vựng cấp Chuẩn bị 2. Có thể luyện tập các màn thường nhiều lần. Hoàn thành chuyến thám hiểm 25 bước để mở khóa bản đồ thứ ba.':'📖 Practice Preparatory Level 2 vocabulary. Replay regular battles freely. Complete the 25-step expedition to unlock the third map.';
+}
+const pair=t.match(/^(.*?)（([^（）]+)）$/);if(pair&&UI[pair[1]]){const x=UI[pair[1]];return (current==='vi'?x[0]:current==='en'?x[1]:pair[1])+'（'+pair[2]+'）'}
+if(current!=='zh'){
+ const ix=current==='vi'?0:1;
+
+
+// Dynamic exploration events: translate narration while retaining Chinese study words and example sentences.
+if(current!=='zh'){
+ const vi=current==='vi';
+ const rules=[
+ [/^🌲 探索第 (\d+) steps$/,m=>`👣 ${m[1]} steps`],
+ [/^🌲 探索第 (\d+) 步$/,m=>`👣 ${m[1]} steps`],
+ [/^(\d+) \/ (\d+) 步$/,m=>vi?`${m[1]} / ${m[2]} bước`:`${m[1]} / ${m[2]} steps`],
+ [/^❤️ 探索生命 (\d+) \/ (\d+)\s+🌿 藥草 ×(\d+)（已用 (\d+)\/3）$/,m=>vi?`❤️ Máu thám hiểm ${m[1]} / ${m[2]}   🌿 Cây thuốc ×${m[3]} (đã dùng ${m[4]}/3)`:`❤️ Expedition HP ${m[1]} / ${m[2]}   🌿 Herbs ×${m[3]} (used ${m[4]}/3)`],
+ [/^🌿 使用藥草補血（剩餘 (\d+) 次）$/,m=>vi?`🌿 Dùng cây thuốc hồi máu (còn ${m[1]} lần)`:`🌿 Use Herb to Heal (${m[1]} uses left)`],
+ [/^每次遠征共 (\d+) 步。勝利後恢復 15% 生命；[\s\S]+$/,m=>vi?`Mỗi chuyến thám hiểm gồm ${m[1]} bước. Sau chiến thắng hồi 15% máu. 5 bước đầu ít gặp quái hơn; tối đa 2 lần gặp quái liên tiếp và 4 bẫy. Sau 2 nguy hiểm liên tiếp, ưu tiên hồi phục. Có thể nghỉ miễn phí trước trùm Thung lũng Ánh Trăng (hồi 60% máu). Cây thuốc hồi 40% máu tối đa, lửa trại hồi 30%; tối đa 3 cây thuốc mỗi chuyến. Đánh bại trùm cuối để mở bản đồ tiếp theo.`:`Each expedition has ${m[1]} steps. Winning restores 15% HP. Fewer encounters during the first 5 steps; at most 2 consecutive encounters and 4 traps. Recovery is favored after 2 dangers. Rest once for free before the Moonlight Valley boss (restore 60% HP). Herbs restore 40% max HP and campfires restore 30%; up to 3 herbs per run. Defeat the boss to unlock the next map.`],
+ [/^🧭 你和豆芽走進(新手森林|月光山谷)。第 (\d+) 步將遇到(森林守衛|月影守護者)！$/,m=>vi?`🧭 Bạn và Mầm Nhỏ tiến vào ${UI[m[1]]?.[0]||m[1]}. Ở bước ${m[2]}, bạn sẽ gặp ${UI[m[3]]?.[0]||m[3]}!`:`🧭 You and Sprout enter ${UI[m[1]]?.[1]||m[1]}. At step ${m[2]}, you will face ${UI[m[3]]?.[1]||m[3]}!`],
+ [/^🧭 戰鬥結束！若獲勝已恢復 15% 最大生命。距離森林深處還有 (\d+) 步。$/,m=>vi?`🧭 Trận đấu kết thúc! Nếu thắng, bạn đã hồi 15% máu tối đa. Còn ${m[1]} bước đến rừng sâu.`:`🧭 Battle over! A victory restores 15% max HP. ${m[1]} steps remain to the deep forest.`],
+ [/^🪤 哎呀！踩到陷阱，生命 -(\d+)！幸好豆芽及時提醒你。$/,m=>vi?`🪤 Ôi! Bạn giẫm phải bẫy và mất ${m[1]} máu! May mà Mầm Nhỏ cảnh báo kịp.`:`🪤 Ouch! You stepped into a trap and lost ${m[1]} HP! Luckily Sprout warned you in time.`],
+ [/^🪧 古老石碑刻著：「(.+?)」（(.+?)）＝ (.+?)。例句：(.+)$/,m=>{const englishStone={'先生':'Mr. / gentleman','前面':'in front / ahead','晚上':'evening','路':'road','森林':'forest','朋友':'friend','小心':'be careful','休息':'rest'};const meaning=(window.gameAnswerLanguage?.()==='en')?(EN_WORDS[m[1]]||englishStone[m[1]]||m[3]):m[3];return vi?`🪧 Bia đá cổ khắc: 「${m[1]}」 (${m[2]}) = ${meaning}. Câu ví dụ: ${m[4]}`:`🪧 An ancient stone reads: 「${m[1]}」 (${m[2]}) = ${meaning}. Example: ${m[4]}`;}],
+ [/^📖 已閱讀「(.+?)」！$/,m=>vi?`📖 Đã đọc 「${m[1]}」!`:`📖 Read 「${m[1]}」!`],
+ [/^📖 已閱讀「(.+?)」！ ✨ \+(\d+) EXP$/,m=>vi?`📖 Đã đọc 「${m[1]}」! ✨ +${m[2]} EXP`:`📖 Read 「${m[1]}」! ✨ +${m[2]} EXP`],
+ [/^📖 已閱讀「(.+?)」！ ✨ \+(\d+) EXP · 🎉 升到 Lv\.(\d+)$/,m=>vi?`📖 Đã đọc 「${m[1]}」! ✨ +${m[2]} EXP · 🎉 Lên Lv.${m[3]}`:`📖 Read 「${m[1]}」! ✨ +${m[2]} EXP · 🎉 Reached Lv.${m[3]}`],
+ [/^🪧 古老石碑刻著：/,m=>null],
+ [/^🌿 使用一株藥草，恢復 (\d+) 點生命！本次遠征已使用 (\d+)\/3 株。$/,m=>vi?`🌿 Dùng một cây thuốc và hồi ${m[1]} máu! Đã dùng ${m[2]}/3 cây trong chuyến này.`:`🌿 Used one herb and restored ${m[1]} HP! Used ${m[2]}/3 herbs this expedition.`],
+ [/^🔥 休息完畢！生命恢復 (\d+) 點。$/,m=>vi?`🔥 Nghỉ xong! Hồi ${m[1]} máu.`:`🔥 Rest complete! Restored ${m[1]} HP.`],
+ [/^💧 清泉讓你恢復 (\d+) 點生命！$/,m=>vi?`💧 Suối nước giúp bạn hồi ${m[1]} máu!`:`💧 The spring restored ${m[1]} HP!`],
+ [/^⚔️ 草叢突然晃動！一隻(.+?)出現了！目前生命 (\d+)\/(\d+)。$/,m=>vi?`⚔️ Bụi cỏ rung lên! ${UI[m[1]]?.[0]||m[1]} xuất hiện! Máu hiện tại ${m[2]}/${m[3]}.`:`⚔️ The grass rustles! A ${UI[m[1]]?.[1]||m[1]} appears! Current HP ${m[2]}/${m[3]}.`],
+ ];
+ for(const [re,fn] of rules){const m=t.match(re);if(m){const out=fn(m);if(out!==null)return out}}
+ const staticEvents={
+ '🎁 你在樹根下發現一個舊寶箱！豆芽興奮地繞著它跑。':['🎁 Bạn tìm thấy một chiếc rương cũ dưới gốc cây! Mầm Nhỏ vui mừng chạy quanh nó.','🎁 You found an old chest beneath a tree! Sprout runs around it excitedly.'],
+ '🌿 小溪旁長著藥草！「藥草」（yàocǎo）＝ cây thuốc。採集後可在遠征途中使用，每株恢復 40% 最大生命。':['🌿 Có cây thuốc bên suối! 「藥草」 (yàocǎo) = cây thuốc. Hái để dùng khi thám hiểm; mỗi cây hồi 40% máu tối đa.','🌿 Herbs grow by the stream! 「藥草」 (yàocǎo) = medicinal herb. Gather them for your expedition; each restores 40% max HP.'],
+ '🔥 發現一處安全的營火。可以坐下來休息，恢復生命值。':['🔥 Bạn tìm thấy lửa trại an toàn. Hãy nghỉ để hồi máu.','🔥 You found a safe campfire. Rest here to restore HP.'],
+ '💧 你發現一口清澈的泉水。':['💧 Bạn tìm thấy một dòng suối trong vắt.','💧 You found a clear spring.'],
+ '🍃 你和豆芽悄悄繞過怪物。':['🍃 Bạn và Mầm Nhỏ lặng lẽ đi vòng tránh quái vật.','🍃 You and Sprout quietly sneak past the monster.'],
+ '🌙 月光穿過樹葉。豆芽在草地上打了個滾，什麼危險也沒發生。':['🌙 Ánh trăng xuyên qua tán lá. Mầm Nhỏ lăn trên cỏ. Không có nguy hiểm nào xảy ra.','🌙 Moonlight filters through the leaves. Sprout rolls in the grass. Nothing dangerous happens.'],
+ '🌤️ 陽光穿過樹葉。豆芽在草地上打了個滾，什麼危險也沒發生。':['🌤️ Nắng xuyên qua tán lá. Mầm Nhỏ lăn trên cỏ. Không có nguy hiểm nào xảy ra.','🌤️ Sunlight filters through the leaves. Sprout rolls in the grass. Nothing dangerous happens.'],
+ '🏕️ 你和豆芽抵達月影守護者前的休息營地！可以免費休息一次，恢復最多 60% 最大生命，再挑戰首領。':['🏕️ Bạn và Mầm Nhỏ đến trại nghỉ trước Vệ thần Bóng Trăng! Bạn có thể nghỉ miễn phí một lần, hồi tối đa 60% máu rồi đấu trùm.','🏕️ You and Sprout reach the rest camp before the Moonshadow Guardian! Rest once for free to restore up to 60% max HP before the boss.'],
+ '👑 月色突然變暗，月影守護者出現在山谷深處！營地已休息，準備迎戰！':['👑 Trăng đột nhiên tối đi! Vệ thần Bóng Trăng xuất hiện sâu trong thung lũng. Hãy chuẩn bị chiến đấu!','👑 The moonlight dims! The Moonshadow Guardian appears deep in the valley. Prepare to fight!'],
+ '👑 森林深處傳來沉重的腳步聲！森林守衛就在前方。':['👑 Tiếng bước chân nặng nề vang lên trong rừng sâu! Vệ binh rừng đang ở phía trước.','👑 Heavy footsteps echo from deep in the forest! The Forest Guardian is ahead.'],
+ };
+ if(staticEvents[t])return staticEvents[t][ix];
+}
+
+ const dragonRules=[
+ [/^⭐ Lv\.(\d+) · 進化 (\d+)\/2$/,m=>current==='vi'?`⭐ Lv.${m[1]} · Tiến hóa ${m[2]}/2`:`⭐ Lv.${m[1]} · Evolve ${m[2]}/2`],
+ [/^⭐ 強化 \+(\d+)\/5 · 🐉 進化 (\d+)\/2 · (.*?)。龍晶僅月影守護者有 30% 機率掉落。$/,m=>{const complete=m[3]==='已解鎖月光庇護';return current==='vi'?`⭐ Cường hóa +${m[1]}/5 · 🐉 Tiến hóa ${m[2]}/2 · ${complete?'Đã mở khóa Bảo hộ Ánh trăng':`Lần tiến hóa tiếp theo cần Lv.10 + ${m[3].match(/×(\d+)/)?.[1]||3} pha lê rồng`}. Chỉ Vệ thần Bóng Trăng có 30% cơ hội rơi pha lê.`:`⭐ Upgrade +${m[1]}/5 · 🐉 Evolve ${m[2]}/2 · ${complete?'Moonlight Protection unlocked':`Next evolution requires Lv.10 + ${m[3].match(/×(\d+)/)?.[1]||3} Dragon Crystals`}. Moonshadow Guardian has a 30% crystal drop chance.`}],
+ [/^Lv\.10 ＋ 月光龍晶 ×(\d+)$/,m=>current==='vi'?`Lv.10 + ${m[1]} pha lê rồng ánh trăng`:`Lv.10 + ${m[1]} Moon Dragon Crystals`],
+ [/^🐣 升級不會改變造型；達 Lv\.10 並收集龍晶後可以第一次進化。$/,m=>UI[m[0]][ix]],
+ ];
+ for(const [re,fn] of dragonRules){const m=t.match(re);if(m)return fn(m)}
+ const patterns=[
+ [/^🪙 目前金幣[：:]\s*(\d+)\s*⭐ Lv\.(\d+)$/,m=>current==='vi'?`🪙 Số xu hiện có: ${m[1]}   ⭐ Lv.${m[2]}`:`🪙 Current gold: ${m[1]}   ⭐ Lv.${m[2]}`],
+ [/^⭐ 強化 \+(\d+)\/5 · 🐉 進化 (\d+)\/2 · 下次進化需 Lv\.10 \+ 💎 龍晶 ×(\d+)。龍晶僅月影守衛有 30% 機率掉落。$/,m=>current==='vi'?`⭐ Cường hóa +${m[1]}/5 · 🐉 Tiến hóa ${m[2]}/2 · Lần tiến hóa tiếp theo cần Lv.10 và ${m[3]} pha lê rồng. Pha lê có 30% cơ hội rơi từ Vệ binh Bóng Trăng.`:`⭐ Upgrade +${m[1]}/5 · 🐉 Evolve ${m[2]}/2 · Next evolution requires Lv.10 and ${m[3]} Dragon Crystals. Moonshadow Guardian has a 30% crystal drop chance.`],
+ [/^(.+?)的成長小屋$/,m=>current==='vi'?`Ngôi nhà trưởng thành của ${m[1]==='豆芽'?'Mầm Nhỏ':m[1]}`:`${m[1]==='豆芽'?'Sprout':m[1]}'s Growth Cottage`],
+ [/^🌿 幼龍豆芽$/,m=>current==='vi'?'🌿 Rồng con Mầm Nhỏ':'🌿 Baby Dragon Sprout'],
+ [/^🪙 目前金幣\s*[：:]\s*(\d+)$/,m=>current==='vi'?`🪙 Số xu hiện có: ${m[1]}`:`🪙 Current gold: ${m[1]}`],
+ ];for(const [re,fn] of patterns){const m=t.match(re);if(m)return fn(m)}
+}
+if(current==='zh')return null;
+const dict=current==='vi'?0:1;
+// Class labels include an icon in the same text node (e.g. ⚔️ 劍士).
+const classLabel=t.match(/^([⚔️🔮🏹✨\s]*)(劍士|法師|遊俠|祭司)$/u);
+if(classLabel)return classLabel[1]+UI[classLabel[2]][dict];
+const composite=t.match(/^(劍士|法師|遊俠|祭司)\s*[·・]\s*初始小龍$/);
+if(composite)return UI[composite[1]][dict]+' · '+UI['初始小龍'][dict];
+const combined=t.match(/^([🌿🐉\s]*)(幼龍)?豆芽$/);
+if(combined)return combined[1]+(combined[2]?(current==='vi'?'Rồng con ':'Baby Dragon '):'')+UI['豆芽'][dict];
+
+const stat=t.match(/^([🪙💰⭐❤️🛡️⚔️\s]*)([0-9,]+)\s*(金幣)$/);
+if(stat)return stat[1]+stat[2]+' '+UI['金幣'][dict];
+const identity=t.match(/^(.*?)([·・])\s*(劍士|法師|遊俠|祭司)$/);
+if(identity)return identity[1]+identity[2]+' '+UI[identity[3]][dict];
+const nextLevel=t.match(/^距離 Lv\.(\d+) 還差 (\d+) EXP$/);
+if(nextLevel)return current==='vi'?`Còn ${nextLevel[2]} EXP để đạt Lv.${nextLevel[1]}`:`${nextLevel[2]} EXP to Lv.${nextLevel[1]}`;
+const clears=t.match(/^累計通關 (\d+) 次 · 目前探索 (\d+) \/ (\d+) 步$/);
+if(clears)return current==='vi'?`Đã hoàn thành ${clears[1]} lần · Tiến độ ${clears[2]} / ${clears[3]} bước`:`Cleared ${clears[1]} times · Current progress ${clears[2]} / ${clears[3]} steps`;
+const petLevel=t.match(/^小龍 Lv\.(\d+) · 一起踏上冒險之路$/);
+if(petLevel)return current==='vi'?`Rồng nhỏ Lv.${petLevel[1]} · Cùng nhau lên đường phiêu lưu`:`Little Dragon Lv.${petLevel[1]} · Adventuring together`;
+const village=t.match(/^歡迎回到晨曦村！角色 (.+)，(劍士|法師|遊俠|祭司) Lv\.(\d+)，目前有 (\d+) 金幣。選擇森林冒險繼續練習。$/);
+if(village){const c=UI[village[2]][dict];return current==='vi'?`Chào mừng trở lại Làng Bình Minh! ${village[1]} · ${c} Lv.${village[3]}, có ${village[4]} xu. Chọn Phiêu lưu rừng để tiếp tục.`:`Welcome back to Dawn Village! ${village[1]} · ${c} Lv.${village[3]}, with ${village[4]} gold. Choose Forest Adventure to continue.`;}
+// Avoid word-by-word substitution inside full sentences: it created mixed-language labels.
+// Forest and boss combat: complete bilingual interface and dynamic battle narration.
+const combatStatic={
+'🌲 新手森林 · 探索地圖':['🌲 Rừng Tân Thủ · Bản đồ khám phá','🌲 Beginner Forest · Exploration Map'],
+'準備級一 · 中文選越南文':['Cấp Chuẩn bị 1 · Chọn nghĩa tiếng Việt','Preparatory Level 1 · Choose Vietnamese meanings'],
+'返回森林探索':['Trở về khám phá rừng','Back to Forest Exploration'],
+'森林史萊姆':['Slime rừng','Forest Slime'],
+'跳跳蘑菇':['Nấm nhảy','Jumping Mushroom'],
+'森林守衛':['Vệ binh rừng','Forest Guardian'],
+'月影守護者':['Vệ thần Bóng Trăng','Moonshadow Guardian'],
+'月光史萊姆':['Slime ánh trăng','Moonlight Slime'],
+'月光蘑菇':['Nấm ánh trăng','Moonlight Mushroom'],
+'✨ 祭司 · 治療之光':['✨ Tu sĩ · Ánh sáng hồi phục','✨ Priest · Healing Light'],
+'⚔️ 劍士 · 連擊斬':['⚔️ Chiến binh · Chém liên hoàn','⚔️ Warrior · Combo Slash'],
+'🔮 法師 · 魔法爆發':['🔮 Pháp sư · Bùng nổ phép thuật','🔮 Mage · Magic Burst'],
+'🏹 遊俠 · 追加射擊':['🏹 Cung thủ · Bắn thêm','🏹 Ranger · Follow-up Shot'],
+'首次作答正確！':['Đúng ngay lần đầu!','Correct on the first try!'],
+'訂正成功！':['Đã sửa đúng!','Correction successful!'],
+'🌳 守衛重擊！':['🌳 Đòn đánh mạnh của vệ binh!','🌳 Guardian heavy strike!'],
+'🍄 孢子爆發！':['🍄 Bào tử bùng nổ!','🍄 Spore burst!'],
+'戰鬥勝利！':['Chiến thắng!','Battle Victory!'],
+'戰鬥失敗':['Thất bại','Battle Defeat'],
+'首次作答正確':['Đúng ngay lần đầu','First-try Correct'],
+'答錯次數':['Số câu trả lời sai','Wrong Answers'],
+'獲得經驗':['EXP nhận được','EXP Earned'],
+'獲得金幣':['Xu nhận được','Gold Earned'],
+'⭐ 角色等級':['⭐ Cấp nhân vật','⭐ Character Level'],
+'🐉 小龍升級！':['🐉 Rồng nhỏ lên cấp!','🐉 Dragon Level Up!'],
+'🧭 繼續遠征':['🧭 Tiếp tục thám hiểm','🧭 Continue Expedition'],
+'🌲 返回森林入口':['🌲 Về lối vào rừng','🌲 Return to Forest Entrance'],
+'🌙 返回月光山谷':['🌙 Trở về Thung lũng Ánh Trăng','🌙 Return to Moonlight Valley'],
+'下一題 →':['Câu tiếp theo →','Next Question →'],
+'適合初次冒險。':['Phù hợp cho người mới phiêu lưu.','Suitable for first-time adventurers.'],
+'適合初次冒險。戰鬥':['Phù hợp cho người mới. Chiến đấu','Suitable for beginners. Battle'],
+};
+if(combatStatic[t])return combatStatic[t][dict];
+const cv=current==='vi';
+const cname=n=>{
+ const normalized=String(n||'').trim();
+ const direct=UI[normalized]?.[dict]||combatStatic[normalized]?.[dict];
+ if(direct)return direct;
+ const names={'跳跳蘑菇':['Nấm nhảy','Jumping Mushroom'],'森林史萊姆':['Slime rừng','Forest Slime'],'森林守衛':['Vệ binh rừng','Forest Guardian'],'月影守護者':['Vệ thần Bóng Trăng','Moonshadow Guardian'],'月光史萊姆':['Slime ánh trăng','Moonlight Slime'],'螢光蘑菇':['Nấm phát sáng','Glowing Mushroom'],'月光蘑菇':['Nấm ánh trăng','Moonlight Mushroom']};
+ return names[normalized]?.[dict]||normalized;
+};
+const bossHint=t.match(/^建議 Lv\.5；每三次反擊發動重擊。戰鬥 Lv\.(\d+)，最大生命 (\d+)，防禦 (\d+)。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。$/);
+if(bossHint)return cv?`Đề xuất Lv.5; cứ 3 lần phản công, kẻ địch tung đòn mạnh. Cấp chiến đấu ${bossHint[1]}, máu tối đa ${bossHint[2]}, phòng thủ ${bossHint[3]}. Trả lời sai phải sửa đúng; đánh bại quái để thắng, hết máu sẽ thua.`:`Recommended Lv.5; the enemy uses a heavy strike every third counterattack. Battle Lv.${bossHint[1]}, max HP ${bossHint[2]}, defense ${bossHint[3]}. Correct wrong answers to continue; defeat the enemy to win, or lose if HP reaches zero.`;
+const combatPatterns=[
+[/^🔥 連擊 (\d+) · 🐉 (\d+)\/2$/,m=>cv?`🔥 Liên kích ${m[1]} · 🐉 ${m[2]}/2`:`🔥 Combo ${m[1]} · 🐉 ${m[2]}/2`],
+[/^(.+?) · HP (\d+)\/(\d+)$/,m=>`${cname(m[1])} · HP ${m[2]}/${m[3]}`],
+[/^第 (\d+) 題$/,m=>cv?`Câu ${m[1]}`:`Question ${m[1]}`],
+[/^❤️ 生命 (\d+) \/ (\d+)$/,m=>cv?`❤️ Máu ${m[1]} / ${m[2]}`:`❤️ HP ${m[1]} / ${m[2]}`],
+[/^✨ (劍士|法師|遊俠|祭司) · (連擊斬|魔法爆發|追加射擊|治療之光)$/,m=>`✨ ${cname(m[1])} · ${cname(m[2])}`],
+[/^造成 (\d+) 點傷害$/,m=>cv?`Gây ${m[1]} sát thương`:`Dealt ${m[1]} damage`],
+[/^(?:⚔️ )?敵人反擊 -(\d+) HP$/,m=>cv?`⚔️ Kẻ địch phản công -${m[1]} HP`:`⚔️ Enemy counterattacks -${m[1]} HP`],
+[/^✨ 治療之光 \+(\d+) HP$/,m=>cv?`✨ Ánh sáng hồi phục +${m[1]} HP`:`✨ Healing Light +${m[1]} HP`],
+[/^🐉 豆芽噴火 \+(\d+)$/,m=>cv?`🐉 Mầm Nhỏ phun lửa +${m[1]}`:`🐉 Sprout breathes fire +${m[1]}`],
+[/^🔥 三連擊 \+(\d+)$/,m=>cv?`🔥 Liên kích ba đòn +${m[1]}`:`🔥 Triple combo +${m[1]}`],
+[/^(⚔️ 連擊斬|🔮 魔法爆發|🏹 追加射擊) \+(\d+)$/,m=>`${cname(m[1].slice(0,2).trim())||m[1]} +${m[2]}`],
+[/^🔮 月光護盾吸收 (\d+) 傷害$/,m=>cv?`🔮 Khiên ánh trăng hấp thụ ${m[1]} sát thương`:`🔮 Moonlight shield absorbs ${m[1]} damage`],
+[/^🌙 月光庇護成功！減少 (\d+) 傷害$/,m=>cv?`🌙 Bảo hộ Ánh trăng thành công! Giảm ${m[1]} sát thương`:`🌙 Moonlight Protection activated! Reduced ${m[1]} damage`],
+[/^🌙 月光庇護未成功（親密度 (\d+)%），下次反擊可再嘗試$/,m=>cv?`🌙 Bảo hộ chưa kích hoạt (thân thiết ${m[1]}%); sẽ thử lại khi bị phản công`:`🌙 Protection did not activate (affection ${m[1]}%); will retry on the next counterattack`],
+[/^(.+?)已被擊敗$/,m=>cv?`${cname(m[1])} đã bị đánh bại`:`${cname(m[1])} defeated`],
+[/^(.+?) · 再接再厲$/,m=>cv?`${cname(m[1])} · Hãy thử lại!`:`${cname(m[1])} · Try again!`],
+[/^升級後 (\d+) \/ (\d+) EXP$/,m=>cv?`Sau khi lên cấp: ${m[1]} / ${m[2]} EXP`:`After leveling: ${m[1]} / ${m[2]} EXP`],
+[/^📖 待複習：(.+)$/,m=>cv?`📖 Từ cần ôn tập: ${m[1]}`:`📖 Words to review: ${m[1]}`],
+[/^🐉 小龍協助 (\d+) 次$/,m=>cv?`🐉 Rồng hỗ trợ ${m[1]} lần`:`🐉 Dragon assists: ${m[1]}`],
+[/^🌳 怪物反擊 (\d+) 次$/,m=>cv?`🌳 Quái phản công ${m[1]} lần`:`🌳 Monster counterattacks: ${m[1]}`],
+[/^🎒 月光素材：(.+)$/,m=>{let items=m[1];for(const name of ['小龍點心','月光龍晶','星光碎片'])items=items.replaceAll(name,UI[name]?.[dict]||name);return cv?`🎒 Nguyên liệu ánh trăng: ${items}`:`🎒 Moonlight materials: ${items}`;}],
+[/^錯題：(.+)。擊敗怪物即可獲勝；生命歸零則失敗。$/,m=>cv?`Câu sai: ${m[1]}. Đánh bại quái để thắng; hết máu sẽ thua.`:`Incorrect words: ${m[1]}. Defeat the monster to win; you lose if HP reaches zero.`],
+[/^🎉 找到一小袋金幣！ 🪙 \+(\d+) 金幣$/,m=>cv?`🎉 Tìm được túi xu nhỏ! 🪙 +${m[1]} xu`:`🎉 Found a small bag of gold! 🪙 +${m[1]} gold`],
+[/^🎉 找到一小袋金幣！$/,m=>cv?'🎉 Tìm được túi xu nhỏ!':'🎉 Found a small bag of gold!'],
+[/^🪙 \+(\d+) 金幣$/,m=>cv?`🪙 +${m[1]} xu`:`🪙 +${m[1]} gold`],
+[/^每三次反擊會釋放強化孢子。戰鬥 Lv\.(\d+)，最大生命 (\d+)，防禦 (\d+)。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。$/,m=>cv?`Mỗi 3 lần phản công, kẻ địch tung bào tử tăng cường. Cấp ${m[1]}, máu tối đa ${m[2]}, phòng thủ ${m[3]}. Sửa câu sai để tiếp tục; hết máu sẽ thua.`:`Every third counterattack releases empowered spores. Battle Lv.${m[1]}, max HP ${m[2]}, defense ${m[3]}. Correct wrong answers to continue; you lose if HP reaches zero.`],
+[/^魔力護盾：每三回合吸收部分傷害。戰鬥 Lv\.(\d+)，最大生命 (\d+)，防禦 (\d+)。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。$/,m=>cv?`Khiên phép hấp thụ một phần sát thương mỗi 3 lượt. Cấp ${m[1]}, máu tối đa ${m[2]}, phòng thủ ${m[3]}. Sửa câu sai để tiếp tục; hết máu sẽ thua.`:`Magic shield absorbs some damage every three turns. Battle Lv.${m[1]}, max HP ${m[2]}, defense ${m[3]}. Correct wrong answers to continue; you lose if HP reaches zero.`],
+[/^強大的月光守護者，每三次反擊發動重擊。戰鬥 Lv\.(\d+)，最大生命 (\d+)，防禦 (\d+)。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。$/,m=>cv?`Vệ thần ánh trăng hùng mạnh tung đòn nặng sau mỗi 3 lần phản công. Cấp ${m[1]}, máu tối đa ${m[2]}, phòng thủ ${m[3]}. Sửa câu sai để tiếp tục; hết máu sẽ thua.`:`The powerful moonlight guardian strikes heavily every third counterattack. Battle Lv.${m[1]}, max HP ${m[2]}, defense ${m[3]}. Correct wrong answers to continue; you lose if HP reaches zero.`],
+[/^(.+?) · 戰鬥 Lv\.(\d+)，最大生命 (\d+)，防禦 (\d+)。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。$/,m=>cv?`${m[1]} · Cấp chiến đấu ${m[2]}, máu tối đa ${m[3]}, phòng thủ ${m[4]}. Trả lời sai phải sửa đúng. Đánh bại quái để thắng; hết máu sẽ thua.`:`${m[1]} · Battle Lv.${m[2]}, max HP ${m[3]}, defense ${m[4]}. Correct wrong answers. Defeat the monster to win; if your HP reaches zero, you lose.`],
+[/^反擊較強；每三次反擊會額外放出孢子。戰鬥 Lv\.(\d+)，最大生命 (\d+)，防禦 (\d+)。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。$/,m=>cv?`Phản công mạnh hơn; mỗi 3 lần phản công sẽ phát tán bào tử. Cấp ${m[1]}, máu tối đa ${m[2]}, phòng thủ ${m[3]}. Sửa đúng câu sai để tiếp tục; hết máu sẽ thua.`:`Stronger counterattacks; releases spores every third counterattack. Lv.${m[1]}, max HP ${m[2]}, defense ${m[3]}. Correct wrong answers to continue; you lose if HP reaches zero.`],
+[/^適合初次冒險。戰鬥 Lv\.(\d+)，最大生命 (\d+)，防禦 (\d+)。答錯須訂正，怪物歸零即勝利；角色生命歸零則失敗。$/,m=>cv?`Phù hợp cho người mới. Cấp chiến đấu ${m[1]}, máu tối đa ${m[2]}, phòng thủ ${m[3]}. Sửa đúng câu sai; đánh bại quái để thắng, hết máu sẽ thua.`:`Suitable for beginners. Battle Lv.${m[1]}, max HP ${m[2]}, defense ${m[3]}. Correct wrong answers; defeat the monster to win, or lose if HP reaches zero.`],
+];
+for(const [re,fn] of combatPatterns){const m=t.match(re);if(m)return fn(m)}
+const exact=UI[t];if(exact)return exact[dict];
+return null}
+function apply(){if(busy)return;busy=true;try{const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;while(node=walk.nextNode()){const parent=node.parentElement;if(!parent||parent.closest('script,style,textarea,option,#questionPrompt,#entryPrompt,#answerChoices,#entryAnswers,#entryQuestionType'))continue;
+if(!original.has(node))original.set(node,node.nodeValue);else if(node.nodeValue!==node.__lastTranslationOutput){original.set(node,node.nodeValue)}
+const base=original.get(node),trim=base.trim(),out=translation(base);if(out!==null){const leading=base.match(/^\s*/)[0],trailing=base.match(/\s*$/)[0];const target=leading+out+trailing;if(node.nodeValue!==target)node.nodeValue=target;node.__translated=true;node.__lastTranslationOutput=node.nodeValue}else {if(node.nodeValue!==base)node.nodeValue=base;node.__translated=false;node.__lastTranslationOutput=node.nodeValue;}
+}document.documentElement.lang=current==='zh'?'zh-Hant':current==='vi'?'vi':'en';
+}catch(e){console.warn('language layer',e)}finally{busy=false}}
+selector.addEventListener('change',()=>{current=selector.value;localStorage.setItem(LANG_KEY,current);updateAnswerLabel();updateNamePlaceholder();apply();});
+const observer=new MutationObserver(()=>{if(!busy)apply()});observer.observe(document.body,{childList:true,subtree:true,characterData:true});updateNamePlaceholder();apply();
+})();
+</script></body></html>
